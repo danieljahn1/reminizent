@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, Switch, Route } from 'react-router-dom'
 
-class Class extends Component {
+class Container extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,4 +17,4 @@ class Class extends Component {
     }
 }
  
-export default Class
+export default Container
