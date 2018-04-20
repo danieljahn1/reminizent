@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { Link, Switch, Route } from 'react-router-dom'
 
-class Container extends Component {
+// component imports
+import AdminMenu from './admin-journey/admin-menu'
+
+
+class Class extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -10,8 +14,8 @@ class Container extends Component {
     }
     render() { 
         return (
-            <div>
-
+            <div className="container-fluid">
+            <AdminMenu/>
             </div>
         )
     }

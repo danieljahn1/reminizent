@@ -1,4 +1,5 @@
 const path = require('path')
+
 module.exports = {
   entry: './scripts/app.js',
   output: {
