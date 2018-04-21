@@ -13,7 +13,7 @@ function index(req, res) {
     // Connect to the MSSQL db
     config.connect(function (err) {
         if (err) {
-            res.status(500).json({ message: err });
+            res.status(500).json({ message: 'An error occurred on the server.' });
             return;
         }
 
@@ -21,7 +21,7 @@ function index(req, res) {
         // Execute the GetAdmins stored procedure
         request.execute("GetAdmins", function (err, result) {
             if (err) {
-                res.status(500).json({ message: err });
+                res.status(500).json({ message: 'An error occurred on the server.' });
             }
             else if (!result) {
                 res.status(404).json({ message: 'There were no records found.' });
@@ -104,7 +104,7 @@ function create(req, res) {
         request.input('Role', sql.VarChar, req.body.Role);
         request.execute("CreateAdminAccount", function (err, result) {
             if (err) {
-                res.status(500).json({ message: err });
+                res.status(500).json({ message:  'An error occurred on the server.' });
             }
             else if (!result) {
                 res.status(404).json({ message: 'There were no records found.' });
@@ -134,7 +134,7 @@ function update(req, res) {
         request.input('Role', sql.VarChar, req.body.Role);
         request.execute("UpdateAdmin", function (err, result) {
             if (err) {
-                res.status(500).json({ message: err });
+                res.status(500).json({ message: 'An error occurred on the server.' });
             }
             else if (!result) {
                 res.status(404).json({ message: 'There were no records found.' });

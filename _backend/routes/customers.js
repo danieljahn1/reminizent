@@ -1,16 +1,16 @@
 var express = require('express');
 var router = express.Router();
-const adminsController = require('../controllers/customer-controller');
+const custController = require('../controllers/customer-controller');
 
 
-// router.get('/', adminsController.index );
-// router.get('/id/:id', adminsController.getById);
-// router.get('/email/:email', adminsController.getByEmail);
+router.get('/', custController.index );
+// router.get('/id/:id', custController.getById);
+// router.get('/email/:email', custController.getByEmail);
 
-// router.post('/', adminsController.create);
+// router.post('/', custController.create);
 
-// router.put('/:id', adminsController.update);
+// router.put('/:id', custController.update);
 
-// router.delete('/:id', adminsController.destroy);
+// router.delete('/:id', custController.destroy);
 
 module.exports = router;
