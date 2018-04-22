@@ -127,8 +127,8 @@ function update(req, res) {
 
         var request = new sql.Request(config);
         // Execute the UpdateAdmin stored procedure
-        // Stored procedure parameters needed: Email, Password (encrypt), Role
-        request.input('Id', sql.VarChar, req.params.id);
+        // Stored procedure parameters needed: ID, Email, Password (encrypt), Role
+        request.input('Id', sql.Int, req.params.id);
         request.input('Email', sql.VarChar, req.body.Email);
         request.input('Password', sql.VarChar, req.body.Password);
         request.input('Role', sql.VarChar, req.body.Role);
@@ -140,7 +140,7 @@ function update(req, res) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
-                res.status(200).json({ message: 'Record edited successfully.' });
+                res.status(200).json({ message: 'Record updated successfully.' });
             }
             config.close();
         });
