@@ -4,3 +4,83 @@
     box-sizing: border-box;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
   }
+ body{
+  background-color: #FAFAFA;
+  font-family: 'Cormorant Garamond', serif;
+  color: #707070
+ }
+ 
+  #userImg{
+    height: 85px;
+    width: 85px;
+    margin: 10px;
+    border: 3px solid #707070;
+    border-radius: 50%;
+  }
+  .adminMenu{
+    background-color: #D9ECF2;
+    border-bottom: 3px solid #707070;
+ }
+ .dashboard-top{
+   margin-top: 20px;
+ }
+ .search-bar{
+   width: 50px;
+   margin-right: 5px;
+   
+ }
+ .dashboard{
+   margin-top: 20px;
+   background-color: #FFFFFF;
+ }
+ .addCustomerPage{
+   margin: 30px;
+   margin-top: 40px;
+   box-shadow: 2px 5px 20px #C4C4C4;
+   border-radius: 8px 8px 8px 8px;
+ }
+ .addCustomerForm{
+  /* width:1084px; */
+  /* height: 186px; */
+  border-radius: 8px 8px 8px 8px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+ }
+ .input1{
+   margin:8px;
+ }
+ .input2{
+   margin-right:8px
+ }
+
+
+/* user components css */
+
+.userMenu{
+  border-bottom: 2px solid #707070;
+
+}
+.company-header{
+font-family: 'Cormorant Garamond', serif;
+font-weight: bold;
+font-size:50px;
+color: #707070
+}
+.log-in-btn{
+  margin-top: 29px;
+  font-family: 'Lora', serif;
+  font-weight: bold;
+  font-size: 30px;
+  color: #707070
+}
+.admin-login{
+  margin-top: 50px;
+  border: 1.5px solid #707070;
+  box-shadow: 2px 5px 20px #C4C4C4;
+  border-radius: 8px 8px 8px 8px;
+  background-color:#FFFFFF
+}
+.login-form{
+  margin:30px;
+  margin-bottom: 45px;
+}
