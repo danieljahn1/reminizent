@@ -197,8 +197,7 @@ function update(req, res) {
             // else if (result.recordset == undefined) {
             //     res.status(404).json({ message: 'There were no records found.' });
             // }
-            else {
-                console.log(result);         
+            else {      
                 res.status(200).json({ message: 'Record updated successfully.' });
             }
             config.close();
