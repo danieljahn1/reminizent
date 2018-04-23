@@ -71,7 +71,7 @@ function getByCustomerId(req, res) {
 
         var request = new sql.Request(config);
         // Execute the GetActivityByCustomerId stored procedure
-        // Stored procedure parameter needed: Id
+        // Stored procedure parameter needed: CustomerId
         request.input('CustomerId', sql.Int, req.params.id);
         request.execute("GetActivityByCustomerId", function (err, result) {
             if (err) {
@@ -81,7 +81,6 @@ function getByCustomerId(req, res) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
-                console.log(result);
                 res.json(result.recordset);
             }
             config.close();
@@ -99,7 +98,7 @@ function getByCustomerSource(req, res) {
 
         var request = new sql.Request(config);
         // Execute the GetActivityByCustomerSource stored procedure
-        // Stored procedure parameter needed: Id
+        // Stored procedure parameter needed: source
         request.input('Source', sql.VarChar, req.params.source);
         request.execute("GetActivityByCustomerSource", function (err, result) {
             if (err) {

@@ -4,14 +4,15 @@ const contactActivityController = require('../controllers/contactactivity-contro
 
 
 router.get('/', contactActivityController.index );
-// router.get('/id/:id', contactActivityController.getById);
-// router.get('/customer/:id', contactActivityController.getByCustomerId);
-// router.get('/source/:source', contactActivityController.getByCustomerSource);
+router.get('/id/:id', contactActivityController.getById);
+router.get('/customer/:id', contactActivityController.getByCustomerId);
+router.get('/admin/:id', contactActivityController.getByAdminId);
+router.get('/source/:contactmethod', contactActivityController.getByContactMethod);
 
-// router.post('/', contactActivityController.create);
+router.post('/', contactActivityController.create);
 
-// router.put('/:id', contactActivityController.update);
+router.put('/:id', contactActivityController.update);
 
-// router.delete('/:id', contactActivityController.destroy);
+router.delete('/:id', contactActivityController.destroy);
 
 module.exports = router;
