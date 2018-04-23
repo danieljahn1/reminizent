@@ -164,11 +164,10 @@ function create(req, res) {
             if (err) {
                 res.status(500).json({ message:  'An error occurred on the server.' });
             }
-            else if (result.recordset.length == 0) {
-                res.status(404).json({ message: 'There were no records found.' });
-            }
-            else {
-                // res.status(200).json({ message: 'Record added successfully.' });
+            // else if (result.recordset.length == 0) {
+            //     res.status(404).json({ message: 'There were no records found.' });
+            // }
+            else {                
                 res.status(200).json(result.recordset);
             }
             config.close();
@@ -202,9 +201,9 @@ function update(req, res) {
             if (err) {
                 res.status(500).json({ message:  'An error occurred on the server.' });
             }
-            else if (result.recordset.length == 0) {
-                res.status(404).json({ message: 'There were no records found.' });
-            }
+            // else if (result.recordset.length == 0) {
+            //     res.status(404).json({ message: 'There were no records found.' });
+            // }
             else {
                 res.status(200).json({ message: 'Record updated successfully.' });
             }
@@ -222,16 +221,16 @@ function destroy(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the DeleteCustomerById stored procedure
+        // Execute the DeleteCustomerById stored procedure. Sets the Customer's ActiveFlag to 0 (inactive)
         // Stored procedure parameter needed: Id
         request.input('Id', sql.Int, req.params.id);
         request.execute("DeleteCustomerById", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (result.recordset.length == 0) {
-                res.status(404).json({ message: 'There were no records found.' });
-            }
+            // else if (result.recordset.length == 0) {
+            //     res.status(404).json({ message: 'There were no records found.' });
+            // }
             else {
                 res.json({ message: 'Customer account is now inactive.' });
             }

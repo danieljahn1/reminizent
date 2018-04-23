@@ -106,9 +106,9 @@ function create(req, res) {
             if (err) {
                 res.status(500).json({ message:  'An error occurred on the server.' });
             }
-            else if (result.recordset.length == 0) {
-                res.status(404).json({ message: 'There were no records found.' });
-            }
+            // else if (result.recordset.length == 0) {
+            //     res.status(404).json({ message: 'There were no records found.' });
+            // }
             else {
                 res.status(200).json({ message: 'Record added successfully.' });
             }
@@ -136,9 +136,9 @@ function update(req, res) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (result.recordset.length == 0) {
-                res.status(404).json({ message: 'There were no records found.' });
-            }
+            // else if (result.recordset.length == 0) {
+            //     res.status(404).json({ message: 'There were no records found.' });
+            // }
             else {
                 res.status(200).json({ message: 'Record updated successfully.' });
             }
@@ -156,16 +156,16 @@ function destroy(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the DeleteAdminById stored procedure
+        // Execute the DeleteAdminById stored procedure. Updates the ActiveFlag to 0 (inactive)
         // Stored procedure parameter needed: Id
         request.input('Id', sql.Int, req.params.id);
         request.execute("DeleteAdminById", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (result.recordset.length == 0) {
-                res.status(404).json({ message: 'There were no records found.' });
-            }
+            // else if (result.recordset.length == 0) {
+            //     res.status(404).json({ message: 'There were no records found.' });
+            // }
             else {
                 res.json({ message: 'Admin account is now inactive.' });
             }
