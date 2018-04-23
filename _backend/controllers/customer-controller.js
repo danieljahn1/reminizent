@@ -13,7 +13,7 @@ function index(req, res) {
     // Connect to the MSSQL db
     config.connect(function (err) {
         if (err) {
-            res.status(500).json({ message: err });
+            res.status(500).json({ message: 'An error occurred on the server.' });
             return;
         }
 
@@ -168,7 +168,8 @@ function create(req, res) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
-                res.status(200).json({ message: 'Record added successfully.' });
+                // res.status(200).json({ message: 'Record added successfully.' });
+                res.status(200).json(result.recordset);
             }
             config.close();
         });

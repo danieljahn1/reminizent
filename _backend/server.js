@@ -5,6 +5,7 @@ var logger = require('morgan');
 
 var customersRouter = require('./routes/customers');
 var adminsRouter = require('./routes/admins');
+var activityRouter = require('./routes/activity');
 
 var app = express();
 
@@ -18,5 +19,6 @@ app.use(cookieParser());
 
 app.use('/customer', customersRouter);
 app.use('/admin', adminsRouter);
+app.use('/activity', activityRouter);
 
 module.exports = app;
