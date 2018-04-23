@@ -13,13 +13,13 @@ function index(req, res) {
     // Connect to the MSSQL db
     config.connect(function (err) {
         if (err) {
-            res.status(500).json({ message: 'An error occurred on the server.' });
+            res.status(500).json({ message: err });
             return;
         }
 
         var request = new sql.Request(config);
-        // Execute the GetCampaigns stored procedure (returns all non-deleted campaign records)
-        request.execute("GetCampaigns", function (err, result) {
+        // Execute the GetCampaignsSent stored procedure (returns all non-deleted campaignsent records)
+        request.execute("GetCampaignsSent", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -43,10 +43,10 @@ function getById(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the GetCampaignById stored procedure
+        // Execute the GetCampaignSentById stored procedure
         // Stored procedure parameter needed: Id
         request.input('Id', sql.Int, req.params.id);
-        request.execute("GetCampaignById", function (err, result) {
+        request.execute("GetCampaignSentById", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -61,7 +61,7 @@ function getById(req, res) {
     });
 }
 
-function getByAdminId(req, res) {
+function getByCampaignId(req, res) {
     // Connect to the MSSQL db
     config.connect(function (err) {
         if (err) {
@@ -70,10 +70,11 @@ function getByAdminId(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the GetCampaignByAdminId stored procedure
+        // Execute the GetCampaignSentByCampaignId stored procedure
+        // Returns all sends by the CampaignID
         // Stored procedure parameter needed: Id
-        request.input('AdminId', sql.Int, req.params.id);
-        request.execute("GetCampaignByAdminId", function (err, result) {
+        request.input('CampaignId', sql.Int, req.params.id);
+        request.execute("GetCampaignSentByCampaignId", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -87,6 +88,35 @@ function getByAdminId(req, res) {
         });
     });
 }
+
+function getByCustomerId(req, res) {
+    // Connect to the MSSQL db
+    config.connect(function (err) {
+        if (err) {
+            res.status(500).json({ message: 'An error occurred on the server.' });
+            return;
+        }
+
+        var request = new sql.Request(config);
+        // Execute the GetCampaignSentByCustomerId stored procedure
+        // Returns all sends to a specific customerID
+        // Stored procedure parameter needed: Id
+        request.input('CustomerId', sql.Int, req.params.id);
+        request.execute("GetCampaignSentByCustomerId", function (err, result) {
+            if (err) {
+                res.status(500).json({ message: 'An error occurred on the server.' });
+            }
+            else if (result.recordset.length == 0) {
+                res.status(404).json({ message: 'There were no records found.' });
+            }
+            else {
+                res.json(result.recordset);
+            }
+            config.close();
+        });
+    });
+}
+
 
 function create(req, res) {
     // Connect to the MSSQL db
@@ -97,12 +127,11 @@ function create(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the CreateCampaign stored procedure
-        // Stored procedure parameters needed: CampaignName, DateSent, AdminId 
-        request.input('CampaignName', sql.VarChar, req.body.CampaignName);
-        request.input('DateSent', sql.VarChar, req.body.DateSent);
-        request.input('AdminId', sql.Int, req.body.CreatorID);
-        request.execute("CreateCampaign", function (err, result) {
+        // Execute the CreateCampaignSent stored procedure
+        // Stored procedure parameters needed: CampaignID, CustomerID         
+        request.input('CampaignID', sql.Int, req.body.CampaignID);
+        request.input('CustomerID', sql.Int, req.body.CustomerID);
+        request.execute("CreateCampaignSent", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -126,13 +155,12 @@ function update(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the UpdateCampaign stored procedure
-        // Stored procedure parameters needed: ID, CampaignName, DateSent, AdminId
+        // Execute the UpdateCampaignSent stored procedure
+        // Stored procedure parameters needed: ID, CampaignID, CustomerID
         request.input('Id', sql.Int, req.params.id);
-        request.input('CampaignName', sql.VarChar, req.body.CampaignName);
-        request.input('DateSent', sql.VarChar, req.body.DateSent);
-        request.input('AdminId', sql.Int, req.body.CreatorID);
-        request.execute("UpdateCampaign", function (err, result) {
+        request.input('CampaignID', sql.Int, req.body.CampaignID);
+        request.input('CustomerID', sql.Int, req.body.CustomerID);
+        request.execute("UpdateCampaignSent", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -156,10 +184,10 @@ function destroy(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the DeleteCampaign stored procedure. Sets the deleteflag to 1 (true)
+        // Execute the DeleteCampaignSent stored procedure. Sets the deleteflag to 1 (true)
         // Stored procedure parameter needed: Id
         request.input('Id', sql.Int, req.params.id);
-        request.execute("DeleteCampaign", function (err, result) {
+        request.execute("DeleteCampaignSent", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -167,7 +195,7 @@ function destroy(req, res) {
             //     res.status(404).json({ message: 'There were no records found.' });
             // }
             else {
-                res.json({ message: 'Campaign record has been removed.' });
+                res.json({ message: 'Campaign sent record has been removed.' });
             }
             config.close();
         });
@@ -178,7 +206,8 @@ function destroy(req, res) {
 module.exports = {
     index,
     getById,
-    getByAdminId,
+    getByCampaignId,
+    getByCustomerId,
     create,
     update,
     destroy

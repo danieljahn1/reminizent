@@ -8,6 +8,7 @@ var adminsRouter = require('./routes/admins');
 var activityRouter = require('./routes/activity');
 var contactActivityRouter = require('./routes/contactactivity');
 var campaignRouter = require('./routes/campaign');
+var campaignSentRouter = require('./routes/campaignsent');
 
 var app = express();
 
@@ -24,5 +25,6 @@ app.use('/admin', adminsRouter);
 app.use('/activity', activityRouter);
 app.use('/contactactivity', contactActivityRouter);
 app.use('/campaign', campaignRouter);
+app.use('/campaignsent', campaignSentRouter);
 
 module.exports = app;
