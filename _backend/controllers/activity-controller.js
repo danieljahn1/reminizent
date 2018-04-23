@@ -18,7 +18,7 @@ function index(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the GetActivity stored procedure (returns active and non-active customers)
+        // Execute the GetActivity stored procedure (returns all non-deleted customer Activity records)
         request.execute("GetActivity", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
