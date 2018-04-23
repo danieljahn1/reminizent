@@ -23,7 +23,7 @@ function index(req, res) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
@@ -48,7 +48,7 @@ function getActiveCustomers(req, res) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
@@ -75,7 +75,7 @@ function getById(req, res) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
@@ -102,7 +102,7 @@ function getByEmail(req, res) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
@@ -129,7 +129,7 @@ function getByCompany(req, res) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
@@ -164,7 +164,7 @@ function create(req, res) {
             if (err) {
                 res.status(500).json({ message:  'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
@@ -202,7 +202,7 @@ function update(req, res) {
             if (err) {
                 res.status(500).json({ message:  'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
@@ -229,7 +229,7 @@ function destroy(req, res) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {

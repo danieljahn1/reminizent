@@ -23,7 +23,7 @@ function index(req, res) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
@@ -50,7 +50,7 @@ function getById(req, res) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
@@ -77,10 +77,11 @@ function getByCustomerId(req, res) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
+                console.log(result);
                 res.json(result.recordset);
             }
             config.close();
@@ -104,7 +105,7 @@ function getByCustomerSource(req, res) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
@@ -139,7 +140,7 @@ function getByCustomerSource(req, res) {
 //             if (err) {
 //                 res.status(500).json({ message:  'An error occurred on the server.' });
 //             }
-//             else if (!result) {
+//             else if (result.recordset.length == 0) {
 //                 res.status(404).json({ message: 'There were no records found.' });
 //             }
 //             else {
@@ -177,7 +178,7 @@ function getByCustomerSource(req, res) {
 //             if (err) {
 //                 res.status(500).json({ message:  'An error occurred on the server.' });
 //             }
-//             else if (!result) {
+//             else if (result.recordset.length == 0) {
 //                 res.status(404).json({ message: 'There were no records found.' });
 //             }
 //             else {
@@ -204,7 +205,7 @@ function getByCustomerSource(req, res) {
 //             if (err) {
 //                 res.status(500).json({ message: 'An error occurred on the server.' });
 //             }
-//             else if (!result) {
+//             else if (result.recordset.length == 0) {
 //                 res.status(404).json({ message: 'There were no records found.' });
 //             }
 //             else {
