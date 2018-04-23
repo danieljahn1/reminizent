@@ -13,38 +13,13 @@ function index(req, res) {
     // Connect to the MSSQL db
     config.connect(function (err) {
         if (err) {
-            res.status(500).json({ message: 'An error occurred on the server.' });
-            return;
-        }
-
-        var request = new sql.Request(config);
-        // Execute the GetCustomers stored procedure (returns active and non-active customers)
-        request.execute("GetCustomers", function (err, result) {
-            if (err) {
-                res.status(500).json({ message: 'An error occurred on the server.' });
-            }
-            else if (result.recordset.length == 0) {
-                res.status(404).json({ message: 'There were no records found.' });
-            }
-            else {
-                res.json(result.recordset);
-            }
-            config.close();
-        });
-    });
-}
-
-function getActiveCustomers(req, res) {
-    // Connect to the MSSQL db
-    config.connect(function (err) {
-        if (err) {
             res.status(500).json({ message: err });
             return;
         }
 
         var request = new sql.Request(config);
-        // Execute the GetActiveCustomers stored procedure
-        request.execute("GetActiveCustomers", function (err, result) {
+        // Execute the GetContactActivity stored procedure (all non-deleted ContactActivity records)
+        request.execute("GetContactActivity", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -68,10 +43,10 @@ function getById(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the GetCustomerById stored procedure
+        // Execute the GetContactActivityById stored procedure
         // Stored procedure parameter needed: Id
         request.input('Id', sql.Int, req.params.id);
-        request.execute("GetCustomerById", function (err, result) {
+        request.execute("GetContactActivityById", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -86,7 +61,7 @@ function getById(req, res) {
     });
 }
 
-function getByEmail(req, res) {
+function getByCustomerId(req, res) {
     // Connect to the MSSQL db
     config.connect(function (err) {
         if (err) {
@@ -95,10 +70,10 @@ function getByEmail(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the GetCustomerByEmail stored procedure
-        // Stored procedure parameter needed: Email
-        request.input('Email', sql.VarChar, req.params.email);
-        request.execute("GetCustomerByEmail", function (err, result) {
+        // Execute the GetContactActivityByCustomerId stored procedure
+        // Stored procedure parameter needed: Id
+        request.input('CustomerId', sql.Int, req.params.id);
+        request.execute("GetContactActivityByCustomerId", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -113,7 +88,7 @@ function getByEmail(req, res) {
     });
 }
 
-function getByCompany(req, res) {
+function getByAdminId(req, res) {
     // Connect to the MSSQL db
     config.connect(function (err) {
         if (err) {
@@ -122,10 +97,37 @@ function getByCompany(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the GetCustomerByCompany stored procedure
-        // Stored procedure parameter needed: Company
-        request.input('Company', sql.VarChar, req.params.company);
-        request.execute("GetCustomerByCompany", function (err, result) {
+        // Execute the GetContactActivityByAdminId stored procedure
+        // Stored procedure parameter needed: Id
+        request.input('AdminId', sql.Int, req.params.id);
+        request.execute("GetContactActivityByAdminId", function (err, result) {
+            if (err) {
+                res.status(500).json({ message: 'An error occurred on the server.' });
+            }
+            else if (result.recordset.length == 0) {
+                res.status(404).json({ message: 'There were no records found.' });
+            }
+            else {
+                res.json(result.recordset);
+            }
+            config.close();
+        });
+    });
+}
+
+function getByContactMethod(req, res) {
+    // Connect to the MSSQL db
+    config.connect(function (err) {
+        if (err) {
+            res.status(500).json({ message: 'An error occurred on the server.' });
+            return;
+        }
+
+        var request = new sql.Request(config);
+        // Execute the GetActivityByContactMethod stored procedure
+        // Stored procedure parameter needed: ContactMethod
+        request.input('ContactMethod', sql.VarChar, req.params.contactmethod);
+        request.execute("GetActivityByContactMethod", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -149,26 +151,22 @@ function create(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the CreateCustomer stored procedure
-        // Stored procedure parameters needed: FirstName, LastName, Company, Email, Phone
-        //  AreaOfInterest, HeardAbout, Referral
-        request.input('FirstName', sql.VarChar, req.body.FirstName);
-        request.input('LastName', sql.VarChar, req.body.LastName);
-        request.input('Company', sql.VarChar, req.body.Company);
-        request.input('Email', sql.VarChar, req.body.Email);
-        request.input('Phone', sql.VarChar, req.body.Phone);
-        request.input('AreaOfInterest', sql.VarChar, req.body.AreaOfInterest);
-        request.input('HeardAbout', sql.VarChar, req.body.HeardAbout);
-        request.input('Referral', sql.VarChar, req.body.Referral);
-        request.execute("CreateCustomer", function (err, result) {
+        // Execute the CreateContactActivity stored procedure
+        // Stored procedure parameters needed: AdminId, CustomerId, DateContacted, ContactMethod, ContactMessage
+        request.input('AdminId', sql.Int, req.body.AdminID);
+        request.input('CustomerId', sql.Int, req.body.CustomerID);
+        request.input('DateContacted', sql.VarChar, req.body.DateContacted);
+        request.input('ContactMethod', sql.VarChar, req.body.ContactMethod);
+        request.input('ContactMessage', sql.VarChar, req.body.ContactMessage);
+        request.execute("CreateContactActivity", function (err, result) {
             if (err) {
-                res.status(500).json({ message:  'An error occurred on the server.' });
+                res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            // else if (result.recordset.length == 0) {
+            // else if (result.recordset == undefined) {
             //     res.status(404).json({ message: 'There were no records found.' });
             // }
-            else {                
-                res.status(200).json(result.recordset);
+            else {
+                res.status(200).json({ message: 'Record added successfully.' });
             }
             config.close();
         });
@@ -184,27 +182,23 @@ function update(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the UpdateCustomer stored procedure
-        // Stored procedure parameters needed: ID, FirstName, LastName, Company, Email, Phone
-        //  AreaOfInterest, HeardAbout, Referral, ActiveFlag
+        // Execute the UpdateContactActivity stored procedure
+        // Stored procedure parameters needed: ID, AdminId, CustomerId, DateContacted, ContactMethod, ContactMessage
         request.input('Id', sql.Int, req.params.id);
-        request.input('FirstName', sql.VarChar, req.body.FirstName);
-        request.input('LastName', sql.VarChar, req.body.LastName);
-        request.input('Company', sql.VarChar, req.body.Company);
-        request.input('Email', sql.VarChar, req.body.Email);
-        request.input('Phone', sql.VarChar, req.body.Phone);
-        request.input('AreaOfInterest', sql.VarChar, req.body.AreaOfInterest);
-        request.input('HeardAbout', sql.VarChar, req.body.HeardAbout);
-        request.input('Referral', sql.VarChar, req.body.Referral);
-        request.input('ActiveFlag', sql.Bit, req.body.ActiveFlag);
-        request.execute("UpdateCustomer", function (err, result) {
+        request.input('AdminId', sql.Int, req.body.AdminID);
+        request.input('CustomerId', sql.Int, req.body.CustomerID);
+        request.input('DateContacted', sql.VarChar, req.body.DateContacted);
+        request.input('ContactMethod', sql.VarChar, req.body.ContactMethod);
+        request.input('ContactMessage', sql.VarChar, req.body.ContactMessage);
+        request.execute("UpdateContactActivity", function (err, result) {
             if (err) {
-                res.status(500).json({ message:  'An error occurred on the server.' });
+                res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            // else if (result.recordset.length == 0) {
+            // else if (result.recordset == undefined) {
             //     res.status(404).json({ message: 'There were no records found.' });
             // }
             else {
+                console.log(result);         
                 res.status(200).json({ message: 'Record updated successfully.' });
             }
             config.close();
@@ -221,10 +215,10 @@ function destroy(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the DeleteCustomerById stored procedure. Sets the Customer's ActiveFlag to 0 (inactive)
+        // Execute the DeleteContactActivityById stored procedure. Sets the deleteflag to 1 (true)
         // Stored procedure parameter needed: Id
         request.input('Id', sql.Int, req.params.id);
-        request.execute("DeleteCustomerById", function (err, result) {
+        request.execute("DeleteContactActivityById", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -232,7 +226,7 @@ function destroy(req, res) {
             //     res.status(404).json({ message: 'There were no records found.' });
             // }
             else {
-                res.json({ message: 'Customer account is now inactive.' });
+                res.json({ message: 'Contact activity record has been removed.' });
             }
             config.close();
         });
@@ -242,10 +236,10 @@ function destroy(req, res) {
 
 module.exports = {
     index,
-    getActiveCustomers,
     getById,
-    getByEmail,
-    getByCompany,
+    getByCustomerId,
+    getByAdminId,
+    getByContactMethod,
     create,
     update,
     destroy

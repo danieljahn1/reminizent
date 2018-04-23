@@ -18,12 +18,12 @@ function index(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the GetActivity stored procedure (returns active and non-active customers)
+        // Execute the GetActivity stored procedure (returns all non-deleted customer Activity records)
         request.execute("GetActivity", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
@@ -50,7 +50,7 @@ function getById(req, res) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
@@ -71,13 +71,13 @@ function getByCustomerId(req, res) {
 
         var request = new sql.Request(config);
         // Execute the GetActivityByCustomerId stored procedure
-        // Stored procedure parameter needed: Id
+        // Stored procedure parameter needed: CustomerId
         request.input('CustomerId', sql.Int, req.params.id);
         request.execute("GetActivityByCustomerId", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
@@ -98,13 +98,13 @@ function getByCustomerSource(req, res) {
 
         var request = new sql.Request(config);
         // Execute the GetActivityByCustomerSource stored procedure
-        // Stored procedure parameter needed: Id
+        // Stored procedure parameter needed: source
         request.input('Source', sql.VarChar, req.params.source);
         request.execute("GetActivityByCustomerSource", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
-            else if (!result) {
+            else if (result.recordset.length == 0) {
                 res.status(404).json({ message: 'There were no records found.' });
             }
             else {
@@ -115,113 +115,102 @@ function getByCustomerSource(req, res) {
     });
 }
 
-// function create(req, res) {
-//     // Connect to the MSSQL db
-//     config.connect(function (err) {
-//         if (err) {
-//             res.status(500).json({ message: 'An error occurred on the server.' });
-//             return;
-//         }
+function create(req, res) {
+    // Connect to the MSSQL db
+    config.connect(function (err) {
+        if (err) {
+            res.status(500).json({ message: 'An error occurred on the server.' });
+            return;
+        }
 
-//         var request = new sql.Request(config);
-//         // Execute the CreateCustomer stored procedure
-//         // Stored procedure parameters needed: FirstName, LastName, Company, Email, Phone
-//         //  AreaOfInterest, HeardAbout, Referral
-//         request.input('FirstName', sql.VarChar, req.body.FirstName);
-//         request.input('LastName', sql.VarChar, req.body.LastName);
-//         request.input('Company', sql.VarChar, req.body.Company);
-//         request.input('Email', sql.VarChar, req.body.Email);
-//         request.input('Phone', sql.VarChar, req.body.Phone);
-//         request.input('AreaOfInterest', sql.VarChar, req.body.AreaOfInterest);
-//         request.input('HeardAbout', sql.VarChar, req.body.HeardAbout);
-//         request.input('Referral', sql.VarChar, req.body.Referral);
-//         request.execute("CreateCustomer", function (err, result) {
-//             if (err) {
-//                 res.status(500).json({ message:  'An error occurred on the server.' });
-//             }
-//             else if (!result) {
-//                 res.status(404).json({ message: 'There were no records found.' });
-//             }
-//             else {
-//                 // res.status(200).json({ message: 'Record added successfully.' });
-//                 res.status(200).json(result.recordset);
-//             }
-//             config.close();
-//         });
-//     });
-// }
+        var request = new sql.Request(config);
+        // Execute the CreateCustomerActivity stored procedure
+        // Stored procedure parameters needed: CustomerId, DateCreated, DateLastContacted, Source
+        request.input('CustomerId', sql.Int, req.body.CustomerID);
+        request.input('DateCreated', sql.VarChar, req.body.DateCreated);
+        request.input('DateLastContacted', sql.VarChar, req.body.DateLastContacted);
+        request.input('Source', sql.VarChar, req.body.Source);
+        request.execute("CreateCustomerActivity", function (err, result) {
+            if (err) {
+                res.status(500).json({ message: 'An error occurred on the server.' });
+            }
+            // else if (result.recordset == undefined) {
+            //     res.status(404).json({ message: 'There were no records found.' });
+            // }
+            else {
+                res.status(200).json({ message: 'Record added successfully.' });
+            }
+            config.close();
+        });
+    });
+}
 
-// function update(req, res) {
-//     // Connect to the MSSQL db
-//     config.connect(function (err) {
-//         if (err) {
-//             res.status(500).json({ message: 'An error occurred on the server.' });
-//             return;
-//         }
+function update(req, res) {
+    // Connect to the MSSQL db
+    config.connect(function (err) {
+        if (err) {
+            res.status(500).json({ message: 'An error occurred on the server.' });
+            return;
+        }
 
-//         var request = new sql.Request(config);
-//         // Execute the UpdateCustomer stored procedure
-//         // Stored procedure parameters needed: ID, FirstName, LastName, Company, Email, Phone
-//         //  AreaOfInterest, HeardAbout, Referral, ActiveFlag
-//         request.input('Id', sql.Int, req.params.id);
-//         request.input('FirstName', sql.VarChar, req.body.FirstName);
-//         request.input('LastName', sql.VarChar, req.body.LastName);
-//         request.input('Company', sql.VarChar, req.body.Company);
-//         request.input('Email', sql.VarChar, req.body.Email);
-//         request.input('Phone', sql.VarChar, req.body.Phone);
-//         request.input('AreaOfInterest', sql.VarChar, req.body.AreaOfInterest);
-//         request.input('HeardAbout', sql.VarChar, req.body.HeardAbout);
-//         request.input('Referral', sql.VarChar, req.body.Referral);
-//         request.input('ActiveFlag', sql.Bit, req.body.ActiveFlag);
-//         request.execute("UpdateCustomer", function (err, result) {
-//             if (err) {
-//                 res.status(500).json({ message:  'An error occurred on the server.' });
-//             }
-//             else if (!result) {
-//                 res.status(404).json({ message: 'There were no records found.' });
-//             }
-//             else {
-//                 res.status(200).json({ message: 'Record updated successfully.' });
-//             }
-//             config.close();
-//         });
-//     });
-// }
+        var request = new sql.Request(config);
+        // Execute the UpdateCustomerActivity stored procedure
+        // Stored procedure parameters needed: ID, CustomerId, DateCreated, DateLastContacted, Source
+        request.input('Id', sql.Int, req.params.id);
+        request.input('CustomerId', sql.Int, req.body.CustomerID);
+        request.input('DateCreated', sql.VarChar, req.body.DateCreated);
+        request.input('DateLastContacted', sql.VarChar, req.body.DateLastContacted);
+        request.input('Source', sql.VarChar, req.body.Source);
+        request.execute("UpdateCustomerActivity", function (err, result) {
+            if (err) {
+                res.status(500).json({ message: 'An error occurred on the server.' });
+            }
+            // else if (result.recordset == undefined) {
+            //     res.status(404).json({ message: 'There were no records found.' });
+            // }
+            else {
+                console.log(result);         
+                res.status(200).json({ message: 'Record updated successfully.' });
+            }
+            config.close();
+        });
+    });
+}
 
-// function destroy(req, res) {
-//     // Connect to the MSSQL db
-//     config.connect(function (err) {
-//         if (err) {
-//             res.status(500).json({ message: 'An error occurred on the server.' });
-//             return;
-//         }
+function destroy(req, res) {
+    // Connect to the MSSQL db
+    config.connect(function (err) {
+        if (err) {
+            res.status(500).json({ message: 'An error occurred on the server.' });
+            return;
+        }
 
-//         var request = new sql.Request(config);
-//         // Execute the DeleteCustomerById stored procedure
-//         // Stored procedure parameter needed: Id
-//         request.input('Id', sql.Int, req.params.id);
-//         request.execute("DeleteCustomerById", function (err, result) {
-//             if (err) {
-//                 res.status(500).json({ message: 'An error occurred on the server.' });
-//             }
-//             else if (!result) {
-//                 res.status(404).json({ message: 'There were no records found.' });
-//             }
-//             else {
-//                 res.json({ message: 'Customer account is now inactive.' });
-//             }
-//             config.close();
-//         });
-//     });
-// }
+        var request = new sql.Request(config);
+        // Execute the DeleteCustomerActivityById stored procedure. Sets the deleteflag to 1 (true)
+        // Stored procedure parameter needed: Id
+        request.input('Id', sql.Int, req.params.id);
+        request.execute("DeleteCustomerActivityById", function (err, result) {
+            if (err) {
+                res.status(500).json({ message: 'An error occurred on the server.' });
+            }
+            // else if (result.recordset.length == 0) {
+            //     res.status(404).json({ message: 'There were no records found.' });
+            // }
+            else {
+                res.json({ message: 'Customer activity record has been removed.' });
+            }
+            config.close();
+        });
+    });
+}
 
 
 module.exports = {
     index,
     getById,
     getByCustomerId,
-    getByCustomerSource
-    // create,
-    // update,
-    // destroy
+    getByCustomerSource,
+    create,
+    update,
+    destroy
 }
