@@ -3,3 +3,5 @@ _frontend/package-lock.json
 
 _backend/bin/*
 _backend/obj/*
+_backend/.env
+_backend/node_modules/*
