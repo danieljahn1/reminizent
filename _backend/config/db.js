@@ -1,4 +1,3 @@
-
 var sql = require('mssql');
 
 const config = new sql.ConnectionPool ({
