@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import axios from 'axios';
 
 class SignUp extends Component {
@@ -18,7 +19,7 @@ class SignUp extends Component {
     }
     userSignUp(e) {
         e.preventDefault();
-        if (this.state.emailAddress != '') {
+        if (this.state.emailAddress != '' && this.state.firstName != '' && this.state.lastName != '') {
             var body = {
                 "FirstName": this.state.firstName,
                 "LastName": this.state.lastName,
@@ -60,6 +61,11 @@ class SignUp extends Component {
     }
 
     render() {
+        const { redirect } = this.state;
+        if (redirect) {
+            return <Redirect to="/welcome" />
+        }
+
         return (
             <div className="body">
                 <div className="container">
@@ -80,12 +86,12 @@ class SignUp extends Component {
 
                                                 <div className="col-md-6">
                                                     <label htmlFor="firstName">First Name:</label>
-                                                    <input type="text" autoComplete="given-name" className="form-control form-spacing" value={this.state.firstName} onChange={(e) => { this.setState({ firstName: e.target.value }) }} />
+                                                    <input type="text" autoComplete="given-name" className="form-control form-spacing" value={this.state.firstName} onChange={(e) => { this.setState({ firstName: e.target.value }) }} required />
                                                 </div>
 
                                                 <div className="col-md-6">
                                                     <label htmlFor="lastName">Last Name:</label>
-                                                    <input type="text" autoComplete="family-name" className="form-control form-spacing" value={this.state.lastName} onChange={(e) => { this.setState({ lastName: e.target.value }) }} />
+                                                    <input type="text" autoComplete="family-name" className="form-control form-spacing" value={this.state.lastName} onChange={(e) => { this.setState({ lastName: e.target.value }) }} required />
                                                 </div>
 
 
