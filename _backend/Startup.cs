@@ -24,7 +24,8 @@ namespace reminizent_backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddDbContext<MasterContext>(opt => opt.UseInMemoryDatabase("soled"));
+            // services.AddDbContext<MasterContext>(opt => opt.UseInMemoryDatabase("reminizent"));
+            services.AddDbContext<MasterContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ReminizentConnection")));
             services.AddCors();
             services.AddMvc();
         }

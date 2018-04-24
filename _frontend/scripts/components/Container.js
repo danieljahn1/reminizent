@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import { Link, Switch, Route } from 'react-router-dom'
+import Navbar from './user-journey/nav-bar'
 
-class Class extends Component {
+// component imports
+import AdminMenu from './admin-journey/admin-menu'
+import Jumbotron from './user-journey/jumbotron';
+
+
+class Container extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -10,11 +16,15 @@ class Class extends Component {
     }
     render() { 
         return (
-            <div>
-
+            <div className="container-fluid">
+                <div className="nav-bar-div">
+                    <Navbar />
+                    <Jumbotron />
+                </div>
+            <AdminMenu/>
             </div>
         )
     }
 }
  
-export default Class
+export default Container;
