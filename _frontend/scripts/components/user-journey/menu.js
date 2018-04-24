@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 
 class Menu extends Component {
@@ -14,9 +15,9 @@ class Menu extends Component {
                     <div className="col-md-12 userMenu">
 
                         <div className="col-md-4"> 
-                        <h1 className="large-header"> Reminizent</h1>
+                        <Link to="/"><h1 className="large-header"> Reminizent</h1></Link>
                         </div>
-                        <div className="col-md-1 col-md-offset-7 log-in-btn "><button className="btn pull-right">Log In</button></div>
+                        <Link to="admin-login"><div className="col-md-1 col-md-offset-7 log-in-btn "><button className="btn pull-right">Log In</button></div></Link>
 
                     </div>
                 </div>

@@ -43,7 +43,7 @@ class AdminMenu extends Component {
 
                 {/* everything will have to be toggled from the admin menu bar components */}
                 <div>
-                    <Dashboard active={this.state.active}/>
+                    {/* <Dashboard active={this.state.active}/> */}
                     {/* <CustomerDetials active={this.state.active} onClick={this.toggleEdit}/>
                     <EditCustomer active={this.state.active} onClick={this.toggleEdit}/> */}
                 </div>
