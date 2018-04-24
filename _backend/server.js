@@ -12,6 +12,7 @@ var activityRouter = require('./routes/activity');
 var contactActivityRouter = require('./routes/contactactivity');
 var campaignRouter = require('./routes/campaign');
 var subscriptionsRouter = require('./routes/subscriptions');
+var campaignSentRouter = require('./routes/campaignsent');
 
 var app = express();
 
@@ -32,5 +33,6 @@ app.use('/activity', activityRouter);
 app.use('/contactactivity', contactActivityRouter);
 app.use('/campaign', campaignRouter);
 app.use('/subscriptions', subscriptionsRouter);
+app.use('/campaignsent', campaignSentRouter);
 
 module.exports = app;

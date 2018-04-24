@@ -4,14 +4,13 @@ const campaignController = require('../controllers/campaign-controller');
 
 
 router.get('/', campaignController.index );
-// router.get('/id/:id', campaignController.getById);
-// router.get('/customer/:id', campaignController.getByCustomerId);
-// router.get('/source/:source', campaignController.getByCustomerSource);
+router.get('/id/:id', campaignController.getById);
+router.get('/admin/:id', campaignController.getByAdminId);
 
-// router.post('/', campaignController.create);
+router.post('/', campaignController.create);
 
-// router.put('/:id', campaignController.update);
+router.put('/:id', campaignController.update);
 
-// router.delete('/:id', campaignController.destroy);
+router.delete('/:id', campaignController.destroy);
 
 module.exports = router;
