@@ -1,90 +1,159 @@
 import React, { Component } from 'react';
-
+import axios from 'axios';
 
 class SignUp extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = {
+            firstName: '',
+            lastName: '',
+            emailAddress: '',
+            phoneNumber: '',
+            companyName: '',
+            requestType: '',
+            referralType: '',
+            referralName: '',
+            redirect: false
+        }
     }
-    render() { 
-        return ( 
-            <div className="container">
-            <div className="row">
-                <div className="col-md-8 col-md-offset-2 admin-login">
+    userSignUp(e) {
+        e.preventDefault();
+        if (this.state.emailAddress != '') {
+            var body = {
+                "FirstName": this.state.firstName,
+                "LastName": this.state.lastName,
+                "Company": this.state.companyName,
+                "Email": this.state.emailAddress,
+                "Phone": this.state.phoneNumber,
+                "AreaOfInterest": this.state.requestType,
+                "HeardAbout": this.state.referralType,
+                "Referral": this.state.referralName
+            }
+            axios.post('http://localhost:3000/customer', body)
+                .then(response => {
+                    console.log(response.data[0])
+                    var body = {
+                        "email_address": this.state.emailAddress,
+                        "status": 'subscribed',
+                        "merge_fields": {
+                            "FNAME": this.state.firstName,
+                            "LNAME": this.state.lastName,
+                            "PHONE": this.state.phoneNumber,
+                            "COMPANY": this.state.companyName,
+                            "REQUEST": this.state.requestType,
+                            "REFERRAL": this.state.referralType,
+                            "REFERREDBY": this.state.referralName
+                        }
+                    }
+                    axios.post('http://localhost:3000/subscriptions', body)
+                        .then(response => {
+                            this.setState({
+                                redirect: true
+                            })
+                            console.log(response)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                })
+        }
+    }
 
-                    <div className="row login-form">
-                        <div className="col-md-4 col-md-offset-4 text-center">
-                            <h3>Sign Up</h3>
-                        </div>
+    render() {
+        return (
+            <div className="body">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-8 col-md-offset-2 admin-login">
 
-                        <div className="col-md-4 col-md-offset-1">
-                            <form className="form-inline" >
-
-                                <div className="form-group">
-                                    <label htmlFor="firstName">First Name:</label>
-                                    <input type="text" className="form-control input1" />
-                                    <label htmlFor="lastName">E-mail:</label>
-                                    <input type="text" className="form-control input1" />
+                            <div className="row login-form">
+                                <div className="col-md-4 col-md-offset-4 text-center">
+                                    <h3>Sign Up</h3>
                                 </div>
 
-                                <div className="form-group">
-                                    <label htmlFor="email">Comany:</label>
-                                    <input type="text" className="form-control input1" />
+                                <div className="" style={{ marginLeft: 75 }}>
+                                    <div className="col-md-10">
 
-                                    <label htmlFor="" className="input1">Referal Type</label>
-                                    <br/>
-                                    <select className="form-control">
-                                        <option>TV</option>
-                                        <option>Radio</option>
-                                        <option>Internet</option>
-                                        <option>Walk-in</option>
-                                        <option>Rereral</option>
-                                    </select>
+                                        <form>
+
+                                            <div className="form-group">
+
+                                                <div className="col-md-6">
+                                                    <label htmlFor="firstName">First Name:</label>
+                                                    <input type="text" autoComplete="given-name" className="form-control form-spacing" value={this.state.firstName} onChange={(e) => { this.setState({ firstName: e.target.value }) }} />
+                                                </div>
+
+                                                <div className="col-md-6">
+                                                    <label htmlFor="lastName">Last Name:</label>
+                                                    <input type="text" autoComplete="family-name" className="form-control form-spacing" value={this.state.lastName} onChange={(e) => { this.setState({ lastName: e.target.value }) }} />
+                                                </div>
+
+
+                                                <div className="col-md-6">
+                                                    <label htmlFor="emailAddress">E-mail:</label>
+                                                    <input type="email" autoComplete="email" className="form-control form-spacing" value={this.state.emailAddress} onChange={(e) => { this.setState({ emailAddress: e.target.value }) }} required />
+                                                </div>
+
+                                                <div className="col-md-6">
+                                                    <label htmlFor="phoneNumber">Phone Number:</label>
+                                                    <input type="tel" autoComplete="tel" className="form-control form-spacing" value={this.state.phoneNumber} onChange={(e) => { this.setState({ phoneNumber: e.target.value }) }} />
+                                                </div>
+
+                                                <div className="col-md-6">
+                                                    <label htmlFor="companyName">Company Name:</label>
+                                                    <input type="text" autoComplete="off" className="form-control " value={this.state.companyName} onChange={(e) => { this.setState({ companyName: e.target.value }) }} />
+                                                </div>
+
+                                                <div className="col-md-6">
+                                                    <label htmlFor="requestType" >How can we help you?</label>
+                                                    <select className="form-control" value={this.state.requestType} onChange={(e) => { this.setState({ requestType: e.target.value }) }}>
+                                                        <option defaultValue>Select ...</option>
+                                                        <option>General Information</option>
+                                                        <option>Loan Information</option>
+                                                        <option>Speak with an Agent</option>
+                                                        <option>Market Trends</option>
+                                                    </select>
+                                                </div>
+
+                                                <div className="col-md-6">
+                                                    <label htmlFor="referralType" className="form-spacing3">How did you here about us?</label>
+                                                    <select className="form-control" value={this.state.referralType} onChange={(e) => { this.setState({ referralType: e.target.value }) }}>
+                                                        <option defaultValue>Select ...</option>
+                                                        <option>TV</option>
+                                                        <option>Radio</option>
+                                                        <option>Internet</option>
+                                                        <option>Walk-in</option>
+                                                        <option>Rereral</option>
+                                                    </select>
+                                                </div>
+
+                                                <div className="col-md-6">
+                                                    <label htmlFor="referralName" className="form-spacing3">Name of Referal</label>
+                                                    <input className="form-control" type="text" autoComplete="off" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} />
+                                                </div>
+
+
+                                            </div>
+
+                                        </form>
+
+
+                                        <div className="row">
+                                            <button type="submit" className="btn col-md-6 col-md-offset-3 form-spacing5" onClick={this.userSignUp.bind(this)}>Sign Up</button>
+                                        </div>
+                                    </div>
+
+
                                 </div>
-
-                            </form>
-                        </div>
-                        
-                        <div className="col-md-4 col-md-offset-1">
-                            <form className="form-inline" >
-
-                                <div className="form-group">
-                                    <label htmlFor="firstName">Last Name:</label>
-                                    <input type="text" className="form-control input1" />
-                                    <label htmlFor="lastName">Phone Number:</label>
-                                    <input type="text" className="form-control input1" />
-                                </div>
-
-                                <div className="form-group">
-
-                                    <label htmlFor="email">Intrest:</label>
-                                    <br/>
-                                    <select className="form-control">
-                                        <option>General Information</option>
-                                        <option>Loan Information</option>
-                                        <option>Speak with an Agent</option>
-                                        <option>Market Trends</option>
-                                    </select>
-
-                                   <label htmlFor="" className="input1">Name of Referal</label>
-                                    <input className="form-control" type="text" placeholder="" />
-                                </div>
-
-                            </form>
-                        </div>
-
-
-                        <div className="row">
-                                <button className="btn col-md-6 col-md-offset-3">Sign Up</button>
                             </div>
+
+
+                        </div>
                     </div>
-
-
                 </div>
             </div>
-        </div>
-         )
+        )
     }
 }
- 
+
 export default SignUp;
