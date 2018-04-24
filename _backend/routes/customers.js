@@ -1,9 +1,13 @@
 var express = require('express');
 var router = express.Router();
+
+var cors = require('cors')
+router.use(cors())
+
 const custController = require('../controllers/customer-controller');
 
 
-router.get('/', custController.index );
+// router.get('/', custController.index );
 router.get('/active', custController.getActiveCustomers );
 router.get('/id/:id', custController.getById);
 router.get('/email/:email', custController.getByEmail);

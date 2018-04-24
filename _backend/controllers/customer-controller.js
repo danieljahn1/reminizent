@@ -9,30 +9,30 @@ const config = new sql.ConnectionPool({
     port: process.env.RDS_PORT
 });
 
-function index(req, res) {
-    // Connect to the MSSQL db
-    config.connect(function (err) {
-        if (err) {
-            res.status(500).json({ message: 'An error occurred on the server.' });
-            return;
-        }
+// function index(req, res) {
+//     // Connect to the MSSQL db
+//     config.connect(function (err) {
+//         if (err) {
+//             res.status(500).json({ message: 'An error occurred on the server.' });
+//             return;
+//         }
 
-        var request = new sql.Request(config);
-        // Execute the GetCustomers stored procedure (returns active and non-active customers)
-        request.execute("GetCustomers", function (err, result) {
-            if (err) {
-                res.status(500).json({ message: 'An error occurred on the server.' });
-            }
-            else if (result.recordset.length == 0) {
-                res.status(404).json({ message: 'There were no records found.' });
-            }
-            else {
-                res.json(result.recordset);
-            }
-            config.close();
-        });
-    });
-}
+//         var request = new sql.Request(config);
+//         // Execute the GetCustomers stored procedure (returns active and non-active customers)
+//         request.execute("GetCustomers", function (err, result) {
+//             if (err) {
+//                 res.status(500).json({ message: 'An error occurred on the server.' });
+//             }
+//             else if (result.recordset.length == 0) {
+//                 res.status(404).json({ message: 'There were no records found.' });
+//             }
+//             else {
+//                 res.json(result.recordset);
+//             }
+//             config.close();
+//         });
+//     });
+// }
 
 function getActiveCustomers(req, res) {
     // Connect to the MSSQL db
@@ -241,7 +241,7 @@ function destroy(req, res) {
 
 
 module.exports = {
-    index,
+    // index,
     getActiveCustomers,
     getById,
     getByEmail,
