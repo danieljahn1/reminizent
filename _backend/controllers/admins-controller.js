@@ -214,7 +214,7 @@ function login(req, res) {
                 // Compare the username and password
                 bcrypt.compare(req.body.Password, result.recordset[0].Password, function(err, isMatch) {
                     if (isMatch) {
-                        res.json(result.recordset);
+                        res.json({ success: false });                        
                     }
                     else {
                         res.json({ success: false });
