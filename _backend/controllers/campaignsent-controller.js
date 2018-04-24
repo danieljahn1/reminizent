@@ -18,8 +18,8 @@ function index(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the GetContactActivity stored procedure (all non-deleted ContactActivity records)
-        request.execute("GetContactActivity", function (err, result) {
+        // Execute the GetCampaignsSent stored procedure (returns all non-deleted campaignsent records)
+        request.execute("GetCampaignsSent", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -43,10 +43,38 @@ function getById(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the GetContactActivityById stored procedure
+        // Execute the GetCampaignSentById stored procedure
         // Stored procedure parameter needed: Id
         request.input('Id', sql.Int, req.params.id);
-        request.execute("GetContactActivityById", function (err, result) {
+        request.execute("GetCampaignSentById", function (err, result) {
+            if (err) {
+                res.status(500).json({ message: 'An error occurred on the server.' });
+            }
+            else if (result.recordset.length == 0) {
+                res.status(404).json({ message: 'There were no records found.' });
+            }
+            else {
+                res.json(result.recordset);
+            }
+            config.close();
+        });
+    });
+}
+
+function getByCampaignId(req, res) {
+    // Connect to the MSSQL db
+    config.connect(function (err) {
+        if (err) {
+            res.status(500).json({ message: 'An error occurred on the server.' });
+            return;
+        }
+
+        var request = new sql.Request(config);
+        // Execute the GetCampaignSentByCampaignId stored procedure
+        // Returns all sends by the CampaignID
+        // Stored procedure parameter needed: Id
+        request.input('CampaignId', sql.Int, req.params.id);
+        request.execute("GetCampaignSentByCampaignId", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -70,10 +98,11 @@ function getByCustomerId(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the GetContactActivityByCustomerId stored procedure
+        // Execute the GetCampaignSentByCustomerId stored procedure
+        // Returns all sends to a specific customerID
         // Stored procedure parameter needed: Id
         request.input('CustomerId', sql.Int, req.params.id);
-        request.execute("GetContactActivityByCustomerId", function (err, result) {
+        request.execute("GetCampaignSentByCustomerId", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -88,59 +117,6 @@ function getByCustomerId(req, res) {
     });
 }
 
-function getByAdminId(req, res) {
-    // Connect to the MSSQL db
-    config.connect(function (err) {
-        if (err) {
-            res.status(500).json({ message: 'An error occurred on the server.' });
-            return;
-        }
-
-        var request = new sql.Request(config);
-        // Execute the GetContactActivityByAdminId stored procedure
-        // Stored procedure parameter needed: Id
-        request.input('AdminId', sql.Int, req.params.id);
-        request.execute("GetContactActivityByAdminId", function (err, result) {
-            if (err) {
-                res.status(500).json({ message: 'An error occurred on the server.' });
-            }
-            else if (result.recordset.length == 0) {
-                res.status(404).json({ message: 'There were no records found.' });
-            }
-            else {
-                res.json(result.recordset);
-            }
-            config.close();
-        });
-    });
-}
-
-function getByContactMethod(req, res) {
-    // Connect to the MSSQL db
-    config.connect(function (err) {
-        if (err) {
-            res.status(500).json({ message: 'An error occurred on the server.' });
-            return;
-        }
-
-        var request = new sql.Request(config);
-        // Execute the GetActivityByContactMethod stored procedure
-        // Stored procedure parameter needed: ContactMethod
-        request.input('ContactMethod', sql.VarChar, req.params.contactmethod);
-        request.execute("GetActivityByContactMethod", function (err, result) {
-            if (err) {
-                res.status(500).json({ message: 'An error occurred on the server.' });
-            }
-            else if (result.recordset.length == 0) {
-                res.status(404).json({ message: 'There were no records found.' });
-            }
-            else {
-                res.json(result.recordset);
-            }
-            config.close();
-        });
-    });
-}
 
 function create(req, res) {
     // Connect to the MSSQL db
@@ -151,14 +127,11 @@ function create(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the CreateContactActivity stored procedure
-        // Stored procedure parameters needed: AdminId, CustomerId, DateContacted, ContactMethod, ContactMessage
-        request.input('AdminId', sql.Int, req.body.AdminID);
-        request.input('CustomerId', sql.Int, req.body.CustomerID);
-        request.input('DateContacted', sql.VarChar, req.body.DateContacted);
-        request.input('ContactMethod', sql.VarChar, req.body.ContactMethod);
-        request.input('ContactMessage', sql.VarChar, req.body.ContactMessage);
-        request.execute("CreateContactActivity", function (err, result) {
+        // Execute the CreateCampaignSent stored procedure
+        // Stored procedure parameters needed: CampaignID, CustomerID         
+        request.input('CampaignID', sql.Int, req.body.CampaignID);
+        request.input('CustomerID', sql.Int, req.body.CustomerID);
+        request.execute("CreateCampaignSent", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -182,22 +155,19 @@ function update(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the UpdateContactActivity stored procedure
-        // Stored procedure parameters needed: ID, AdminId, CustomerId, DateContacted, ContactMethod, ContactMessage
+        // Execute the UpdateCampaignSent stored procedure
+        // Stored procedure parameters needed: ID, CampaignID, CustomerID
         request.input('Id', sql.Int, req.params.id);
-        request.input('AdminId', sql.Int, req.body.AdminID);
-        request.input('CustomerId', sql.Int, req.body.CustomerID);
-        request.input('DateContacted', sql.VarChar, req.body.DateContacted);
-        request.input('ContactMethod', sql.VarChar, req.body.ContactMethod);
-        request.input('ContactMessage', sql.VarChar, req.body.ContactMessage);
-        request.execute("UpdateContactActivity", function (err, result) {
+        request.input('CampaignID', sql.Int, req.body.CampaignID);
+        request.input('CustomerID', sql.Int, req.body.CustomerID);
+        request.execute("UpdateCampaignSent", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
             // else if (result.recordset == undefined) {
             //     res.status(404).json({ message: 'There were no records found.' });
             // }
-            else {      
+            else {    
                 res.status(200).json({ message: 'Record updated successfully.' });
             }
             config.close();
@@ -214,10 +184,10 @@ function destroy(req, res) {
         }
 
         var request = new sql.Request(config);
-        // Execute the DeleteContactActivityById stored procedure. Sets the deleteflag to 1 (true)
+        // Execute the DeleteCampaignSent stored procedure. Sets the deleteflag to 1 (true)
         // Stored procedure parameter needed: Id
         request.input('Id', sql.Int, req.params.id);
-        request.execute("DeleteContactActivityById", function (err, result) {
+        request.execute("DeleteCampaignSent", function (err, result) {
             if (err) {
                 res.status(500).json({ message: 'An error occurred on the server.' });
             }
@@ -225,7 +195,7 @@ function destroy(req, res) {
             //     res.status(404).json({ message: 'There were no records found.' });
             // }
             else {
-                res.json({ message: 'Contact activity record has been removed.' });
+                res.json({ message: 'Campaign sent record has been removed.' });
             }
             config.close();
         });
@@ -236,9 +206,8 @@ function destroy(req, res) {
 module.exports = {
     index,
     getById,
+    getByCampaignId,
     getByCustomerId,
-    getByAdminId,
-    getByContactMethod,
     create,
     update,
     destroy
