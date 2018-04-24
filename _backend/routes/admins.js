@@ -7,6 +7,7 @@ router.get('/', adminsController.index );
 router.get('/id/:id', adminsController.getById);
 router.get('/email/:email', adminsController.getByEmail);
 
+router.post('/login', adminsController.login);
 router.post('/', adminsController.create);
 
 router.put('/:id', adminsController.update);
