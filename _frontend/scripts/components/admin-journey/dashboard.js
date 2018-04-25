@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import { Link, Switch, Route } from 'react-router-dom';
+
+import AddCustomer from './add-customer';
+import CustomerDetails from './details-customer';
+import EditCustomer from './edit-customer';
 
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
@@ -7,60 +12,60 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: [{
-                firstName: "AMBER",
-                lastName: "Schatz"
-            }
-            ]
-        }
+          
+        };
+       
     }
 
+
+    
     render() {
         const columns = [
             {
                 Header: "First Name",
                 accessor: 'firstName',
                 filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) 
+                    (row[filter.id].toLowerCase()).startsWith(filter.value)
             },
             {
                 Header: "Last Name",
                 accessor: 'lastName',
                 filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) 
+                    (row[filter.id].toLowerCase()).startsWith(filter.value)
             },
             {
                 Header: "Email",
                 accessor: "email",
                 filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) 
+                    (row[filter.id].toLowerCase()).startsWith(filter.value)
             },
             {
                 Header: "Phone Number",
                 accessor: "phoneNumber",
                 filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) 
+                    row[filter.id].startsWith(filter.value)
             },
             {
                 Header: "Last Contacted",
                 accessor: "date",
                 filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) 
+                    row[filter.id].startsWith(filter.value)
             },
             {
                 Header: "Lead Status",
                 accessor: "activity",
                 filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) 
+                    (row[filter.id].toLowerCase()).startsWith(filter.value)
             }
         ]
+
 
         return (
             <div className="body">
                 <div className="container">
                     <div className="row">
                         <div className="dashboard-top">
-                            <button className="btn pull-right">Add Customer</button>
+                            <Link to="/add-customer"> <button className="btn pull-right">Add Customer</button></Link>
                         </div>
                     </div>
 
@@ -70,10 +75,17 @@ class Dashboard extends Component {
                             filterable
                             defaultFilterMethod={(filter, row) =>
                                 String(row[filter.id]) === filter.value}
-                                
                             className="dashboard -highlight dashboard-table"
                             columns={columns}
                             defaultPageSize={10}
+                            SubComponent={row => {
+                                return (
+                                    <div>
+                                        <CustomerDetails/>
+                                    
+                                    </div>
+                                )
+                            }}
 
                         />
 

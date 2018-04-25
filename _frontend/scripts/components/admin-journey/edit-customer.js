@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Link, Switch, Route } from 'react-router-dom';
+
+import Dashboard from './dashboard'
 class EditCustomer extends Component {
     constructor(props) {
         super(props);
@@ -8,7 +11,7 @@ class EditCustomer extends Component {
         return (
             <div className="body">
                 <div className="container">
-                    <div className="col-md-12 addCustomerPage">
+                    <div className="col-md-12 editCustomerPage">
                         <div className="container">
                             <div className="row">
                                 <h2 style={{ margin: 20 }}>Edit Customer</h2>
@@ -70,7 +73,7 @@ class EditCustomer extends Component {
                                 </div>
 
                                 <div className="row" >
-                                    <button className="btn col-md-2 col-md-offset-9">Submit</button>
+                                   <Link to="/"> <button className="btn col-md-2 col-md-offset-9">Submit</button></Link>
                                 </div>
                             </div>
 

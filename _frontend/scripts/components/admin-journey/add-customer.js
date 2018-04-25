@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {Link, Route} from 'react-router-dom';
+
+import Dashboard from "./dashboard";
 class AddCustomer extends Component {
     constructor(props) {
         super(props);
@@ -70,7 +73,7 @@ class AddCustomer extends Component {
                                 </div>
 
                                 <div className="row" style={{ margin: 10 }}>
-                                    <button className="btn col-md-2 col-md-offset-9">Submit</button>
+                                    <Link to="/"><button className="btn col-md-2 col-md-offset-9">Submit</button></Link>
                                 </div>
                             </div>
 

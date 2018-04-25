@@ -28,23 +28,23 @@ class Container extends Component {
     render() { 
         return (
             <div className=" body">
-            <Menu/>
-            {/* <AdminLogIn/> */}
+            {/* <Menu/>
+            <AdminLogIn/>
             <SignUp/>
-            {/* <Success/> */}
+            <Success/>
          
-            {/* <Jumbotron/> */}
-            <MainFooter/>
+            <Jumbotron/>
+            <MainFooter/> */}
             
             
 
-            {/* <AdminMenu>
-                <Dashboard/>
+            <AdminMenu>
+                {/* <Dashboard/>
                 <AddCustomer/>
                 <CustomerDetails/>
-                <EditCustomer/>
+                <EditCustomer/> */}
             </AdminMenu>
-            <AdminFooter/> */}
+            <AdminFooter/>
             </div>
         )
     }

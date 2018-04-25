@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
+import { Link, Switch, Route } from 'react-router-dom';
+import EditCustomer from './edit-customer';
+
 class CustomerDetails extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+
+        }
+
+
     }
 
-    handleEdit(){
-        
-    }
+
 
     render() {
         return (
 
             <div className="container">
-                <div className="col-md-12 addCustomerPage">
-                    <div className="container">
-                        <div className="row">
-                            <h2 style={{ margin: 20 }}>Customer Details</h2>
-                        </div>
+                <div className="col-md-11 ">
+                    <div className="container addCustomerPage">
 
-                        {/* main customer table- display customer provided or agent input information */}
-
-                        <table className="col-md-11 table1">
+                        <table className="col-md-10 table1">
                             <tbody>
 
                                 <tr>
@@ -64,7 +64,7 @@ class CustomerDetails extends Component {
                                     <th className="col-md-1">Notes:</th>
                                     <td className="col-md-10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore nostrum cupiditate dolore sint non perspiciatis lorem
                                     distinctio voluptatum ipsam officiis error veritatis id eligendi, nihil excepturi recusandae maxime dolores inventore nesciunt.
-                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui voluptatem doloremque enim sequi iusto nulla velit optio ullam consectetur 
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui voluptatem doloremque enim sequi iusto nulla velit optio ullam consectetur
                                     asperiores aut similique ex, numquam reiciendis suscipit ipsum fuga ab cupiditate.</td>
                                 </tr>
                             </tbody>
@@ -73,11 +73,11 @@ class CustomerDetails extends Component {
                         {/* Edit button-- toggle page to edit form */}
 
                         <div className="row" style={{ margin: 10 }}>
-                            <button className="btn col-md-2 col-md-offset-9" onClick={this.handleEdit}>Edit</button>
+                        <Link to="/edit-customer"><button className="btn col-md-2 col-md-offset-9"> Edit</button></Link>
                         </div>
 
                     </div>
-                
+
 
                 </div>
             </div>
