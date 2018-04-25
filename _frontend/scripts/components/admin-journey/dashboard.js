@@ -3,18 +3,28 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
+import axios from 'axios';
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            activeCustomers: []
         }
 
     }
 
     componentDidMount() {
         console.log(this.props.adminLoginToken)
+        axios.get("http://localhost:3000/customer/active?token=" + this.props.adminLoginToken) 
+            .then(response =>  {
+                console.log(response.data)
+
+                this.setState({
+                    activeCustomers: response.data
+                })
+            })
+        
     }
 
     render() {
@@ -75,7 +85,7 @@ class Dashboard extends Component {
                         {/* table for the display of customers in data base and SubComponent that displays further deatils of customer and customer interaction */}
 
                         <ReactTable
-                            data={fakeData()}
+                            data={this.state.activeCustomers}
                             filterable
                             defaultFilterMethod={(filter, row) =>
                                 String(row[filter.id]) === filter.value}
