@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+
 class MainFooter extends Component {
     constructor(props) {
         super(props);
@@ -6,7 +8,7 @@ class MainFooter extends Component {
     }
     render() {
         return (
-            <div className="body">
+            <div className="body footer-style">
                 <div className="container-fluid">
                     <div className="col-md-12">
                         <div className="main-footer">

@@ -1,19 +1,19 @@
 const initialState = {
-    loggedInAdmin: '',
+    adminLoginToken: '',
     customerObject: ''
 }
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ("SET_LOGIN_SESSION"):
+        case ("SET_LOGIN_TOKEN"):
             state = {
                 ...state,
-                loggedInUser: action.payload
+                adminLoginToken: action.payload
             }
             break;
-        case ("CLEAR_LOGIN_SESSION"):
+        case ("CLEAR_LOGIN_TOKEN"):
             state = {
-                loggedInUser: action.payload
+                adminLoginToken: action.payload
             }
             break;
         case ("SET_CUSTOMER_OBJECT"):
