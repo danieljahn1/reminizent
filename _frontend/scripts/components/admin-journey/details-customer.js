@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
-import EditCustomer from './edit-customer';
+import { connect } from 'react-redux';
+import axios from 'axios';
 
 class CustomerDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            customer: '',
         }
-
     }
 
+    componentDidMount() {
+        axios.get('http://localhost:3000/customer/id/' + this.props.customerObject.ID)
+            .then(response => {
+                this.setState({
+                    customer: response.data[0]
+                })
+                console.log(this.state.customer)
+            })
+    }
+
+    
     render() {
         return (
 
@@ -23,24 +33,24 @@ class CustomerDetails extends Component {
 
                                 <tr>
                                     <th className="input2"> First Name: </th>
-                                    <td>first name</td>
+                                    <td>{this.state.customer.FirstName}</td>
                                     <th className="input1">Last Name:</th>
-                                    <td>last name</td>
+                                    <td>{this.state.customer.LastName}</td>
                                     <th className="input1">E-mail:</th>
-                                    <td>email@email.com</td>
+                                    <td>{this.state.customer.Email}</td>
                                     <th className="input1">Phone Numer:</th>
-                                    <td>777-777-7777</td>
+                                    <td>{this.state.customer.Phone}</td>
                                 </tr>
                                 <br />
                                 <tr>
                                     <th className="input2">Company:</th>
-                                    <td>Company Name</td>
+                                    <td>{this.state.customer.Company}</td>
                                     <th className="input1">Intrest:</th>
-                                    <td>intrest name</td>
+                                    <td>{this.state.customer.AreaOfInterest}</td>
                                     <th className="input1">Referal Type:</th>
-                                    <td>Referal</td>
+                                    <td>{this.state.customer.HeardAbout}</td>
                                     <th className="input1">Name of Referal:</th>
-                                    <td>Name of person</td>
+                                    <td>{this.state.customer.Referral}</td>
                                 </tr>
                                 <br />
                                 <tr>
@@ -70,7 +80,7 @@ class CustomerDetails extends Component {
                         {/* Edit button-- toggle page to edit form */}
 
                         <div className="row" style={{ margin: 10 }}>
-                        <Link to="/edit-customer"><button className="btn col-md-2 col-md-offset-9"> Edit</button></Link>
+                            <button className="btn col-md-2 col-md-offset-9" onClick={this.handleEdit.bind(this)}>Edit</button>
                         </div>
 
                     </div>
@@ -83,4 +93,10 @@ class CustomerDetails extends Component {
     }
 }
 
-export default CustomerDetails;
+const mapStateToProps = state => {
+    return {
+        customerObject: state.customerObject,
+    }
+}
+
+export default connect(mapStateToProps)(CustomerDetails);

@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
-
-import AddCustomer from './add-customer';
-import CustomerDetails from './details-customer';
-import EditCustomer from './edit-customer';
-
+import { Link } from 'react-router-dom';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
@@ -66,7 +61,7 @@ class Dashboard extends Component {
                     <div className="row">
 
                         <div className="dashboard-top">
-                            <Link to="/add-customer"> <button className="btn pull-right">Add Customer</button></Link>
+                            <Link to="/admin-subscribe"><button className="btn pull-right">Add Customer</button></Link>
                         </div>
                     </div>
 
