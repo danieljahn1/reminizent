@@ -31,10 +31,10 @@ class Container extends Component {
             <div className=" body">
             <Menu/>
             {/* <AdminLogIn/> */}
-            <SignUp/>
+            {/* <SignUp/> */}
             {/* <Success/> */}
          
-            {/* <Jumbotron/> */}
+            <Jumbotron/>
             <MainFooter/>
             
             
