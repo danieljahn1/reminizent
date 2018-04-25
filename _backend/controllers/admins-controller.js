@@ -2,6 +2,7 @@ var sql = require('mssql');
 require('dotenv').load();
 var bcrypt = require('bcryptjs');
 
+
 const config = new sql.ConnectionPool({
     server: process.env.RDS_HOSTNAME,
     database: process.env.RDS_DB_NAME,
@@ -213,7 +214,8 @@ function login(req, res) {
                 
                 // Compare the username and password
                 bcrypt.compare(req.body.Password, result.recordset[0].Password, function(err, isMatch) {
-                    if (isMatch) {
+                    if (isMatch) {                    
+                        
                         res.json({ success: true });                        
                     }
                     else {
@@ -226,6 +228,7 @@ function login(req, res) {
         });
     });
 }
+
 
 module.exports = {
     index,
