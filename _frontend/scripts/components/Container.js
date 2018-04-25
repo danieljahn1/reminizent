@@ -36,6 +36,7 @@ class Container extends Component {
          
             <Jumbotron/>
             <MainFooter/>
+            {/* <LearnMore/> */}
             
             
 
