@@ -14,16 +14,7 @@ class AdminMenu extends Component {
             active: true,
         }
     }
-    toggleEdit = () => {
-        this.setState((prevState) => {
-            active: !prevState.active
-        });
-    }
-
-    onClick(){
-
-    }
-
+  
     render() {
         return (
             <div>
@@ -51,17 +42,16 @@ class AdminMenu extends Component {
 
                 {/* everything will have to be toggled from the admin menu bar components */}
                 <div>
-                    {/* <Dashboard active={this.state.active} />
-                    <AddCustomer onClick={this.toggleEdit}/> */}
-                    {/* <CustomerDetials/> */}
-                    {/* <EditCustomer active={this.state.active} onClick={this.toggleEdit}/> */}
+                    {/* <Dashboard/> */}
+                    {/* <CustomerDetials/>
+                    <EditCustomer /> */}
                 </div>
 
                     <Switch>
-                        <Route exact path ="/" render={() =><Dashboard/>}/>
+                        <Route exact path ="/" component={Dashboard}/>
                         <Route exact path ="/add-customer" component={AddCustomer}/>
-                        <Route exact path ="/details-customer" render={() =><CustomerDetials/>}/>
-                        <Route exact path ="/edit-customer" render={() =><EditCustomer/>}/>
+                        <Route exact path ="/details-customer" component={CustomerDetials}/>
+                        <Route exact path ="/edit-customer" component={EditCustomer}/>
 
                     </Switch>
 

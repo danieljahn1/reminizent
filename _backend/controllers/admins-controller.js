@@ -1,5 +1,6 @@
 var sql = require('mssql');
 require('dotenv').load();
+var bcrypt = require('bcryptjs');
 
 const config = new sql.ConnectionPool({
     server: process.env.RDS_HOSTNAME,
@@ -89,32 +90,46 @@ function getByEmail(req, res) {
 }
 
 function create(req, res) {
-    // Connect to the MSSQL db
-    config.connect(function (err) {
+    // Hash and salt the password
+    bcrypt.genSalt(12, function(err, salt) {
         if (err) {
             res.status(500).json({ message: 'An error occurred on the server.' });
             return;
         }
 
-        var request = new sql.Request(config);
-        // Execute the CreateAdminAccount stored procedure
-        // Stored procedure parameters needed: Email, Password (encrypt), Role
-        request.input('Email', sql.VarChar, req.body.Email);
-        request.input('Password', sql.VarChar, req.body.Password);
-        request.input('Role', sql.VarChar, req.body.Role);
-        request.execute("CreateAdminAccount", function (err, result) {
-            if (err) {
-                res.status(500).json({ message:  'An error occurred on the server.' });
-            }
-            // else if (result.recordset.length == 0) {
-            //     res.status(404).json({ message: 'There were no records found.' });
-            // }
-            else {
-                res.status(200).json({ message: 'Record added successfully.' });
-            }
-            config.close();
+        bcrypt.hash(req.body.Password, salt, function(err, hash) {
+            // Store the hashed password in MSSQL
+            // console.log("hash- " + hash);
+
+            // Connect to the MSSQL db
+            config.connect(function (err) {
+                if (err) {
+                    res.status(500).json({ message: 'An error occurred on the server.' });
+                    return;
+                }
+
+                var request = new sql.Request(config);
+                // Execute the CreateAdminAccount stored procedure
+                // Stored procedure parameters needed: Email, Password (encrypt), Role
+                request.input('Email', sql.VarChar, req.body.Email);
+                request.input('Password', sql.VarChar, hash); //req.body.Password
+                request.input('Role', sql.VarChar, req.body.Role);
+                request.execute("CreateAdminAccount", function (err, result) {
+                    if (err) {
+                        res.status(500).json({ message:  'An error occurred on the server.' });
+                    }
+                    // else if (result.recordset.length == 0) {
+                    //     res.status(404).json({ message: 'There were no records found.' });
+                    // }
+                    else {
+                        res.status(200).json({ message: 'Record added successfully.' });
+                    }
+                    config.close();
+                });
+            });
         });
     });
+
 }
 
 function update(req, res) {
@@ -174,11 +189,50 @@ function destroy(req, res) {
     });
 }
 
+function login(req, res) {
+    // Authenticate the user based on the email and password  'An error occurred on the server.'
+     // Connect to the MSSQL db
+     config.connect(function (err) {
+        if (err) {
+            res.status(500).json({ message:  err });
+            return;
+        }
+
+        var request = new sql.Request(config);
+        // Execute the GetLogin stored procedure.
+        // Stored procedure parameter needed: Email
+        request.input('Email', sql.VarChar, req.body.Email);
+        request.execute("GetLogin", function (err, result) {
+            if (err) {
+                res.status(500).json({ message: err });
+            }
+            else if (result.recordset.length == 0) {
+                res.status(404).json({ message: 'There were no records found.' });
+            }
+            else {
+                
+                // Compare the username and password
+                bcrypt.compare(req.body.Password, result.recordset[0].Password, function(err, isMatch) {
+                    if (isMatch) {
+                        res.json({ success: true });                        
+                    }
+                    else {
+                        res.json({ success: false });
+                    }
+                })
+                
+            }
+            config.close();
+        });
+    });
+}
+
 module.exports = {
     index,
     getById,
     getByEmail,
     create,
     update,
-    destroy
+    destroy,
+    login
 }

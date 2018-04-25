@@ -9,10 +9,7 @@ class CustomerDetails extends Component {
 
         }
 
-
     }
-
-
 
     render() {
         return (

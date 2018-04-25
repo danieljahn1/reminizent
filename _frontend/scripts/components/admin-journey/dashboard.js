@@ -12,14 +12,14 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          
+
         };
-       
+
     }
 
-
-    
     render() {
+
+        // function that creates the columns for the dashboard
         const columns = [
             {
                 Header: "First Name",
@@ -64,12 +64,16 @@ class Dashboard extends Component {
             <div className="body">
                 <div className="container">
                     <div className="row">
+
                         <div className="dashboard-top">
                             <Link to="/add-customer"> <button className="btn pull-right">Add Customer</button></Link>
                         </div>
                     </div>
 
                     <div className="container">
+
+                        {/* table for the display of customers in data base and SubComponent that displays further deatils of customer and customer interaction */}
+
                         <ReactTable
                             data={fakeData()}
                             filterable
@@ -81,8 +85,8 @@ class Dashboard extends Component {
                             SubComponent={row => {
                                 return (
                                     <div>
-                                        <CustomerDetails/>
-                                    
+                                        <CustomerDetails />
+
                                     </div>
                                 )
                             }}
@@ -94,6 +98,7 @@ class Dashboard extends Component {
             </div>
         )
 
+        // function for dummy data 
 
         function fakeData() {
             return [
