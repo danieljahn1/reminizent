@@ -33,7 +33,6 @@
     background-color: #FAFAFA;
     font-family: 'Cormorant Garamond', serif;
     color: #707070;
-    /* padding-bottom: 30px; */
   }
   .input1{
     margin:8px;
@@ -169,9 +168,9 @@
 .main-footer{
   margin-top: 50px;
   border-top: 2px solid #707070;
-  height: 100%;
+  min-height: 100%;
   background-color: #FAFAFA;
-  padding-bottom: 100%;
+  padding-bottom: 12%;
   overflow: hidden;
 }
 .footer-links{

@@ -16,7 +16,8 @@ import AddCustomer from './admin-journey/add-customer';
 import CustomerDetails from './admin-journey/details-customer';
 import EditCustomer from './admin-journey/edit-customer';
 import AdminFooter from './admin-journey/admin-footer';
-import AdminLogIn from './admin-journey/admin-login'
+import AdminLogIn from './admin-journey/admin-login';
+import NewNote from './admin-journey/notes';
 
 class Container extends Component {
     constructor(props) {
@@ -37,6 +38,8 @@ class Container extends Component {
                     <Route path='/admin-dashboard' component={Dashboard} />
                     <Route path='/admin-customer' component={CustomerDetails} />
                     <Route path='/admin-subscribe' component={AddCustomer} />
+                    <Route path='/edit-customer' component={EditCustomer} />
+                    <Route path='/notes' component={NewNote} />
                 </Switch>
                 <MainFooter />
             </div>

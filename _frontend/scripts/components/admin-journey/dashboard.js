@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
+import CustomerDetails from './details-customer';
+import NewNote from './notes';
+
 class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -81,7 +84,6 @@ class Dashboard extends Component {
                                 return (
                                     <div>
                                         <CustomerDetails />
-
                                     </div>
                                 )
                             }}
