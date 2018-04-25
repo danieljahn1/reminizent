@@ -15,7 +15,7 @@ class Menu extends Component {
                     <div className="col-md-12 userMenu">
 
                         <div className="col-md-4"> 
-                        <Link to="/"><h1 className="large-header"> Reminizent</h1></Link>
+                        <Link to="/" style={{textDecoration:"none"}}><h1 className="large-header"> Reminizent</h1></Link>
                         </div>
                         <Link to="admin-login"><div className="col-md-1 col-md-offset-7 log-in-btn "><button className="btn pull-right">Log In</button></div></Link>
 

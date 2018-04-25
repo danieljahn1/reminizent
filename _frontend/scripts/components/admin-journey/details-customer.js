@@ -20,23 +20,15 @@ class CustomerDetails extends Component {
             })
     }
 
-    handleEdit(){
-        
-    }
-
+    
     render() {
         return (
 
             <div className="container">
-                <div className="col-md-12 addCustomerPage">
-                    <div className="container">
-                        <div className="row">
-                            <h2 style={{ margin: 20 }}>Customer Details</h2>
-                        </div>
+                <div className="col-md-11 ">
+                    <div className="container addCustomerPage">
 
-                        {/* main customer table- display customer provided or agent input information */}
-
-                        <table className="col-md-11 table1">
+                        <table className="col-md-10 table1">
                             <tbody>
 
                                 <tr>
@@ -79,7 +71,7 @@ class CustomerDetails extends Component {
                                     <th className="col-md-1">Notes:</th>
                                     <td className="col-md-10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore nostrum cupiditate dolore sint non perspiciatis lorem
                                     distinctio voluptatum ipsam officiis error veritatis id eligendi, nihil excepturi recusandae maxime dolores inventore nesciunt.
-                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui voluptatem doloremque enim sequi iusto nulla velit optio ullam consectetur 
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui voluptatem doloremque enim sequi iusto nulla velit optio ullam consectetur
                                     asperiores aut similique ex, numquam reiciendis suscipit ipsum fuga ab cupiditate.</td>
                                 </tr>
                             </tbody>
@@ -92,7 +84,7 @@ class CustomerDetails extends Component {
                         </div>
 
                     </div>
-                
+
 
                 </div>
             </div>
