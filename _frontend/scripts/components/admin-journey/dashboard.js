@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table';
+import CustomerDetails from './details-customer';
 import 'react-table/react-table.css';
 import axios from 'axios';
+
+import CustomerDetails from './details-customer';
+import NewNote from './notes';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -96,7 +100,6 @@ class Dashboard extends Component {
                                 return (
                                     <div>
                                         <CustomerDetails />
-
                                     </div>
                                 )
                             }}

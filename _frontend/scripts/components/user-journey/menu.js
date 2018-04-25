@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 
 class Menu extends Component {
     constructor(props) {
         super(props);
         this.state = {}
-    }a
+    }
+
     render() {
         return (
             <div className="body">
@@ -17,8 +19,12 @@ class Menu extends Component {
                         <div className="col-md-4"> 
                         <Link to="/" style={{textDecoration:"none"}}><h1 className="large-header"> Reminizent</h1></Link>
                         </div>
+                        {(!this.props.adminLoginToken == '')
+                        ?
+                        <div className="col-md-1 col-md-offset-7 log-in-btn "><button className="btn pull-right" onClick={this.logOut.bind(this)}>Log Out</button></div>
+                        :
                         <Link to="admin-login"><div className="col-md-1 col-md-offset-7 log-in-btn "><button className="btn pull-right">Log In</button></div></Link>
-
+                        }
                     </div>
                 </div>
             </div>
@@ -26,5 +32,10 @@ class Menu extends Component {
         )
     }
 }
+const mapStateToProps = state => {
+    return {
+        adminLoginToken: state.adminLoginToken
+    }
+}
 
-export default Menu;
+export default connect(mapStateToProps)(Menu);
