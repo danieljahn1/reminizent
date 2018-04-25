@@ -1,7 +1,12 @@
 var sql = require('mssql');
 require('dotenv').load();
 var bcrypt = require('bcryptjs');
+var jwt = require('jsonwebtoken'); 
 
+var configjs = require('../config/config');
+var express = require('express');
+var app = express();
+app.set('superSecret', configjs.secret);
 
 const config = new sql.ConnectionPool({
     server: process.env.RDS_HOSTNAME,
@@ -215,8 +220,22 @@ function login(req, res) {
                 // Compare the username and password
                 bcrypt.compare(req.body.Password, result.recordset[0].Password, function(err, isMatch) {
                     if (isMatch) {                    
-                        
-                        res.json({ success: true });                        
+                        // Username and password match. Create token
+                        const payload = {
+                            admin: result.recordset[0].Email
+                        };
+
+                        var token = jwt.sign(payload, app.get('superSecret'), {
+                            expiresIn: '1h' // expires in 1 hour
+                          });                  
+                  
+                          // return the information including token as JSON
+                          res.json({
+                            success: true,
+                            message: 'Here is your token.',
+                            token: token
+                          });
+                   
                     }
                     else {
                         res.json({ success: false });
