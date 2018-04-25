@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 class SignUp extends Component {
@@ -20,7 +20,7 @@ class SignUp extends Component {
     userSignUp(e) {
         e.preventDefault();
         if (this.state.emailAddress != '' && this.state.firstName != '' && this.state.lastName != '') {
-            var body = {
+            var customerBody = {
                 "FirstName": this.state.firstName,
                 "LastName": this.state.lastName,
                 "Company": this.state.companyName,
@@ -30,31 +30,39 @@ class SignUp extends Component {
                 "HeardAbout": this.state.referralType,
                 "Referral": this.state.referralName
             }
-            axios.post('http://localhost:3000/customer', body)
+            axios.post('http://localhost:3000/customer', customerBody)
                 .then(response => {
-                    console.log(response.data[0])
-                    var body = {
-                        "email_address": this.state.emailAddress,
-                        "status": 'subscribed',
-                        "merge_fields": {
-                            "FNAME": this.state.firstName,
-                            "LNAME": this.state.lastName,
-                            "PHONE": this.state.phoneNumber,
-                            "COMPANY": this.state.companyName,
-                            "REQUEST": this.state.requestType,
-                            "REFERRAL": this.state.referralType,
-                            "REFERREDBY": this.state.referralName
-                        }
+                    var activityBody = {
+                        "CustomerID": response.data[0].ID,
+                        "DateCreated": new Date,
+                        "DateLastContacted": "",
+                        "Source": "Internet"
                     }
-                    axios.post('http://localhost:3000/subscriptions', body)
+                    axios.post('http://localhost:3000/activity', activityBody)
                         .then(response => {
-                            this.setState({
-                                redirect: true
-                            })
-                            console.log(response)
-                        })
-                        .catch(err => {
-                            console.log(err)
+                            var subscribeBody = {
+                                "email_address": this.state.emailAddress,
+                                "status": 'subscribed',
+                                "merge_fields": {
+                                    "FNAME": this.state.firstName,
+                                    "LNAME": this.state.lastName,
+                                    "PHONE": this.state.phoneNumber,
+                                    "COMPANY": this.state.companyName,
+                                    "REQUEST": this.state.requestType,
+                                    "REFERRAL": this.state.referralType,
+                                    "REFERREDBY": this.state.referralName
+                                }
+                            }
+                            axios.post('http://localhost:3000/subscriptions', subscribeBody)
+                                .then(response => {
+                                    this.setState({
+                                        redirect: true
+                                    })
+                                    console.log(response)
+                                })
+                                .catch(err => {
+                                    console.log(err)
+                                })
                         })
                 })
         }

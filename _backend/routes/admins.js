@@ -1,5 +1,9 @@
 var express = require('express');
 var router = express.Router();
+
+var cors = require('cors')
+router.use(cors())
+
 const adminsController = require('../controllers/admins-controller');
 
 // var auth = require('../controllers/auth');

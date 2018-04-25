@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
@@ -60,7 +60,7 @@ class Dashboard extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="dashboard-top">
-                            <button className="btn pull-right">Add Customer</button>
+                            <Link to="/admin-subscribe"><button className="btn pull-right">Add Customer</button></Link>
                         </div>
                     </div>
 
