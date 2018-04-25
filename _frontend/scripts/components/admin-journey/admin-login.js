@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
-import axios from 'axios'
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setLoginSession } from '../../redux/actions';
+import axios from 'axios';
 
 class AdminLogIn extends Component {
     constructor(props) {
@@ -8,6 +10,7 @@ class AdminLogIn extends Component {
         this.state = {
             email: '',
             password: '',
+            adminLoginToken: '',
             redirect: false
         }
     }
@@ -21,7 +24,9 @@ class AdminLogIn extends Component {
             }
             axios.post('http://localhost:3000/admin/login', body)
                 .then(response => {
+                    // if login response = success, get admin by email/email and set response to this.state.loggedInUser and then send it to redux
                     this.setState({
+                        adminLoginToken: adminLoginToken,
                         redirect: true
                     })
                     console.log(response);
@@ -69,4 +74,16 @@ class AdminLogIn extends Component {
     }
 }
 
-export default AdminLogIn;
+const mapStateToProps = state => {
+    return {
+        adminLoginToken: state.adminLoginToken,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        sendAdminObjToRedux: adminLoginToken => dispatch(setLoginToken(adminLoginToken)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminLogIn);
