@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
@@ -8,8 +9,12 @@ class Dashboard extends Component {
         super(props);
         this.state = {
 
-        };
+        }
 
+    }
+
+    componentDidMount() {
+        console.log(this.props.adminLoginToken)
     }
 
     render() {
@@ -239,4 +244,10 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard;
+const mapStateToProps = state => {
+    return {
+        adminLoginToken: state.adminLoginToken,
+    }
+}
+
+export default connect(mapStateToProps)(Dashboard);
