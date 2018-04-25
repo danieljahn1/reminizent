@@ -31,6 +31,10 @@ class Menu extends Component {
             </div>
         )
     }
+
+    logOut() {
+        
+    }
 }
 const mapStateToProps = state => {
     return {

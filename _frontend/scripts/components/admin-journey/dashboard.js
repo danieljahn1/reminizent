@@ -6,7 +6,6 @@ import CustomerDetails from './details-customer';
 import 'react-table/react-table.css';
 import axios from 'axios';
 
-import CustomerDetails from './details-customer';
 import NewNote from './notes';
 
 class Dashboard extends Component {
@@ -37,37 +36,37 @@ class Dashboard extends Component {
         const columns = [
             {
                 Header: "First Name",
-                accessor: 'firstName',
+                accessor: 'FirstName',
                 filterMethod: (filter, row) =>
                     (row[filter.id].toLowerCase()).startsWith(filter.value)
             },
             {
                 Header: "Last Name",
-                accessor: 'lastName',
+                accessor: 'LastName',
                 filterMethod: (filter, row) =>
                     (row[filter.id].toLowerCase()).startsWith(filter.value)
             },
             {
                 Header: "Email",
-                accessor: "email",
+                accessor: "Email",
                 filterMethod: (filter, row) =>
                     (row[filter.id].toLowerCase()).startsWith(filter.value)
             },
             {
                 Header: "Phone Number",
-                accessor: "phoneNumber",
+                accessor: "Phone",
                 filterMethod: (filter, row) =>
                     row[filter.id].startsWith(filter.value)
             },
+            // {
+            //     Header: "Last Contacted",
+            //     accessor: "date",
+            //     filterMethod: (filter, row) =>
+            //         row[filter.id].startsWith(filter.value)
+            // },
             {
-                Header: "Last Contacted",
-                accessor: "date",
-                filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value)
-            },
-            {
-                Header: "Lead Status",
-                accessor: "activity",
+                Header: "Status",
+                accessor: "Status",
                 filterMethod: (filter, row) =>
                     (row[filter.id].toLowerCase()).startsWith(filter.value)
             }
