@@ -13,6 +13,7 @@ app.set('superSecret', configjs.secret);
 
 router.post('/', custController.create);
 
+
 // route middleware to verify a token
 router.use(function(req, res, next) {
 

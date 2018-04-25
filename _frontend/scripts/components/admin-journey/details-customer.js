@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 class CustomerDetails extends Component {
     constructor(props) {
@@ -11,7 +12,7 @@ class CustomerDetails extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/customer/id/' + this.props.customerObject.ID)
+        axios.get('http://localhost:3000/customer/id/' + this.props.customerObject.ID + '?token=' + this.props.adminLoginToken)
             .then(response => {
                 this.setState({
                     customer: response.data[0]
@@ -54,34 +55,15 @@ class CustomerDetails extends Component {
                                     <td>{this.state.customer.Referral}</td>
                                 </tr>
                                 <br />
-                                <tr>
-                                    <th className="input2">Date:</th>
-                                    <td>01/01/2018</td>
-                                    <th>Method of Contact:</th>
-                                    <td>method type</td>
-                                </tr>
-                                <br />
-                            </tbody>
-                        </table>
-
-                        {/* notes table-for customer information not avalible in form fields */}
-
-                        <table>
-                            <tbody className="col-md-11">
-                                <tr>
-                                    <th className="col-md-1">Notes:</th>
-                                    <td className="col-md-10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore nostrum cupiditate dolore sint non perspiciatis lorem
-                                    distinctio voluptatum ipsam officiis error veritatis id eligendi, nihil excepturi recusandae maxime dolores inventore nesciunt.
-                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui voluptatem doloremque enim sequi iusto nulla velit optio ullam consectetur
-                                    asperiores aut similique ex, numquam reiciendis suscipit ipsum fuga ab cupiditate.</td>
-                                </tr>
                             </tbody>
                         </table>
 
                         {/* Edit button-- toggle page to edit form */}
 
                         <div className="row" style={{ margin: 10 }}>
-                            <button className="btn col-md-2 col-md-offset-9" onClick={this.handleEdit.bind(this)}>Edit</button>
+                         <Link to="/notes">   <button className="btn col-md-2 " style={{ margin: 10 }}>New Note</button></Link>
+                        
+                         <Link to="/edit-customer">   <button className="btn col-md-2 " style={{ margin: 10 }}>Edit</button></Link>
                         </div>
 
                     </div>
@@ -96,6 +78,7 @@ class CustomerDetails extends Component {
 
 const mapStateToProps = state => {
     return {
+        adminLoginToken: state.adminLoginToken,
         customerObject: state.customerObject,
     }
 }
