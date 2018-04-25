@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table';
+import CustomerDetails from './details-customer';
 import 'react-table/react-table.css';
 
 class Dashboard extends Component {
@@ -13,9 +14,9 @@ class Dashboard extends Component {
 
     }
 
-    componentDidMount() {
-        console.log(this.props.adminLoginToken)
-    }
+    // componentDidMount() {
+    //     console.log(this.props.adminLoginToken)
+    // }
 
     render() {
 
