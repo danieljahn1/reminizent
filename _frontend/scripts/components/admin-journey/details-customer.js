@@ -11,7 +11,7 @@ class CustomerDetails extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/customer/id/' + this.props.customerObject.ID)
+        axios.get('http://localhost:3000/customer/id/' + this.props.customerObject.ID + '?token=' + this.props.adminLoginToken)
             .then(response => {
                 this.setState({
                     customer: response.data[0]
@@ -80,7 +80,7 @@ class CustomerDetails extends Component {
                         {/* Edit button-- toggle page to edit form */}
 
                         <div className="row" style={{ margin: 10 }}>
-                            <button className="btn col-md-2 col-md-offset-9" onClick={this.handleEdit.bind(this)}>Edit</button>
+                            <button className="btn col-md-2 col-md-offset-9" >Edit</button>
                         </div>
 
                     </div>
@@ -95,6 +95,7 @@ class CustomerDetails extends Component {
 
 const mapStateToProps = state => {
     return {
+        adminLoginToken: state.adminLoginToken,
         customerObject: state.customerObject,
     }
 }

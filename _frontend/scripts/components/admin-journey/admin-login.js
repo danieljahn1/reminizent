@@ -48,7 +48,7 @@ class AdminLogIn extends Component {
     render() {
         const { redirect } = this.state;
         if (redirect) {
-            return <Redirect to={"/admin-dashboard?token=-" + this.state.adminLoginToken }/>
+            return <Redirect to="/admin-dashboard"/>
         }
 
         return (

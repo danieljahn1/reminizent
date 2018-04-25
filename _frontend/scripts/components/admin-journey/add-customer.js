@@ -16,9 +16,6 @@ class AddCustomer extends Component {
             requestType: '',
             referralType: '',
             referralName: '',
-            contactMethod: '',
-            contactDate: '',
-            notes: '',
             customerObject: '',
             redirect: false
         }
@@ -42,7 +39,7 @@ class AddCustomer extends Component {
                     var activityBody = {
                         "CustomerID": response.data[0].ID,
                         "DateCreated": new Date,
-                        "DateLastContacted": this.state.contactDate,
+                        "DateLastContacted": new Date,
                         "Source": "OGI Rep"
                     }
                     this.setState({
@@ -133,24 +130,6 @@ class AddCustomer extends Component {
                                         <label htmlFor="" className="input1">Name of Referal</label>
                                         <input className="form-control" type="text" placeholder="" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} />
                                     </div>
-                                </div>
-
-                                <div className="row row-spacing">
-                                    <div className="form-inline col-md-10">
-                                        <label htmlFor="" className="input2">Date</label>
-                                        <input className="form-control" type="date" id="datePicker" value={this.state.contactDate} onChange={(e) => { this.setState({ contactDate: e.target.value }) }} />
-                                        <label htmlFor="" className="input1">Method of Contact</label>
-                                        <select className="form-control" value={this.state.contactMethod} onChange={(e) => { this.setState({ contactMethod: e.target.value }) }}>
-                                            <option>Email</option>
-                                            <option>Phone</option>
-                                            <option>In Person</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <label htmlFor="">Notes</label>
-                                <div className="row row-spacing">
-                                    <textarea className=" addCustomerForm col-md-11" id="cutomerNote" cols="30" rows="5" value={this.state.notes} onChange={(e) => { this.setState({ notes: e.target.value }) }}></textarea>
                                 </div>
 
                                 <div className="row" style={{ margin: 10 }}>
