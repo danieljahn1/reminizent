@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link, Switch, Route } from 'react-router-dom'
+import Navbar from './user-journey/nav-bar'
 
 // component imports
 // user imports
@@ -8,6 +9,7 @@ import SignUp from './user-journey/sign-up'
 import Success from './user-journey/success'
 import Jumbotron from './user-journey/jumbotron';
 import MainFooter from './user-journey/footer';
+import LearnMore from './user-journey/learn-more';
 // Admin imports
 import Admin from './Admin'
 import AdminMenu from './admin-journey/admin-menu'
@@ -40,6 +42,7 @@ class Container extends Component {
                     <Route path='/admin-subscribe' component={AddCustomer} />
                     <Route path='/edit-customer' component={EditCustomer} />
                     <Route path='/notes' component={NewNote} />
+                    <Route path='/learn-more' component={LearnMore} />
                 </Switch>
                 <MainFooter />
             </div>
@@ -47,4 +50,4 @@ class Container extends Component {
     }
 }
 
-export default Container
+export default Container;

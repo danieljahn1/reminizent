@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setCustomerObject } from '../../redux/actions';
-
-
 import axios from 'axios';
 
 class AddCustomer extends Component {
@@ -18,9 +16,6 @@ class AddCustomer extends Component {
             requestType: '',
             referralType: '',
             referralName: '',
-            contactMethod: '',
-            contactDate: '',
-            notes: '',
             customerObject: '',
             redirect: false
         }
@@ -44,7 +39,7 @@ class AddCustomer extends Component {
                     var activityBody = {
                         "CustomerID": response.data[0].ID,
                         "DateCreated": new Date,
-                        "DateLastContacted": this.state.contactDate,
+                        "DateLastContacted": new Date,
                         "Source": "OGI Rep"
                     }
                     this.setState({
@@ -137,24 +132,6 @@ class AddCustomer extends Component {
                                     </div>
                                 </div>
 
-                                <div className="row row-spacing">
-                                    <div className="form-inline col-md-10">
-                                        <label htmlFor="" className="input2">Date</label>
-                                        <input className="form-control" type="date" id="datePicker" value={this.state.contactDate} onChange={(e) => { this.setState({ contactDate: e.target.value }) }} />
-                                        <label htmlFor="" className="input1">Method of Contact</label>
-                                        <select className="form-control" value={this.state.contactMethod} onChange={(e) => { this.setState({ contactMethod: e.target.value }) }}>
-                                            <option>Email</option>
-                                            <option>Phone</option>
-                                            <option>In Person</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <label htmlFor="">Notes</label>
-                                <div className="row row-spacing">
-                                    <textarea className=" addCustomerForm col-md-11" id="cutomerNote" cols="30" rows="5" value={this.state.notes} onChange={(e) => { this.setState({ notes: e.target.value }) }}></textarea>
-                                </div>
-
                                 <div className="row" style={{ margin: 10 }}>
                                     <button type="submit" className="btn col-md-2 col-md-offset-9" onClick={this.userSignUp.bind(this)}>Submit</button>
                                 </div>
@@ -171,7 +148,7 @@ class AddCustomer extends Component {
 
 const mapStateToProps = state => {
     return {
-        userInSession: state.loggedInAdmin,
+        adminLoginToken: state.adminLoginToken,
     }
 }
 

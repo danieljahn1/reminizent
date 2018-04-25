@@ -196,10 +196,10 @@ function update(req, res) {
         request.input('AreaOfInterest', sql.VarChar, req.body.AreaOfInterest);
         request.input('HeardAbout', sql.VarChar, req.body.HeardAbout);
         request.input('Referral', sql.VarChar, req.body.Referral);
-        request.input('ActiveFlag', sql.Bit, req.body.ActiveFlag);
+        request.input('Status', sql.VarChar, req.body.Status);
         request.execute("UpdateCustomer", function (err, result) {
             if (err) {
-                res.status(500).json({ message:  'An error occurred on the server.' });
+                res.status(500).json({ message: err });
             }
             // else if (result.recordset.length == 0) {
             //     res.status(404).json({ message: 'There were no records found.' });

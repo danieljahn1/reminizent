@@ -11,15 +11,15 @@ class CustomerDetails extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     axios.get('http://localhost:3000/customer/id/' + this.props.customerObject.ID)
-    //         .then(response => {
-    //             this.setState({
-    //                 customer: response.data[0]
-    //             })
-    //             console.log(this.state.customer)
-    //         })
-    // }
+    componentDidMount() {
+        axios.get('http://localhost:3000/customer/id/' + this.props.customerObject.ID + '?token=' + this.props.adminLoginToken)
+            .then(response => {
+                this.setState({
+                    customer: response.data[0]
+                })
+                console.log(this.state.customer)
+            })
+    }
 
     
     render() {
@@ -77,6 +77,7 @@ class CustomerDetails extends Component {
 
 const mapStateToProps = state => {
     return {
+        adminLoginToken: state.adminLoginToken,
         customerObject: state.customerObject,
     }
 }
