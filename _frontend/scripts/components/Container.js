@@ -18,7 +18,6 @@ import EditCustomer from './admin-journey/edit-customer';
 import AdminFooter from './admin-journey/admin-footer';
 import AdminLogIn from './admin-journey/admin-login'
 
-
 class Container extends Component {
     constructor(props) {
         super(props);
@@ -37,7 +36,7 @@ class Container extends Component {
                     <Route path='/admin-login' component={AdminLogIn} />
                     <Route path='/admin-dashboard' component={Dashboard} />
                     <Route path='/admin-customer' component={CustomerDetails} />
-                    <Route path='/admin-subscribe' component={CustomerDetails} />
+                    <Route path='/admin-subscribe' component={AddCustomer} />
                 </Switch>
                 <MainFooter />
             </div>
