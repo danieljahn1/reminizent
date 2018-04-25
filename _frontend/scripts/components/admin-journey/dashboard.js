@@ -5,7 +5,7 @@ import ReactTable from 'react-table';
 import CustomerDetails from './details-customer';
 import 'react-table/react-table.css';
 
-import CustomerDetails from './details-customer';
+
 import NewNote from './notes';
 
 class Dashboard extends Component {
