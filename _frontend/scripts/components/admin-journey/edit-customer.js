@@ -72,7 +72,7 @@ class EditCustomer extends Component {
                                     <textarea className=" addCustomerForm col-md-11" id="cutomerNote" cols="30" rows="5"></textarea>
                                 </div>
 
-                                <div className="row" >
+                                <div className="row" style={{paddingBottom: 10}} >
                                    <Link to="/"> <button className="btn col-md-2 col-md-offset-9">Submit</button></Link>
                                 </div>
                             </div>
