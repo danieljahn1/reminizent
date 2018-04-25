@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
-import axios from 'axios'
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setLoginToken } from '../../redux/actions';
+import axios from 'axios';
 
 class AdminLogIn extends Component {
     constructor(props) {
@@ -8,6 +10,7 @@ class AdminLogIn extends Component {
         this.state = {
             email: '',
             password: '',
+            adminLoginToken: '',
             redirect: false
         }
     }
@@ -22,9 +25,12 @@ class AdminLogIn extends Component {
             axios.post('http://localhost:3000/admin/login', body)
                 .then(response => {
                     this.setState({
+                        adminLoginToken: response.data.token
+                    })
+                    this.props.sendTokenToRedux(this.state.adminLoginToken);
+                    this.setState({
                         redirect: true
                     })
-                    console.log(response);
                 })
                 .catch(err => {
                     console.log(err)
@@ -32,10 +38,17 @@ class AdminLogIn extends Component {
         }
     }
 
+    onEnterPress = (e) => {
+        if(e.keyCode == 13 && e.shiftKey == false) {
+          e.preventDefault();
+          this.adminLogin(e);
+        }
+      }
+
     render() {
         const { redirect } = this.state;
         if (redirect) {
-            return <Redirect to="/admin-dashboard" />
+            return <Redirect to={"/admin-dashboard?token=-" + this.state.adminLoginToken }/>
         }
 
         return (
@@ -54,7 +67,7 @@ class AdminLogIn extends Component {
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="password">Password:</label>
-                                        <input type="password" className="form-control input1" value={this.state.password} onChange={(e) => { this.setState({ password: e.target.value }) }} required />
+                                        <input type="password" className="form-control input1" onKeyDown={this.onEnterPress} value={this.state.password} onChange={(e) => { this.setState({ password: e.target.value }) }} required />
                                     </div>
                                 </form>
                                 <div className="row">
@@ -69,4 +82,16 @@ class AdminLogIn extends Component {
     }
 }
 
-export default AdminLogIn;
+const mapStateToProps = state => {
+    return {
+        adminLoginToken: state.adminLoginToken,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        sendTokenToRedux: adminLoginToken => dispatch(setLoginToken(adminLoginToken)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminLogIn);

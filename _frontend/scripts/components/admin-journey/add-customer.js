@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setCustomerObject } from '../../redux/actions';
-
-
 import axios from 'axios';
 
 class AddCustomer extends Component {
@@ -171,7 +169,7 @@ class AddCustomer extends Component {
 
 const mapStateToProps = state => {
     return {
-        userInSession: state.loggedInAdmin,
+        adminLoginToken: state.adminLoginToken,
     }
 }
 
