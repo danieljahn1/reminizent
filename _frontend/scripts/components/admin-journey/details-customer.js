@@ -30,7 +30,8 @@ class CustomerDetails extends Component {
 
                         <table className="col-md-10 table1">
                             <tbody>
-
+                                    {/* update customer/axios delete/call will need token go to "admin-customer" page */}
+                                    {/* creating the using sends its to redux. this call on did mount needs to grab by id */}
                                 <tr>
                                     <th className="input2"> First Name: </th>
                                     <td>{this.state.customer.FirstName}</td>
