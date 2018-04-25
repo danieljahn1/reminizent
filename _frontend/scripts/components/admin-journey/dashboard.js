@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
@@ -7,73 +7,84 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: [{
-                firstName: "AMBER",
-                lastName: "Schatz"
-            }
-            ]
-        }
+
+        };
+
     }
 
     render() {
+
+        // function that creates the columns for the dashboard
         const columns = [
             {
                 Header: "First Name",
                 accessor: 'firstName',
                 filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) 
+                    (row[filter.id].toLowerCase()).startsWith(filter.value)
             },
             {
                 Header: "Last Name",
                 accessor: 'lastName',
                 filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) 
+                    (row[filter.id].toLowerCase()).startsWith(filter.value)
             },
             {
                 Header: "Email",
                 accessor: "email",
                 filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) 
+                    (row[filter.id].toLowerCase()).startsWith(filter.value)
             },
             {
                 Header: "Phone Number",
                 accessor: "phoneNumber",
                 filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) 
+                    row[filter.id].startsWith(filter.value)
             },
             {
                 Header: "Last Contacted",
                 accessor: "date",
                 filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) 
+                    row[filter.id].startsWith(filter.value)
             },
             {
                 Header: "Lead Status",
                 accessor: "activity",
                 filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) 
+                    (row[filter.id].toLowerCase()).startsWith(filter.value)
             }
         ]
+
 
         return (
             <div className="body">
                 <div className="container">
                     <div className="row">
+
                         <div className="dashboard-top">
-                            <button className="btn pull-right">Add Customer</button>
+                            <Link to="/admin-subscribe"><button className="btn pull-right">Add Customer</button></Link>
                         </div>
                     </div>
 
                     <div className="container">
+
+                        {/* table for the display of customers in data base and SubComponent that displays further deatils of customer and customer interaction */}
+
                         <ReactTable
                             data={fakeData()}
                             filterable
                             defaultFilterMethod={(filter, row) =>
                                 String(row[filter.id]) === filter.value}
-                                
                             className="dashboard -highlight dashboard-table"
                             columns={columns}
                             defaultPageSize={10}
+                            SubComponent={row => {
+                                return (
+                                    <div>
+                                        <CustomerDetails />
+
+                                    </div>
+                                )
+                            }}
 
                         />
 
@@ -82,6 +93,7 @@ class Dashboard extends Component {
             </div>
         )
 
+        // function for dummy data 
 
         function fakeData() {
             return [

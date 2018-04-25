@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 class SignUp extends Component {
@@ -18,8 +19,8 @@ class SignUp extends Component {
     }
     userSignUp(e) {
         e.preventDefault();
-        if (this.state.emailAddress != '') {
-            var body = {
+        if (this.state.emailAddress != '' && this.state.firstName != '' && this.state.lastName != '') {
+            var customerBody = {
                 "FirstName": this.state.firstName,
                 "LastName": this.state.lastName,
                 "Company": this.state.companyName,
@@ -29,37 +30,50 @@ class SignUp extends Component {
                 "HeardAbout": this.state.referralType,
                 "Referral": this.state.referralName
             }
-            axios.post('http://localhost:3000/customer', body)
+            axios.post('http://localhost:3000/customer', customerBody)
                 .then(response => {
-                    console.log(response.data[0])
-                    var body = {
-                        "email_address": this.state.emailAddress,
-                        "status": 'subscribed',
-                        "merge_fields": {
-                            "FNAME": this.state.firstName,
-                            "LNAME": this.state.lastName,
-                            "PHONE": this.state.phoneNumber,
-                            "COMPANY": this.state.companyName,
-                            "REQUEST": this.state.requestType,
-                            "REFERRAL": this.state.referralType,
-                            "REFERREDBY": this.state.referralName
-                        }
+                    var activityBody = {
+                        "CustomerID": response.data[0].ID,
+                        "DateCreated": new Date,
+                        "DateLastContacted": "",
+                        "Source": "Internet"
                     }
-                    axios.post('http://localhost:3000/subscriptions', body)
+                    axios.post('http://localhost:3000/activity', activityBody)
                         .then(response => {
-                            this.setState({
-                                redirect: true
-                            })
-                            console.log(response)
-                        })
-                        .catch(err => {
-                            console.log(err)
+                            var subscribeBody = {
+                                "email_address": this.state.emailAddress,
+                                "status": 'subscribed',
+                                "merge_fields": {
+                                    "FNAME": this.state.firstName,
+                                    "LNAME": this.state.lastName,
+                                    "PHONE": this.state.phoneNumber,
+                                    "COMPANY": this.state.companyName,
+                                    "REQUEST": this.state.requestType,
+                                    "REFERRAL": this.state.referralType,
+                                    "REFERREDBY": this.state.referralName
+                                }
+                            }
+                            axios.post('http://localhost:3000/subscriptions', subscribeBody)
+                                .then(response => {
+                                    this.setState({
+                                        redirect: true
+                                    })
+                                    console.log(response)
+                                })
+                                .catch(err => {
+                                    console.log(err)
+                                })
                         })
                 })
         }
     }
 
     render() {
+        const { redirect } = this.state;
+        if (redirect) {
+            return <Redirect to="/welcome" />
+        }
+
         return (
             <div className="body">
                 <div className="container">
@@ -80,12 +94,12 @@ class SignUp extends Component {
 
                                                 <div className="col-md-6">
                                                     <label htmlFor="firstName">First Name:</label>
-                                                    <input type="text" autoComplete="given-name" className="form-control form-spacing" value={this.state.firstName} onChange={(e) => { this.setState({ firstName: e.target.value }) }} />
+                                                    <input type="text" autoComplete="given-name" className="form-control form-spacing" value={this.state.firstName} onChange={(e) => { this.setState({ firstName: e.target.value }) }} required />
                                                 </div>
 
                                                 <div className="col-md-6">
                                                     <label htmlFor="lastName">Last Name:</label>
-                                                    <input type="text" autoComplete="family-name" className="form-control form-spacing" value={this.state.lastName} onChange={(e) => { this.setState({ lastName: e.target.value }) }} />
+                                                    <input type="text" autoComplete="family-name" className="form-control form-spacing" value={this.state.lastName} onChange={(e) => { this.setState({ lastName: e.target.value }) }} required />
                                                 </div>
 
 

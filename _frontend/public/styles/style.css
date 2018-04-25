@@ -72,6 +72,9 @@
     background-color: #D9ECF2;
     border-bottom: 3px solid #707070;
  }
+ .user-dropdown{
+   margin-top: 80px;
+ }
  .dashboard-top{
    margin-top: 20px;
  }
@@ -91,6 +94,11 @@
  .addCustomerPage{
    margin: 30px;
    margin-top: 40px;
+     background-color: #FFFFFF;
+ }
+ .editCustomerPage{
+   margin: 30px;
+   margin-top: 40px;
    box-shadow: 2px 5px 20px #C4C4C4;
    border-radius: 8px 8px 8px 8px;
    border: 1.5px solid #707070;
@@ -108,7 +116,6 @@
  .adminFooter{
    border-top: 1px solid #707070;
    height: 70px;
-  
    margin-top: 40px;
  }
 
@@ -124,6 +131,7 @@
   font-size:50px;
   color: #707070
 }
+
 .log-in-btn{
   margin-top: 29px;
   font-family: 'Lora', serif;
@@ -183,8 +191,10 @@
 .main-footer{
   margin-top: 50px;
   border-top: 2px solid #707070;
-  height: 80px;
-  
+  height: 100%;
+  background-color: #FAFAFA;
+  padding-bottom: 100%;
+  overflow: hidden;
 }
 .footer-links{
   margin-top: 40px;

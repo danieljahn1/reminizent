@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
+import {Link, Switch, Route} from 'react-router-dom';
 
 import Dashboard from "./dashboard";
 import CustomerDetials from "./details-customer";
 import EditCustomer from "./edit-customer";
+import AddCustomer from './add-customer';
 
 class AdminMenu extends Component {
     constructor(props) {
         super(props);
-        this.state = { active: false }
+        this.state = {
+            active: true,
+        }
     }
-    toggleEdit = () => {
-        this.setState((prevState) => {
-            active: !prevState.active
-        });
-    }
-    // https://react-bootstrap.github.io/components/dropdowns/
+  
     render() {
         return (
             <div>
@@ -28,7 +27,7 @@ class AdminMenu extends Component {
                             </div>
 
                             <div className="col-md-1 dropdown pull-right">
-                                <label htmlFor="userName" className="dropdown-toggle" data-toggle="dropdown" type="button">Users Name<span className="caret"></span></label>
+                                <label htmlFor="userName" className="dropdown-toggle user-dropdown" data-toggle="dropdown" type="button">Users Name<span className="caret"></span></label>
                                 <ul className="dropdown-menu">
                                     <li><a href="#">Settings</a></li>
                                     <li><a href="#">Log Out</a></li>
@@ -43,10 +42,19 @@ class AdminMenu extends Component {
 
                 {/* everything will have to be toggled from the admin menu bar components */}
                 <div>
-                    <Dashboard active={this.state.active}/>
-                    {/* <CustomerDetials active={this.state.active} onClick={this.toggleEdit}/>
-                    <EditCustomer active={this.state.active} onClick={this.toggleEdit}/> */}
+                    {/* <Dashboard/> */}
+                    {/* <CustomerDetials/>
+                    <EditCustomer /> */}
                 </div>
+
+                    <Switch>
+                        <Route exact path ="/" component={Dashboard}/>
+                        <Route exact path ="/add-customer" component={AddCustomer}/>
+                        <Route exact path ="/details-customer" component={CustomerDetials}/>
+                        <Route exact path ="/edit-customer" component={EditCustomer}/>
+
+                    </Switch>
+
             </div>
         )
     }

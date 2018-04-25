@@ -15,8 +15,11 @@ function create(req, res) {
         .set('Authorization', 'Basic ' + new Buffer('any:' + mailchimpApiKey).toString('base64'))
         .send(req.body)
         .end(function (err, response) {
-            if (response.status < 300 || (response.status === 400 && response.body.title === "Member Exists")) {
+            if (response.status < 300) {
                 res.send('Signed Up!');
+            } else if (response.status === 400 && response.body.title === "Member Exists") {
+                res.send('Email already exists');
+
             } else {
                 res.send('Sign Up Failed :(');
             }

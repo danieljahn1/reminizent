@@ -3,6 +3,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var passport = require('passport');
 
 require('dotenv').load();
 
@@ -26,6 +28,9 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 // app.use(express.static('views'));
+
+// Passport intialization
+app.use(passport.initialize());
 
 app.use('/customer', customersRouter);
 app.use('/admin', adminsRouter);
