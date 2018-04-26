@@ -18,6 +18,7 @@ class CustomerDetails extends Component {
                     customer: response.data[0]
                 })
                 console.log(this.state.customer)
+                console.log(this.props.customerObject)
             })
     }
 

@@ -2,22 +2,30 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table';
-import 'react-table/react-table.css';
-
 import CustomerDetails from './details-customer';
-import NewNote from './notes';
+import 'react-table/react-table.css';
+import axios from 'axios';
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            activeCustomers: []
         }
 
     }
 
     componentDidMount() {
         console.log(this.props.adminLoginToken)
+        axios.get("http://localhost:3000/customer/active?token=" + this.props.adminLoginToken) 
+            .then(response =>  {
+                console.log(response.data)
+
+                this.setState({
+                    activeCustomers: response.data
+                })
+            })
+        
     }
 
     render() {
@@ -26,37 +34,37 @@ class Dashboard extends Component {
         const columns = [
             {
                 Header: "First Name",
-                accessor: 'firstName',
+                accessor: 'FirstName',
                 filterMethod: (filter, row) =>
                     (row[filter.id].toLowerCase()).startsWith(filter.value)
             },
             {
                 Header: "Last Name",
-                accessor: 'lastName',
+                accessor: 'LastName',
                 filterMethod: (filter, row) =>
                     (row[filter.id].toLowerCase()).startsWith(filter.value)
             },
             {
                 Header: "Email",
-                accessor: "email",
+                accessor: "Email",
                 filterMethod: (filter, row) =>
                     (row[filter.id].toLowerCase()).startsWith(filter.value)
             },
             {
                 Header: "Phone Number",
-                accessor: "phoneNumber",
+                accessor: "Phone",
                 filterMethod: (filter, row) =>
                     row[filter.id].startsWith(filter.value)
             },
+            // {
+            //     Header: "Last Contacted",
+            //     accessor: "date",
+            //     filterMethod: (filter, row) =>
+            //         row[filter.id].startsWith(filter.value)
+            // },
             {
-                Header: "Last Contacted",
-                accessor: "date",
-                filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value)
-            },
-            {
-                Header: "Lead Status",
-                accessor: "activity",
+                Header: "Status",
+                accessor: "Status",
                 filterMethod: (filter, row) =>
                     (row[filter.id].toLowerCase()).startsWith(filter.value)
             }
@@ -78,22 +86,55 @@ class Dashboard extends Component {
                         {/* table for the display of customers in data base and SubComponent that displays further deatils of customer and customer interaction */}
 
                         <ReactTable
-                            data={fakeData()}
+                            data={this.state.activeCustomers}
                             filterable
                             defaultFilterMethod={(filter, row) =>
                                 String(row[filter.id]) === filter.value}
                             className="dashboard -highlight dashboard-table"
                             columns={columns}
                             defaultPageSize={10}
+
+
                             SubComponent={row => {
                                 return (
-                                    <div>
-                                        <CustomerDetails />
+                                    <div className="">
+                                        <table className="col-md-10 col-md-offset-1" style={{ marginLeft: 25, margin: 20 }}>
+                                            <tbody>
+
+                                                <tr>
+                                                    <th className="input2"> First Name: </th>
+                                                    {/* <td>{this.state.customer.FirstName}</td> */}
+                                                    <th className="input1">Last Name:</th>
+                                                    {/* <td>{this.state.customer.LastName}</td> */}
+                                                    <th className="input1">E-mail:</th>
+                                                    {/* <td>{this.state.customer.Email}</td> */}
+                                                    <th className="input1">Phone Numer:</th>
+                                                    {/* <td>{this.state.customer.Phone}</td> */}
+                                                </tr>
+                                                <br />
+                                                <tr>
+                                                    <th className="input2">Company:</th>
+                                                    {/* <td>{this.state.customer.Company}</td> */}
+                                                    <th className="input1">Intrest:</th>
+                                                    {/* <td>{this.state.customer.AreaOfInterest}</td> */}
+                                                    <th className="input1">Referal Type:</th>
+                                                    {/* <td>{this.state.customer.HeardAbout}</td> */}
+                                                    <th className="input1">Name of Referal:</th>
+                                                    {/* <td>{this.state.customer.Referral}</td> */}
+                                                </tr>
+                                                <br />
+                                            </tbody>
+                                        </table>
+                                        <Link to="/admin-customer"> <button className="btn col-md-2 input1 pull-right" style={{paddingBottom: 10}}>View Customer Details</button></Link>
+                                        <button className="btn col-md-2 input1 input2 pull-right" style={{paddingBottom: 10}}>Email Customer</button>
+
                                     </div>
                                 )
                             }}
 
                         />
+
+
 
                     </div>
                 </div>
