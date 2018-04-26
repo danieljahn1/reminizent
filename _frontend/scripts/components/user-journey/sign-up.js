@@ -17,6 +17,7 @@ class SignUp extends Component {
             redirect: false
         }
     }
+
     userSignUp(e) {
         e.preventDefault();
         if (this.state.emailAddress != '' && this.state.firstName != '' && this.state.lastName != '') {
@@ -79,45 +80,34 @@ class SignUp extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 col-md-offset-2 admin-login">
-
                             <div className="row login-form">
                                 <div className="col-md-4 col-md-offset-4 text-center">
                                     <h3>Sign Up</h3>
                                 </div>
-
                                 <div className="" style={{ marginLeft: 75 }}>
                                     <div className="col-md-10">
-
                                         <form>
-
                                             <div className="form-group">
-
                                                 <div className="col-md-6">
                                                     <label htmlFor="firstName">First Name:</label>
                                                     <input type="text" autoComplete="given-name" className="form-control form-spacing" value={this.state.firstName} onChange={(e) => { this.setState({ firstName: e.target.value }) }} required />
                                                 </div>
-
                                                 <div className="col-md-6">
                                                     <label htmlFor="lastName">Last Name:</label>
                                                     <input type="text" autoComplete="family-name" className="form-control form-spacing" value={this.state.lastName} onChange={(e) => { this.setState({ lastName: e.target.value }) }} required />
                                                 </div>
-
-
                                                 <div className="col-md-6">
                                                     <label htmlFor="emailAddress">E-mail:</label>
                                                     <input type="email" autoComplete="email" className="form-control form-spacing" value={this.state.emailAddress} onChange={(e) => { this.setState({ emailAddress: e.target.value }) }} required />
                                                 </div>
-
                                                 <div className="col-md-6">
                                                     <label htmlFor="phoneNumber">Phone Number:</label>
                                                     <input type="tel" autoComplete="tel" className="form-control form-spacing" value={this.state.phoneNumber} onChange={(e) => { this.setState({ phoneNumber: e.target.value }) }} />
                                                 </div>
-
                                                 <div className="col-md-6">
                                                     <label htmlFor="companyName">Company Name:</label>
                                                     <input type="text" autoComplete="off" className="form-control " value={this.state.companyName} onChange={(e) => { this.setState({ companyName: e.target.value }) }} />
                                                 </div>
-
                                                 <div className="col-md-6">
                                                     <label htmlFor="requestType" >How can we help you?</label>
                                                     <select className="form-control" value={this.state.requestType} onChange={(e) => { this.setState({ requestType: e.target.value }) }}>
@@ -128,7 +118,6 @@ class SignUp extends Component {
                                                         <option>Market Trends</option>
                                                     </select>
                                                 </div>
-
                                                 <div className="col-md-6">
                                                     <label htmlFor="referralType" className="form-spacing3">How did you here about us?</label>
                                                     <select className="form-control" value={this.state.referralType} onChange={(e) => { this.setState({ referralType: e.target.value }) }}>
@@ -140,28 +129,18 @@ class SignUp extends Component {
                                                         <option>Rereral</option>
                                                     </select>
                                                 </div>
-
                                                 <div className="col-md-6">
                                                     <label htmlFor="referralName" className="form-spacing3">Name of Referal</label>
                                                     <input className="form-control" type="text" autoComplete="off" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} />
                                                 </div>
-
-
                                             </div>
-
                                         </form>
-
-
                                         <div className="row">
                                             <button type="submit" className="btn col-md-6 col-md-offset-3 form-spacing5" onClick={this.userSignUp.bind(this)}>Sign Up</button>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
