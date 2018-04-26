@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import NoteEntry from './note-entry';
+
 class CustomerDetails extends Component {
     constructor(props) {
         super(props);
@@ -26,9 +28,9 @@ class CustomerDetails extends Component {
     render() {
         return (
 
-            <div className="container">
-                <div className="col-md-11 ">
-                    <div className="container customerDetailsPage">
+            <div className="container-fluid">
+                <div className="col-md-10  col-md-offset-1 ">
+                    <div className="container-fluid customerDetailsPage"style={{paddingRight: 20}}>
                         <div className="container">
                             <div className="row">
                                 <h2 style={{ margin: 20 }}>Customer Details</h2>
@@ -50,19 +52,26 @@ class CustomerDetails extends Component {
                                     </tr>
                                     <br />
                                     <tr>
+                                        <th className="input1">Sign Up Date:</th>
+                                        <td></td>
+                                        <th className="input1">Sign Up Sorce:</th>
+                                        <td></td>
+
                                         <th className="input2">Company:</th>
                                         <td>{this.state.customer.Company}</td>
                                         <th className="input1">Intrest:</th>
                                         <td>{this.state.customer.AreaOfInterest}</td>
-                                        <th className="input1">Referal Type:</th>
-                                        <td>{this.state.customer.HeardAbout}</td>
-                                        <th className="input1">Name of Referal:</th>
-                                        <td>{this.state.customer.Referral}</td>
+
                                     </tr>
                                     <br />
 
                                     <tr>
-                                        <th className="input2">Application Status:</th>
+                                        <th className="input2">Referal Type:</th>
+                                        <td>{this.state.customer.HeardAbout}</td>
+                                        <th className="input1">Name of Referal:</th>
+                                        <td>{this.state.customer.Referral}</td>
+
+                                        <th className="input1">Application Status:</th>
                                         <td></td>
                                         <th className="input1">Loan Status:</th>
                                         <td></td>
@@ -75,11 +84,69 @@ class CustomerDetails extends Component {
                             {/* Edit button-- toggle page to edit form */}
 
                             <div className="row" style={{ margin: 10 }}>
-                                <Link to="/edit-customer">   <button className="btn col-md-2 input1 input2 pull-right" style={{ margin: 10 }}>Edit</button></Link>
-                                <Link to="/notes">   <button className="btn col-md-2 input1 input2 pull-right " style={{ margin: 10 }}>Notes</button></Link>
+                                <Link to="/edit-customer">   <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10, margin: 10 }}>Edit Customer</button></Link>
                                 <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Email Customer</button>
 
                             </div>
+
+                            {/* add note section */}
+                            <div className="row">
+                                <div className="container">
+                                    <div className="row">
+                                        <h2 style={{ margin: 20 }}>Add New Note</h2>
+                                    </div>
+
+                                    <div className="row row-spacing" >
+                                        <div className="form-inline col-md-10">
+                                            <label htmlFor="" className="input2">Date</label>
+                                            <input className="form-control" type="date" id="datePicker" />
+                                            <label htmlFor="" className="input1">Method of Contact</label>
+                                            <select className="form-control">
+                                                <option defaultValue>Select ...</option>
+                                                <option>Email</option>
+                                                <option>Phone</option>
+                                                <option>In Person</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <label htmlFor="">Notes</label>
+                                    <div className="row row-spacing">
+                                        <textarea className=" addCustomerForm col-md-11" id="cutomerNote" cols="30" rows="5"></textarea>
+                                    </div>
+
+                                    <div className="row" style={{ margin: 10, paddingBottom: 10 }}>
+                                        <Link to="/"> <button className="btn col-md-2 input1 input2 pull-right">Submit</button></Link>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            {/* note history section */}
+                            <div className="row">
+                                <div className="container">
+                                    <div className="col-md-12 table-responsive ">
+                                        <table className="table">
+                                            <thead>
+                                                <tr>
+                                                    <th className="col-md-1">Date</th>
+                                                    <th className="col-md-2">Method of Contact</th>
+                                                    <th className="col-md-3">Created by</th>
+                                                    <th className="col-md-5">Note</th>
+                                                    <th className="col-md-1"></th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <NoteEntry />
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
 
                         </div>
                     </div>

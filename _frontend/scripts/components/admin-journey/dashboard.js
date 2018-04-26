@@ -17,14 +17,14 @@ class Dashboard extends Component {
 
     componentDidMount() {
         console.log(this.props.adminLoginToken)
-        axios.get("http://localhost:3000/customer/active?token=" + this.props.adminLoginToken) 
-            .then(response =>  {
+        axios.get("http://localhost:3000/customer/active?token=" + this.props.adminLoginToken)
+            .then(response => {
 
                 this.setState({
                     activeCustomers: response.data
                 })
             })
-        
+
     }
 
     render() {
@@ -98,59 +98,62 @@ class Dashboard extends Component {
                                         <table className="col-md-10 col-md-offset-1" style={{ marginLeft: 25, margin: 20 }}>
                                             <tbody>
 
-                                                <tr>
-                                                    <th className="input2"> First Name: </th>
-                                                    <td>{this.state.activeCustomers.FirstName}</td>
-                                                    <th className="input1">Last Name:</th>
-                                                    {/* <td>{this.state.customer.LastName}</td> */}
-                                                    <th className="input1">E-mail:</th>
-                                                    {/* <td>{this.state.customer.Email}</td> */}
-                                                    <th className="input1">Phone Numer:</th>
-                                                    {/* <td>{this.state.customer.Phone}</td> */}
-                                                </tr>
-                                                
-                                                <tr>
-                                                    <th className="input2">Company:</th>
-                                                    {/* <td>{this.state.customer.Company}</td> */}
-                                                    <th className="input1">Intrest:</th>
-                                                    {/* <td>{this.state.customer.AreaOfInterest}</td> */}
-                                                    <th className="input1">Referal Type:</th>
-                                                    {/* <td>{this.state.customer.HeardAbout}</td> */}
-                                                    <th className="input1">Name of Referal:</th>
-                                                    {/* <td>{this.state.customer.Referral}</td> */}
-                                                </tr>
-                                                <br />
+                                               
+                                                    <tr>
+                                                        <th className="input2"> First Name: </th>
+                                                        {/* <td>{this.state.activeCustomers.FirstName}</td> */}
+                                                        <th className="input1">Last Name:</th>
+                                                        {/* <td>{this.state.customer.LastName}</td> */}
+                                                        <th className="input1">E-mail:</th>
+                                                        {/* <td>{this.state.customer.Email}</td> */}
+                                                        <th className="input1">Phone Numer:</th>
+                                                        {/* <td>{this.state.customer.Phone}</td> */}
+                                                    </tr>
+                                            <br/>
 
-                                                <tr>
-                                                    <th className="input2">Application Status:</th>
-                                                    <th className="input1">Loan Status:</th>
-                                                </tr>
-                                                <br />
+                                               
+                                                    <tr>
+                                                        <th className="input2">Company:</th>
+                                                        {/* <td>{this.state.customer.Company}</td> */}
+                                                        <th className="input1">Intrest:</th>
+                                                        {/* <td>{this.state.customer.AreaOfInterest}</td> */}
+                                                        <th className="input1">Referal Type:</th>
+                                                        {/* <td>{this.state.customer.HeardAbout}</td> */}
+                                                        <th className="input1">Name of Referal:</th>
+                                                        {/* <td>{this.state.customer.Referral}</td> */}
+                                                    </tr>
+                                                    <br />
+
+                                                    <tr>
+                                                        <th className="input2">Application Status:</th>
+                                                        <th className="input1">Loan Status:</th>
+                                                    </tr>
+                                                    <br />
 
                                             </tbody>
                                         </table>
-                                        <Link to="/admin-customer"> <button className="btn col-md-2 input1 pull-right" style={{paddingBottom: 10}}>View Customer Details</button></Link>
-                                        <button className="btn col-md-2 input1 input2 pull-right" style={{paddingBottom: 10}}>Email Customer</button>
+                                            <Link to="/admin-customer"> <button className="btn col-md-2 input1 pull-right" style={{ paddingBottom: 10 }}>View Customer Details</button></Link>
+                                            <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Email Customer</button>
 
                                     </div>
-                                )
-                            }}
-
-                        />
-
-
-
+                                        )
+                                    }}
+        
+                                />
+        
+        
+        
                     </div>
                 </div>
             </div>
-        )
-
-        // function for dummy data 
-
+                    )
+            
+                    // function for dummy data
+            
         function fakeData() {
             return [
                 {
-                    firstName: "John",
+                        firstName: "John",
                     lastName: "Doe",
                     email: "email@email.com",
                     phoneNumber: "354-156-5215",
@@ -158,7 +161,7 @@ class Dashboard extends Component {
                     activity: "email marketing"
                 },
                 {
-                    firstName: "Jane",
+                        firstName: "Jane",
                     lastName: "Doe",
                     email: "email@email.com",
                     phoneNumber: "687-352-9851",
@@ -166,7 +169,7 @@ class Dashboard extends Component {
                     activity: "phone"
                 },
                 {
-                    firstName: "Apple",
+                        firstName: "Apple",
                     lastName: "Smith",
                     email: "email@email.com",
                     phoneNumber: "352-485-3542",
@@ -174,7 +177,7 @@ class Dashboard extends Component {
                     activity: "N/A"
                 },
                 {
-                    firstName: "Mary",
+                        firstName: "Mary",
                     lastName: "Richardson",
                     email: "email@email.com",
                     phoneNumber: "254-895-3542",
@@ -182,7 +185,7 @@ class Dashboard extends Component {
                     activity: "email marketing"
                 },
                 {
-                    firstName: "Dick",
+                        firstName: "Dick",
                     lastName: "Richardson",
                     email: "email@email.com",
                     phoneNumber: "894-635-3548",
@@ -190,7 +193,7 @@ class Dashboard extends Component {
                     activity: "email marketing"
                 },
                 {
-                    firstName: "Bob",
+                        firstName: "Bob",
                     lastName: "Bobson",
                     email: "email@email.com",
                     phoneNumber: "348-975-2541",
@@ -198,7 +201,7 @@ class Dashboard extends Component {
                     activity: "email marketing"
                 },
                 {
-                    firstName: "Ella ",
+                        firstName: "Ella ",
                     lastName: "Falvey",
                     email: "email@email.com",
                     phoneNumber: "645-325-8554",
@@ -206,7 +209,7 @@ class Dashboard extends Component {
                     activity: "email marketing"
                 },
                 {
-                    firstName: "Vinni ",
+                        firstName: "Vinni ",
                     lastName: "Bonham",
                     email: "email@email.com",
                     phoneNumber: "444-665-1123",
@@ -214,7 +217,7 @@ class Dashboard extends Component {
                     activity: "email marketing"
                 },
                 {
-                    firstName: "Bendix ",
+                        firstName: "Bendix ",
                     lastName: "Miele",
                     email: "email@email.com",
                     phoneNumber: "258-354-2567",
@@ -222,7 +225,7 @@ class Dashboard extends Component {
                     activity: "email marketing"
                 },
                 {
-                    firstName: "Robin",
+                        firstName: "Robin",
                     lastName: "Bobingson",
                     email: "email@email.com",
                     phoneNumber: "555-555-5555",
@@ -230,7 +233,7 @@ class Dashboard extends Component {
                     activity: "email marketing"
                 },
                 {
-                    firstName: "Jacklyn ",
+                        firstName: "Jacklyn ",
                     lastName: "Ellison",
                     email: "email@email.com",
                     phoneNumber: "323-333-4444",
@@ -238,7 +241,7 @@ class Dashboard extends Component {
                     activity: "email marketing"
                 },
                 {
-                    firstName: "Jerad ",
+                        firstName: "Jerad ",
                     lastName: "Lobdell",
                     email: "email@email.com",
                     phoneNumber: "892-652-9638",
@@ -246,7 +249,7 @@ class Dashboard extends Component {
                     activity: "email marketing"
                 },
                 {
-                    firstName: "Noemi ",
+                        firstName: "Noemi ",
                     lastName: "Matthews",
                     email: "email@email.com",
                     phoneNumber: "354-854-3442",
@@ -254,7 +257,7 @@ class Dashboard extends Component {
                     activity: "email marketing"
                 },
                 {
-                    firstName: "Aurilia",
+                        firstName: "Aurilia",
                     lastName: "Hoffman",
                     email: "email@email.com",
                     phoneNumber: "261-354-9851",
@@ -262,7 +265,7 @@ class Dashboard extends Component {
                     activity: "email marketing"
                 },
                 {
-                    firstName: "Pavel ",
+                        firstName: "Pavel ",
                     lastName: "Dunlap",
                     email: "email@email.com",
                     phoneNumber: "354-654-3548",
@@ -270,7 +273,7 @@ class Dashboard extends Component {
                     activity: "email marketing"
                 },
                 {
-                    firstName: "Jerad ",
+                        firstName: "Jerad ",
                     lastName: "Grolnic",
                     email: "email@email.com",
                     phoneNumber: "432-543-3246",
@@ -278,7 +281,7 @@ class Dashboard extends Component {
                     activity: "N/A"
                 },
                 {
-                    firstName: "Shannon ",
+                        firstName: "Shannon ",
                     lastName: "Spiring",
                     email: "email@email.com",
                     phoneNumber: "555-555-5555",
@@ -293,8 +296,8 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => {
     return {
-        adminLoginToken: state.adminLoginToken,
-    }
-}
-
+                        adminLoginToken: state.adminLoginToken,
+                }
+            }
+            
 export default connect(mapStateToProps)(Dashboard);
