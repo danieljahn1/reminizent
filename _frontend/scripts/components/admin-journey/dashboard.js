@@ -55,17 +55,11 @@ class Dashboard extends Component {
                 filterMethod: (filter, row) =>
                     row[filter.id].startsWith(filter.value)
             },
-            // {
-            //     Header: "Application Status",
-            //     accessor: "ApplicationStatus",
-            //     filterMethod: (filter, row) =>
-            //         row[filter.id].startsWith(filter.value)
-            // },
             {
-                Header: "Loan Status",
-                accessor: "Status",
+                Header: "Application Status",
+                accessor: "ApplicationStatus",
                 filterMethod: (filter, row) =>
-                    (row[filter.id].toLowerCase()).startsWith(filter.value)
+                    row[filter.id].startsWith(filter.value)
             }
         ]
 
@@ -100,7 +94,7 @@ class Dashboard extends Component {
 
                                                 <tr>
                                                     <th className="input2"> First Name: </th>
-                                                    <td>{this.state.activeCustomers.FirstName}</td>
+                                                    {/* <td>{this.state.activeCustomers.FirstName}</td> */}
                                                     <th className="input1">Last Name:</th>
                                                     {/* <td>{this.state.customer.LastName}</td> */}
                                                     <th className="input1">E-mail:</th>
