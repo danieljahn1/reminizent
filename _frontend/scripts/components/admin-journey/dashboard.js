@@ -19,7 +19,6 @@ class Dashboard extends Component {
         console.log(this.props.adminLoginToken)
         axios.get("http://localhost:3000/customer/active?token=" + this.props.adminLoginToken) 
             .then(response =>  {
-                console.log(response.data)
 
                 this.setState({
                     activeCustomers: response.data
@@ -92,9 +91,7 @@ class Dashboard extends Component {
                                 String(row[filter.id]) === filter.value}
                             className="dashboard -highlight dashboard-table"
                             columns={columns}
-                            defaultPageSize={10}
-
-
+                            defaultPageSize={25}
                             SubComponent={row => {
                                 return (
                                     <div className="">
@@ -103,7 +100,7 @@ class Dashboard extends Component {
 
                                                 <tr>
                                                     <th className="input2"> First Name: </th>
-                                                    {/* <td>{this.state.customer.FirstName}</td> */}
+                                                    <td>{this.state.activeCustomers.FirstName}</td>
                                                     <th className="input1">Last Name:</th>
                                                     {/* <td>{this.state.customer.LastName}</td> */}
                                                     <th className="input1">E-mail:</th>
@@ -111,7 +108,7 @@ class Dashboard extends Component {
                                                     <th className="input1">Phone Numer:</th>
                                                     {/* <td>{this.state.customer.Phone}</td> */}
                                                 </tr>
-                                                <br />
+                                                
                                                 <tr>
                                                     <th className="input2">Company:</th>
                                                     {/* <td>{this.state.customer.Company}</td> */}
