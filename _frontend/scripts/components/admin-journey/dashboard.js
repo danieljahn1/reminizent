@@ -32,6 +32,13 @@ class Dashboard extends Component {
         // function that creates the columns for the dashboard
         const columns = [
             {
+                Header: "ID",
+                accessor: 'ID',
+                show: false,
+                filterMethod: (filter, row) =>
+                    (row[filter.id].toLowerCase()).startsWith(filter.value)
+            },
+            {
                 Header: "First Name",
                 accessor: 'FirstName',
                 filterMethod: (filter, row) =>
@@ -91,36 +98,39 @@ class Dashboard extends Component {
                                     <div className="">
                                         <table className="col-md-10 col-md-offset-1" style={{ marginLeft: 25, margin: 20 }}>
                                             <tbody>
-
-                                                <tr>
-                                                    <th className="input2"> First Name: </th>
-                                                    {/* <td>{this.state.activeCustomers.FirstName}</td> */}
+                                                
+                                                    <tr>
+                                                    <th className="input2">First Name: </th>
+                                                    <td>{this.state.activeCustomers[row.index].FirstName}</td>
                                                     <th className="input1">Last Name:</th>
-                                                    {/* <td>{this.state.customer.LastName}</td> */}
+                                                    <td>{this.state.activeCustomers[row.index].LastName}</td>
                                                     <th className="input1">E-mail:</th>
-                                                    {/* <td>{this.state.customer.Email}</td> */}
+                                                    <td>{this.state.activeCustomers[row.index].Email}</td>
                                                     <th className="input1">Phone Numer:</th>
-                                                    {/* <td>{this.state.customer.Phone}</td> */}
-                                                </tr>
+                                                    <td>{this.state.activeCustomers[row.index].Phone}</td>
+                                                    </tr>
                                                 
                                                 <tr>
                                                     <th className="input2">Company:</th>
-                                                    {/* <td>{this.state.customer.Company}</td> */}
-                                                    <th className="input1">Intrest:</th>
-                                                    {/* <td>{this.state.customer.AreaOfInterest}</td> */}
-                                                    <th className="input1">Referal Type:</th>
-                                                    {/* <td>{this.state.customer.HeardAbout}</td> */}
-                                                    <th className="input1">Name of Referal:</th>
-                                                    {/* <td>{this.state.customer.Referral}</td> */}
+                                                    <td>{this.state.activeCustomers[row.index].Company}</td>
+                                                    <th className="input1">Interest:</th>
+                                                    <td>{this.state.activeCustomers[row.index].AreaOfInterest}</td>
+                                                    <th className="input1">Referral Type:</th>
+                                                    <td>{this.state.activeCustomers[row.index].HeardAbout}</td>
+                                                    <th className="input1">Name of Referral:</th>
+                                                    <td>{this.state.activeCustomers[row.index].Referral}</td>
                                                 </tr>
                                                 <br />
 
                                                 <tr>
                                                     <th className="input2">Application Status:</th>
+                                                    <td>{this.state.activeCustomers[row.index].ApplicationStatus}</td>
                                                     <th className="input1">Loan Status:</th>
+                                                    <td>{this.state.activeCustomers[row.index].LoanStatus}</td>
                                                 </tr>
                                                 <br />
-
+                                                
+                                                
                                             </tbody>
                                         </table>
                                         <Link to="/admin-customer"> <button className="btn col-md-2 input1 pull-right" style={{paddingBottom: 10}}>View Customer Details</button></Link>
