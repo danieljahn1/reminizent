@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import Dashboard from './dashboard'
 class EditCustomer extends Component {
@@ -10,6 +11,11 @@ class EditCustomer extends Component {
             customerObject: this.props.customerObject
         }
     }
+
+onSave (e) {
+    
+}  
+
     render() {
         return (
             <div className="body">
