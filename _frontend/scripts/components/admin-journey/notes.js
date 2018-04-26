@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 class Notes extends Component {
@@ -23,6 +23,7 @@ class Notes extends Component {
                                     <input className="form-control" type="date" id="datePicker" />
                                     <label htmlFor="" className="input1">Method of Contact</label>
                                     <select className="form-control">
+                                        <option defaultValue>Select ...</option>
                                         <option>Email</option>
                                         <option>Phone</option>
                                         <option>In Person</option>
@@ -35,7 +36,7 @@ class Notes extends Component {
                                 <textarea className=" addCustomerForm col-md-11" id="cutomerNote" cols="30" rows="5"></textarea>
                             </div>
 
-                            <div className="row" style={{ margin: 10, paddingBottom:10 }}>
+                            <div className="row" style={{ margin: 10, paddingBottom: 10 }}>
                                 <Link to="/"> <button className="btn col-md-2 col-md-offset-9">Submit</button></Link>
                             </div>
 
