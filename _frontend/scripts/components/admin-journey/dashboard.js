@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ReactTable from 'react-table';
 import CustomerDetails from './details-customer';
 import 'react-table/react-table.css';
-
+import axios from 'axios';
 
 import NewNote from './notes';
 
@@ -12,14 +12,23 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            activeCustomers: []
         }
 
     }
 
-    // componentDidMount() {
-    //     console.log(this.props.adminLoginToken)
-    // }
+    componentDidMount() {
+        console.log(this.props.adminLoginToken)
+        axios.get("http://localhost:3000/customer/active?token=" + this.props.adminLoginToken) 
+            .then(response =>  {
+                console.log(response.data)
+
+                this.setState({
+                    activeCustomers: response.data
+                })
+            })
+        
+    }
 
     render() {
 
@@ -27,37 +36,37 @@ class Dashboard extends Component {
         const columns = [
             {
                 Header: "First Name",
-                accessor: 'firstName',
+                accessor: 'FirstName',
                 filterMethod: (filter, row) =>
                     (row[filter.id].toLowerCase()).startsWith(filter.value)
             },
             {
                 Header: "Last Name",
-                accessor: 'lastName',
+                accessor: 'LastName',
                 filterMethod: (filter, row) =>
                     (row[filter.id].toLowerCase()).startsWith(filter.value)
             },
             {
                 Header: "Email",
-                accessor: "email",
+                accessor: "Email",
                 filterMethod: (filter, row) =>
                     (row[filter.id].toLowerCase()).startsWith(filter.value)
             },
             {
                 Header: "Phone Number",
-                accessor: "phoneNumber",
+                accessor: "Phone",
                 filterMethod: (filter, row) =>
                     row[filter.id].startsWith(filter.value)
             },
+            // {
+            //     Header: "Last Contacted",
+            //     accessor: "date",
+            //     filterMethod: (filter, row) =>
+            //         row[filter.id].startsWith(filter.value)
+            // },
             {
-                Header: "Last Contacted",
-                accessor: "date",
-                filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value)
-            },
-            {
-                Header: "Lead Status",
-                accessor: "activity",
+                Header: "Status",
+                accessor: "Status",
                 filterMethod: (filter, row) =>
                     (row[filter.id].toLowerCase()).startsWith(filter.value)
             }
@@ -79,7 +88,7 @@ class Dashboard extends Component {
                         {/* table for the display of customers in data base and SubComponent that displays further deatils of customer and customer interaction */}
 
                         <ReactTable
-                            data={fakeData()}
+                            data={this.state.activeCustomers}
                             filterable
                             defaultFilterMethod={(filter, row) =>
                                 String(row[filter.id]) === filter.value}
