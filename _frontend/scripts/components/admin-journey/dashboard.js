@@ -6,8 +6,6 @@ import CustomerDetails from './details-customer';
 import 'react-table/react-table.css';
 import axios from 'axios';
 
-import NewNote from './notes';
-
 class Dashboard extends Component {
     constructor(props) {
         super(props);
