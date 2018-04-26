@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table';
 import CustomerDetails from './details-customer';
 import 'react-table/react-table.css';
 import axios from 'axios';
+import { setViewCustDetails } from '../../redux/actions';
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeCustomers: []
+            activeCustomers: [],
+            redirectToDetails: false
         }
 
     }
@@ -28,6 +30,10 @@ class Dashboard extends Component {
     }
 
     render() {
+        const { redirectToDetails } = this.state;
+        if (redirectToDetails) {
+            return <Redirect to="/admin-customer" />
+        }
 
         // function that creates the columns for the dashboard
         const columns = [
@@ -133,7 +139,8 @@ class Dashboard extends Component {
                                                 
                                             </tbody>
                                         </table>
-                                            <Link to="/admin-customer"> <button className="btn col-md-2 input1 pull-right" style={{ paddingBottom: 10 }}>View Customer Details</button></Link>
+                                            {/* <Link to="/admin-customer"> <button className="btn col-md-2 input1 pull-right" style={{ paddingBottom: 10 }} onClick={ this.viewDetails.bind(this, row) }>View Customer Details</button></Link> */}
+                                            <button className="btn col-md-2 input1 pull-right" style={{ paddingBottom: 10 }} onClick={ this.viewDetails.bind(this, row) }>View Customer Details</button>
                                             <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Email Customer</button>
 
                                     </div>
@@ -147,158 +154,34 @@ class Dashboard extends Component {
                     </div>
                 </div>
             </div>
-                    )
+         )
             
-                    // function for dummy data
-            
-        function fakeData() {
-            return [
-                {
-                        firstName: "John",
-                    lastName: "Doe",
-                    email: "email@email.com",
-                    phoneNumber: "354-156-5215",
-                    date: "01/01/2018",
-                    activity: "email marketing"
-                },
-                {
-                        firstName: "Jane",
-                    lastName: "Doe",
-                    email: "email@email.com",
-                    phoneNumber: "687-352-9851",
-                    date: "01/01/2018",
-                    activity: "phone"
-                },
-                {
-                        firstName: "Apple",
-                    lastName: "Smith",
-                    email: "email@email.com",
-                    phoneNumber: "352-485-3542",
-                    date: "01/01/2018",
-                    activity: "N/A"
-                },
-                {
-                        firstName: "Mary",
-                    lastName: "Richardson",
-                    email: "email@email.com",
-                    phoneNumber: "254-895-3542",
-                    date: "01/01/2018",
-                    activity: "email marketing"
-                },
-                {
-                        firstName: "Dick",
-                    lastName: "Richardson",
-                    email: "email@email.com",
-                    phoneNumber: "894-635-3548",
-                    date: "01/01/2018",
-                    activity: "email marketing"
-                },
-                {
-                        firstName: "Bob",
-                    lastName: "Bobson",
-                    email: "email@email.com",
-                    phoneNumber: "348-975-2541",
-                    date: "01/01/2018",
-                    activity: "email marketing"
-                },
-                {
-                        firstName: "Ella ",
-                    lastName: "Falvey",
-                    email: "email@email.com",
-                    phoneNumber: "645-325-8554",
-                    date: "01/02/2018",
-                    activity: "email marketing"
-                },
-                {
-                        firstName: "Vinni ",
-                    lastName: "Bonham",
-                    email: "email@email.com",
-                    phoneNumber: "444-665-1123",
-                    date: "01/01/2018",
-                    activity: "email marketing"
-                },
-                {
-                        firstName: "Bendix ",
-                    lastName: "Miele",
-                    email: "email@email.com",
-                    phoneNumber: "258-354-2567",
-                    date: "01/01/2018",
-                    activity: "email marketing"
-                },
-                {
-                        firstName: "Robin",
-                    lastName: "Bobingson",
-                    email: "email@email.com",
-                    phoneNumber: "555-555-5555",
-                    date: "01/01/2018",
-                    activity: "email marketing"
-                },
-                {
-                        firstName: "Jacklyn ",
-                    lastName: "Ellison",
-                    email: "email@email.com",
-                    phoneNumber: "323-333-4444",
-                    date: "01/01/2018",
-                    activity: "email marketing"
-                },
-                {
-                        firstName: "Jerad ",
-                    lastName: "Lobdell",
-                    email: "email@email.com",
-                    phoneNumber: "892-652-9638",
-                    date: "01/01/2018",
-                    activity: "email marketing"
-                },
-                {
-                        firstName: "Noemi ",
-                    lastName: "Matthews",
-                    email: "email@email.com",
-                    phoneNumber: "354-854-3442",
-                    date: "01/01/2018",
-                    activity: "email marketing"
-                },
-                {
-                        firstName: "Aurilia",
-                    lastName: "Hoffman",
-                    email: "email@email.com",
-                    phoneNumber: "261-354-9851",
-                    date: "01/01/2018",
-                    activity: "email marketing"
-                },
-                {
-                        firstName: "Pavel ",
-                    lastName: "Dunlap",
-                    email: "email@email.com",
-                    phoneNumber: "354-654-3548",
-                    date: "01/01/2018",
-                    activity: "email marketing"
-                },
-                {
-                        firstName: "Jerad ",
-                    lastName: "Grolnic",
-                    email: "email@email.com",
-                    phoneNumber: "432-543-3246",
-                    date: "01/01/2018",
-                    activity: "N/A"
-                },
-                {
-                        firstName: "Shannon ",
-                    lastName: "Spiring",
-                    email: "email@email.com",
-                    phoneNumber: "555-555-5555",
-                    date: "01/01/2018",
-                    activity: "phone"
-                },
-            ];
-        }
+                  
 
+    }
+
+
+    viewDetails(customer, e) {
+        // Get the customer being clicked and store in redux
+        // Send the customer's details to redux for the view details page
+        this.props.sendCustomerToRedux(customer.original);
+
+        this.setState({
+            redirectToDetails: true
+        });
     }
 }
 
 const mapStateToProps = state => {
     return {
-                        adminLoginToken: state.adminLoginToken,
-                }
-            }
+        adminLoginToken: state.adminLoginToken,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        sendCustomerToRedux: customerObject => dispatch(setViewCustDetails(customerObject))
+    }
+}
             
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

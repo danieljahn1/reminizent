@@ -1,6 +1,7 @@
 const initialState = {
     adminLoginToken: '',
-    customerObject: ''
+    customerObject: '',
+    viewCustomer: ''
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -20,6 +21,12 @@ const rootReducer = (state = initialState, action) => {
             state = {
                 ...state,
                 customerObject: action.payload
+            }
+            break;
+        case ("SET_VIEWCUSTDETAILS"):
+            state = {
+                ...state,
+                viewCustomer: action.payload
             }
             break;
     }
