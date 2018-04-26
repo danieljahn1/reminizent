@@ -46,8 +46,8 @@ class AddCustomer extends Component {
                         customerObject: response.data[0]
                     })
                     this.props.sendCustomerObjToRedux(this.state.customerObject);
-                    console.log("custobj")
-                    console.log(response.data[0])
+                    // console.log("custobj")
+                    // console.log(response.data[0])
                     axios.post('http://localhost:3000/activity', activityBody)
                         .then(response => {
                             var subscribeBody = {
