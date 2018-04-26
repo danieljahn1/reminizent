@@ -4,4 +4,5 @@ _frontend/package-lock.json
 _backend/bin/*
 _backend/obj/*
 _backend/.env
+_backend/config/config.js
 _backend/node_modules/*

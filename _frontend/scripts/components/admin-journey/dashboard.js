@@ -100,7 +100,7 @@ class Dashboard extends Component {
 
                                                 <tr>
                                                     <th className="input2"> First Name: </th>
-                                                    {/* <td>{this.state.customer.FirstName}</td> */}
+                                                    <td>{this.state.activeCustomers.FirstName}</td>
                                                     <th className="input1">Last Name:</th>
                                                     {/* <td>{this.state.customer.LastName}</td> */}
                                                     <th className="input1">E-mail:</th>
@@ -108,7 +108,7 @@ class Dashboard extends Component {
                                                     <th className="input1">Phone Numer:</th>
                                                     {/* <td>{this.state.customer.Phone}</td> */}
                                                 </tr>
-                                                <br />
+                                                
                                                 <tr>
                                                     <th className="input2">Company:</th>
                                                     {/* <td>{this.state.customer.Company}</td> */}
@@ -119,7 +119,7 @@ class Dashboard extends Component {
                                                     <th className="input1">Name of Referal:</th>
                                                     {/* <td>{this.state.customer.Referral}</td> */}
                                                 </tr>
-                                                <br />
+                                                
                                             </tbody>
                                         </table>
                                         <Link to="/admin-customer"> <button className="btn col-md-2 input1 pull-right" style={{paddingBottom: 10}}>View Customer Details</button></Link>
