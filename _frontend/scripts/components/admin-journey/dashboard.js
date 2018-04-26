@@ -57,13 +57,13 @@ class Dashboard extends Component {
                     row[filter.id].startsWith(filter.value)
             },
             // {
-            //     Header: "Last Contacted",
-            //     accessor: "date",
+            //     Header: "Application Status",
+            //     accessor: "ApplicationStatus",
             //     filterMethod: (filter, row) =>
             //         row[filter.id].startsWith(filter.value)
             // },
             {
-                Header: "Status",
+                Header: "Loan Status",
                 accessor: "Status",
                 filterMethod: (filter, row) =>
                     (row[filter.id].toLowerCase()).startsWith(filter.value)
@@ -123,6 +123,13 @@ class Dashboard extends Component {
                                                     {/* <td>{this.state.customer.Referral}</td> */}
                                                 </tr>
                                                 <br />
+
+                                                <tr>
+                                                    <th className="input2">Application Status:</th>
+                                                    <th className="input1">Loan Status:</th>
+                                                </tr>
+                                                <br />
+
                                             </tbody>
                                         </table>
                                         <Link to="/admin-customer"> <button className="btn col-md-2 input1 pull-right" style={{paddingBottom: 10}}>View Customer Details</button></Link>
