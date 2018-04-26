@@ -21,7 +21,6 @@ class Dashboard extends Component {
         console.log(this.props.adminLoginToken)
         axios.get("http://localhost:3000/customer/active?token=" + this.props.adminLoginToken) 
             .then(response =>  {
-                console.log(response.data)
 
                 this.setState({
                     activeCustomers: response.data
@@ -94,7 +93,7 @@ class Dashboard extends Component {
                                 String(row[filter.id]) === filter.value}
                             className="dashboard -highlight dashboard-table"
                             columns={columns}
-                            defaultPageSize={10}
+                            defaultPageSize={25}
                             SubComponent={row => {
                                 return (
                                     <div>
