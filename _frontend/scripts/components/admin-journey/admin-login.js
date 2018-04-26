@@ -39,16 +39,16 @@ class AdminLogIn extends Component {
     }
 
     onEnterPress = (e) => {
-        if(e.keyCode == 13 && e.shiftKey == false) {
-          e.preventDefault();
-          this.adminLogin(e);
+        if (e.keyCode == 13 && e.shiftKey == false) {
+            e.preventDefault();
+            this.adminLogin(e);
         }
-      }
+    }
 
     render() {
         const { redirect } = this.state;
         if (redirect) {
-            return <Redirect to="/admin-dashboard"/>
+            return <Redirect to="/admin-dashboard" />
         }
 
         return (
