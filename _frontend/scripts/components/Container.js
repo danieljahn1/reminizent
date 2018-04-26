@@ -17,7 +17,7 @@ import CustomerDetails from './admin-journey/details-customer';
 import EditCustomer from './admin-journey/edit-customer';
 import AdminFooter from './admin-journey/admin-footer';
 import AdminLogIn from './admin-journey/admin-login';
-import NewNote from './admin-journey/notes';
+import EditNote from './admin-journey/edit-note';
 
 import HashPage from './user-journey/hash-string';
 
@@ -40,7 +40,7 @@ class Container extends Component {
                     <Route path='/admin-customer' component={CustomerDetails} />
                     <Route path='/admin-subscribe' component={AddCustomer} />
                     <Route path='/edit-customer' component={EditCustomer} />
-                    <Route path='/notes' component={NewNote} />
+                    <Route path='/edit-note' component={EditNote} />
                     <Route path='/learn-more' component={LearnMore} />
                     <Route path='/hashstring' component={HashPage} />
                 </Switch>

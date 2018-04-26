@@ -232,6 +232,8 @@ function login(req, res) {
                           // return the information including token as JSON
                           res.json({
                             success: true,
+                            email: result.recordset[0].Email,
+                            id: result.recordset[0].ID, 
                             message: 'Here is your token.',
                             token: token
                           });
