@@ -11,7 +11,8 @@ class EditCustomer extends Component {
         super(props);
         this.state = {
             customerObject: props.customerObject,
-            redirectFlag: false
+            redirectFlag: false,
+            redirectDetails: false
         }
     }
 
@@ -46,7 +47,15 @@ class EditCustomer extends Component {
             })
             .catch(err => {
                 console.log(err)
+                this.setState({
+                    redirectFlag: true
+                })
             })
+    }
+    previousPg() {
+        this.setState({
+            redirectDetails: true
+        })
     }
 
 
@@ -57,19 +66,25 @@ class EditCustomer extends Component {
             )
         }
 
+        if (this.state.redirectDetails) {
+            return (
+                <Redirect to="/admin-customer" />
+            )
+        }
+
         return (
             <div className="body">
                 <div className="container-fluid">
-                    <div className="col-md-10 col-md-offset-1 editCustomerPage">
-                        <div className="container ">
-                            <div className="row">
-                                <h2 style={{ margin: 20 }}>Edit Customer</h2>
+                    <div className="col-md-10 col-md-offset-1 editCustomerPage " >
+                        <div className="in-line4">
+                            <div className="row" >
+                                <h2 className="heading1">Edit Customer</h2>
                             </div>
 
                             <div className="form-group">
 
                                 <div className="row row-spacing">
-                                    <div className="form-inline col-md-10">
+                                    <div className="form-inline col-md-11">
                                         <input className="form-control input2" type="text" placeholder="First Name" value={this.state.customerObject.FirstName} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, FirstName: e.target.value } }) }} />
                                         <input className="form-control input1" type="text" placeholder="Last Name" value={this.state.customerObject.LastName} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, LastName: e.target.value } }) }} />
                                         <input className="form-control input1" type="email" name="" id="customerEmail" placeholder="Email Address" value={this.state.customerObject.Email} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, Email: e.target.value } }) }} />
@@ -147,9 +162,12 @@ class EditCustomer extends Component {
                                 </div>
 
 
-                                <div className="row" style={{ paddingBottom: 10 }} >
-
-                                    <button className="btn col-md-2 col-md-offset-9" onClick={this.onSave.bind(this)}>Submit</button>
+                                <div className="row in-line3" >
+                                {/* <div className="row" style={{ paddingBottom: 10 }} > */}
+                                    <div className="col-md-8 col-md-offset-9">
+                                        <button className="btn col-md-2 input2" onClick={this.previousPg.bind(this)}>Cancel</button>
+                                        <button className="btn col-md-2 in-line4 " onClick={this.onSave.bind(this)}>Submit</button>
+                                    </div>
                                 </div>
 
                             </div>

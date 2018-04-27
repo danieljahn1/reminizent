@@ -16,7 +16,7 @@ function getByEmail(req, res) {
                 res.send('Bad request');
 
             } else {
-                res.send('Eamil not found :(');
+                res.send('Email not found :(');
             }
         });
 }
@@ -52,7 +52,27 @@ function update(req, res) {
                 res.send('Bad request');
 
             } else {
-                res.send('Eamil not found :(');
+                res.send('Email not found :(');
+            }
+        });
+}
+
+function unsubscribe(req, res) {
+    request
+        .put('https://' + mailchimpInstance + '.api.mailchimp.com/3.0/lists/' + listUniqueId + '/members/' + req.params.hashedemail)
+        .set('Content-Type', 'application/json;charset=utf-8')
+        .set('Authorization', 'Basic ' + new Buffer('any:' + mailchimpApiKey).toString('base64'))
+        .send({
+            'status': 'unsubscribed'
+          })
+        .end(function (err, response) {
+            if (response.status < 300) {
+                res.send(response.body);
+            } else if (response.status === 400 && response.body.title === "Member Exists") {
+                res.send('Bad request');
+
+            } else {
+                res.send('Email not found :(');
             }
         });
 }
@@ -60,5 +80,6 @@ function update(req, res) {
 module.exports = {
     getByEmail,
     create,
-    update
+    update,
+    unsubscribe
 }
