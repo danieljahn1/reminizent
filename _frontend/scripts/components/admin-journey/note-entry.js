@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { setEditNote } from '../../redux/actions';
 
 class NoteEntry extends Component {
     constructor(props) {
         super(props);
         this.state = {
             notes: [],
-            customer: '',
             addNoteDate: this.dateInputFormat(),
             addNoteContactMethod: 'Select ...',
-            addNoteMessage: ''
+            addNoteMessage: '',
+            redirectToDetails: false
         }
     }
 
@@ -25,13 +26,11 @@ class NoteEntry extends Component {
             .then(response => {
                 
                 this.setState({                    
-                    notes: response.data,
-                    customer: this.props.viewCustomer  // sending redux state to local, so it does not error upon the logout.
+                    notes: response.data
                 })
                 
             })
             .catch(err => {
-                // console.log("No records");
                 this.setState({
                     notes: []
                 })
@@ -39,6 +38,11 @@ class NoteEntry extends Component {
     }
 
     render() {
+        const { redirectToDetails } = this.state;
+        if (redirectToDetails) {
+            return <Redirect to="/edit-note" />
+        }
+
         return (
             <div>
                 <div className="row">
@@ -112,7 +116,7 @@ class NoteEntry extends Component {
                                                 <td>{ item.Email }</td>
                                                 <td>{ item.ContactMessage }</td>
                                                 <td>
-                                                    <Link to="/edit-note"> <button className="btn">Edit</button></Link>
+                                                    <button className="btn" onClick={ this.editNote.bind(this, item) }>Edit</button>
                                                     <button className="btn btn-danger btn-delete" onClick={ this.deleteNote.bind(this, item) }>X</button>
                                                 </td>
                                             </tr>
@@ -135,7 +139,6 @@ class NoteEntry extends Component {
 
     submitNote(e) {
         // Add the contact note
-
         var contactActivity = {
             AdminID: this.props.adminObject.ID,
             CustomerID: this.props.viewCustomer.ID,    //this.state.customer.ID,
@@ -188,9 +191,25 @@ class NoteEntry extends Component {
                     // Update the notes list
                     this.getContactActivityNotes();
                 })
+        }        
+    }
 
+    editNote(note, e) {
+        // Send the note to edit  <Link to="/edit-note"> 
+        var editNoteObj = {
+            ID: note.ID,
+            AdminID: note.AdminID,
+            customerID: note.customerID,
+            DateContacted: note.DateContacted,
+            ContactMethod: note.ContactMethod,
+            ContactMessage: note.ContactMessage
         }
-        
+        // console.log(editNoteObj);
+        this.props.sendEditNoteToRedux(editNoteObj);
+
+        this.setState({
+            redirectToDetails: true
+        });
     }
 
     datePutFormat(putDate) {
@@ -229,7 +248,11 @@ class NoteEntry extends Component {
         }
         else if (hour == "00"){
             // 12 AM
-            time = 12 + ":" + d.substr(14,2) + " AM";;
+            time = 12 + ":" + d.substr(14,2) + " AM";
+        }
+        else if (hour == "12") {
+            // 12 PM
+            time = 12 + ":" + d.substr(14,2) + " PM";
         }
         else {
             // AM
@@ -254,4 +277,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(NoteEntry);
+const mapDispatchToProps = dispatch => {
+    return {
+        sendEditNoteToRedux: editNoteObject => dispatch(setEditNote(editNoteObject))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NoteEntry);

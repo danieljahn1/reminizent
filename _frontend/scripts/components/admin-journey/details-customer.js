@@ -145,6 +145,10 @@ class CustomerDetails extends Component {
             // 12 AM
             time = 12 + ":" + d.substr(14,2) + " AM";;
         }
+        else if (hour == "12") {
+            // 12 PM
+            time = 12 + ":" + d.substr(14,2) + " PM";
+        }
         else {
             // AM
             time = d.substr(11, 5) + " AM";
