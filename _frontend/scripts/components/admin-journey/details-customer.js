@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+import { setCustomerObject } from '../../redux/actions';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 import NoteEntry from './note-entry';
 
@@ -11,7 +12,8 @@ class CustomerDetails extends Component {
         this.state = {
             activity: '',
             customer: '',
-            notes: ''
+            notes: '',
+            redirectToEdit: false
         }
     }
 
@@ -39,6 +41,11 @@ class CustomerDetails extends Component {
 
 
     render() {
+        const { redirectToEdit } = this.state;
+        if (redirectToEdit) {
+            return <Redirect to="/edit-customer" />
+        }
+
         return (
 
             <div className="container-fluid">
@@ -104,7 +111,7 @@ class CustomerDetails extends Component {
                             {/* Edit button-- toggle page to edit form */}
 
                             <div className="row" style={{ margin: 10 }}>
-                                <Link to="/edit-customer">   <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10, margin: 10 }}>Edit Customer</button></Link>
+                                <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10, margin: 10 }} onClick={this.goEditCustomer.bind(this)}>Edit Customer</button>
                                 <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Email Customer</button>
 
                             </div>
@@ -177,6 +184,13 @@ class CustomerDetails extends Component {
         )
     }
 
+    goEditCustomer() {
+        this.props.sendCustomerObjToRedux(this.state.customer);
+        this.setState({
+            redirectToEdit: true
+        })
+    }
+
     formatDate(d) {
         // Format the date from yyyy-mm-dd into MM/dd/yyyy for display
         var year = d.substr(0,4);
@@ -213,4 +227,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(CustomerDetails);
+const mapDispatchToProps = dispatch => {
+    return {
+        sendCustomerObjToRedux: customerObject => dispatch(setCustomerObject(customerObject)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerDetails);
