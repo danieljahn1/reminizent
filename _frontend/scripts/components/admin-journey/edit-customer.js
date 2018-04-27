@@ -46,6 +46,9 @@ class EditCustomer extends Component {
             })
             .catch(err => {
                 console.log(err)
+                this.setState({
+                    redirectFlag: true
+                })
             })
     }
 

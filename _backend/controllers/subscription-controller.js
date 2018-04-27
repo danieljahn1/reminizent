@@ -16,7 +16,7 @@ function getByEmail(req, res) {
                 res.send('Bad request');
 
             } else {
-                res.send('Eamil not found :(');
+                res.send('Email not found :(');
             }
         });
 }
@@ -52,7 +52,7 @@ function update(req, res) {
                 res.send('Bad request');
 
             } else {
-                res.send('Eamil not found :(');
+                res.send('Email not found :(');
             }
         });
 }
@@ -72,7 +72,7 @@ function unsubscribe(req, res) {
                 res.send('Bad request');
 
             } else {
-                res.send('Eamil not found :(');
+                res.send('Email not found :(');
             }
         });
 }
