@@ -13,7 +13,11 @@ class CustomerDetails extends Component {
             activity: '',
             customer: '',
             notes: '',
-            redirectToEdit: false
+            subjectLine: '',
+            template: '',
+            href: '',
+            redirectToEdit: false,
+            openEmailClient: false
         }
     }
 
@@ -33,6 +37,11 @@ class CustomerDetails extends Component {
         const { redirectToEdit } = this.state;
         if (redirectToEdit) {
             return <Redirect to="/edit-customer" />
+        }
+
+        const { openEmailClient } = this.state;
+        if (openEmailClient) {
+            return <Redirect to={this.state.href} />
         }
 
         return (
@@ -110,25 +119,25 @@ class CustomerDetails extends Component {
                                         <form>
                                             <div className="form-group">
                                                 {/* <label htmlFor="email-modal">Email</label> */}
-                                                <select className="form-control" id="email-modal" value={this.state.customer.Email} onChange={(e) => { this.setState({ customer: e.target.value }) }} required >
+                                                <select className="form-control" id="email-modal" value={this.state.customer.subjectLine} onChange={(e) => { this.setState({ subjectLine: e.target.value }) }} required >
                                                     <option defaultValue>Subject Line ...</option>
-                                                    <option value="Thank you ..."></option>
-                                                    <option value="Here's an update on your application"></option>
-                                                    <option value="You've been approved"></option>
+                                                    <option >Thank you for contacting us</option>
+                                                    <option >Here's an update on your application</option>
+                                                    <option >You've been approved!</option>
                                                 </select>
                                             </div>
                                             <h1></h1>
                                             <div className="form-group">
                                                 {/* <label htmlFor="email-modal">Email</label> */}
-                                                <select className="form-control" id="email-modal" value={this.state.customer.Email} onChange={(e) => { this.setState({ customer: e.target.value }) }} required >
+                                                <select className="form-control" id="email-modal" value={this.state.customer.template} onChange={(e) => { this.setState({ template: e.target.value }) }} required >
                                                     <option defaultValue>Subject Body Template ...</option>
-                                                    <option value="Template 1"></option>
-                                                    <option value="Template 2"></option>
-                                                    <option value="Template 3"></option>
+                                                    <option >Template 1: General Reply</option>
+                                                    <option >Template 2: Status Update</option>
+                                                    <option >Template 3: Approval</option>
                                                 </select>
                                             </div>
                                             <h1></h1>
-                                            <button href="#close" type="submit" className="btn btn-block" onClick={this.emailCustomer.bind(this, this.state)}>Next</button>
+                                            <a href="#close" type="submit" className="btn btn-block" onClick={this.emailCustomer.bind(this, this.state)}>Next</a>
                                         </form>
                                     </div>
                                 </div>
@@ -149,7 +158,25 @@ class CustomerDetails extends Component {
 
     emailCustomer() {
         var emailHref = this.state.customer.Email;
-
+        var emailSubject = this.state.subjectLine;
+        var emailTemplate = this.state.template;
+        if (emailTemplate === "Template 1: General Reply") {
+            this.setState({
+                template: "How are you doing?"
+            })
+        } else if (emailTemplate === "Template 2: Status Update" ) {
+            this.setState({
+                template: "Your application is in progress?"
+            })
+        } else {
+            this.setState({
+                template: "Congratulations, you've been approved!"
+            })
+        }
+        this.setState({
+            href: "mailto:" + emailHref + "?subject=" + emailSubject + "&body=" + this.state.template
+        })
+        console.log(this.state.href)
     }
 
     goToEditCustomer() {
