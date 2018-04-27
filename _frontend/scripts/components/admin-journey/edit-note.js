@@ -27,9 +27,9 @@ class EditNote extends Component {
             <div className="body">
                 <div className="container-fluid">
                     <div className="col-md-10 col-md-offset-1 editCustomerPage">
-                        <div className="container">
+                        <div className="in-line3">
                             <div className="row">
-                                <h2 style={{ margin: 20 }}>Edit Note</h2>
+                                <h2 className="heading1">Edit Note</h2>
                             </div>
 
                             <div className="row row-spacing" >
@@ -49,10 +49,14 @@ class EditNote extends Component {
                             <label htmlFor="">Note</label>
                             <div className="row row-spacing">
                                 <textarea className=" addCustomerForm col-md-11" id="cutomerNote" cols="30" rows="5" maxLength="512" value={ this.state.addNoteMessage } onChange={ (e) => { this.setState({ addNoteMessage: e.target.value }) } } ></textarea>
+                                
                             </div>
 
-                            <div className="row" style={{ margin: 10, paddingBottom: 10 }}>
-                                <button className="btn col-md-2 col-md-offset-9" onClick={ this.updateNote.bind(this)}>Submit</button>
+                            <div className="row in-line3">
+                                <div className="col-md-8 col-md-offset-9">
+                                    <button className="btn col-md-2 col-md-offset-9" onClick={ this.updateNote.bind(this)}>Submit</button>       
+                                    <button className="btn col-md-2 input2" onClick={ this.cancelNote.bind(this) }>Cancel</button>
+                                </div>
                             </div>
 
                         </div>
@@ -61,6 +65,13 @@ class EditNote extends Component {
             </div>
 
         )
+    }
+
+    cancelNote() {
+        // Redirect back to customer detail
+        this.setState({
+            redirectToDetails: true
+        })
     }
 
     updateNote(note, e) {

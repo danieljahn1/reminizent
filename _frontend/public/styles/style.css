@@ -29,11 +29,11 @@
     background-color: #FFFFFF;
     box-shadow: 2px 2px 7px #C4C4C4;
   }
-  /* .btn-delete{
-    height: 36px;
-    box-shadow: 2px 2px 7px #C4C4C4;
+  .btn3{
+    margin-right: 10px;
+    margin-left: 10px;
+  }
 
-  } */
   .body{
     background-color: #FAFAFA;
     font-family: 'Cormorant Garamond', serif;
@@ -63,7 +63,49 @@
   .form-spacing5{
     margin-top: 38px;
   }
-
+  .in-line1{
+    padding-bottom: 10px;
+  }
+  .in-line2{
+    padding-right: 20px;
+  }
+  .in-line3{
+    margin: 10px;
+  }
+  .heading1{
+    margin:20px;
+  }
+  .in-line4{
+    margin: 15;
+  }
+  .in-line3{
+    margin: 10;
+    padding-bottom: 10px;
+  }
+  .in-line5{
+    margin-top: 55px;
+  }
+  .in-line6{
+    margin: 10px;
+    margin-left: 20px;
+  }
+  .in-line7{
+    margin: 20px;
+    margin-left: 25px;
+  }
+  .in-line8{
+   margin-right: 30px;
+   padding-bottom: 10px;
+  }
+  .in-line9{
+   padding-bottom: 265px;
+  }
+  .in-line10{
+    margin-left: 75px;
+  }
+  .in-line11{
+    margin-left: 41px;
+  }
  /* admin css */
   #userImg{
     height: 85px;
@@ -93,7 +135,6 @@
  }
  .dashboard-table{
   box-shadow: 2px 5px 20px #C4C4C4;
-
  }
  .addCustomerPage{
    margin: 30px;
@@ -116,10 +157,13 @@
    border: 1.5px solid #707070;
    background-color: #FFFFFF;
  }
-
+.cutomerContainer{
+  margin-top:13px;
+  margin-bottom:13px;
+  padding-right:10px;
+  padding-left:25px;
+}
  .addCustomerForm{
-  /* width:1084px; */
-  /* height: 186px; */
   border-radius: 8px 8px 8px 8px;
   margin-left: 15px;
   margin-bottom: 10px;
@@ -162,15 +206,6 @@
   margin:30px;
   margin-bottom: 45px;
 }
-/* .landing-img{
-  width: 90%;
-  height: 70%;
-  margin-left: 5%;
-  margin-top: 40px;
-  opacity: 0.6;
-  filter: alpha(opacity=50);
-  box-shadow: 1px 3px 10px #C4C4C4;
-} */
 
 @media screen and (min-width: 700px) {
   .landing-img{
@@ -216,3 +251,48 @@
   position: static;
   text-align: center;
 }
+
+/* Email Customer Modal */
+
+.modalDialog {
+  font-family: Arial, Helvetica, sans-serif;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
+  background: rgba(0,0,0,0.7);
+  opacity:0;
+  transition: opacity 400ms ease-in;
+  pointer-events: none;
+}
+
+.modalDialog:target {
+  opacity:1;
+  pointer-events: auto;
+}
+
+.modalDialog > div {
+  width: 750px;
+  padding: 5px 20px 25px 20px;
+  margin: 10% auto;
+  position: relative;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.close {
+  width: 24px;
+  line-height: 25px;
+  position: relative;
+  right: -10px;
+  text-align: center;
+  border-radius: 12px;
+}
+
+.close:hover { 
+  background: #f0ad4e; 
+}
+
+/* End Email Customer Modal */

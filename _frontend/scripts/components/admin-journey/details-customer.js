@@ -12,7 +12,7 @@ class CustomerDetails extends Component {
         this.state = {
             activity: '',
             customer: '',
-            notes: '',            
+            notes: '',
             redirectToEdit: false
         }
     }
@@ -27,7 +27,7 @@ class CustomerDetails extends Component {
                 })
 
             })
-    }    
+    }
 
     render() {
         const { redirectToEdit } = this.state;
@@ -38,11 +38,10 @@ class CustomerDetails extends Component {
         return (
 
             <div className="container-fluid">
-                <div className="col-md-10  col-md-offset-1 ">
-                    <div className="container-fluid customerDetailsPage" style={{ paddingRight: 20 }}>
-                        <div className="container">
+                <div className="col-md-10  col-md-offset-1 customerDetailsPage in-line2 ">
+                    <div className="cutomerContainer" >
                             <div className="row">
-                                <h2 style={{ margin: 20 }}>Customer Details</h2>
+                                <h2 className="heading1">Customer Details</h2>
                             </div>
 
                             <table className="col-md-12 form-spacing4">
@@ -99,11 +98,39 @@ class CustomerDetails extends Component {
 
                             {/* Edit button-- toggle page to edit form */}
 
-                            <div className="row" style={{ margin: 10 }}>
-                                <button className="btn btn-danger col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Delete Customer</button>
-                                <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10, margin: 10 }} onClick={this.goToEditCustomer.bind(this)}>Edit Customer</button>
-                                <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Email Customer</button>
-
+                            <div className="row in-line3">
+                                <button className="btn btn-danger col-md-2 input1 input2 pull-right in-line1">Delete Customer</button>
+                                <button className="btn col-md-2 input1 input2 pull-right" onClick={this.goToEditCustomer.bind(this)}>Edit Customer</button>
+                                <a href="#openModal" className="btn col-md-2 input1 input2 pull-right in-line1"  style={{ textDecoration: 'none'}}>Email Customer</a>                                <div id="openModal" className="modalDialog">
+                                    <div>
+                                        <a href="#close" title="Close" className="close">X</a>
+                                        <h3>Email {this.state.customer.Email}</h3>
+                                        <h1></h1>
+                                        <form>
+                                            <div className="form-group">
+                                                {/* <label htmlFor="email-modal">Email</label> */}
+                                                <select className="form-control" id="email-modal" value={this.state.customer.Email} onChange={(e) => { this.setState({ customer: e.target.value }) }} required >
+                                                    <option defaultValue>Subject Line ...</option>
+                                                    <option value="Thank you ..."></option>
+                                                    <option value="Here's an update on your application"></option>
+                                                    <option value="You've been approved"></option>
+                                                </select>
+                                            </div>
+                                            <h1></h1>
+                                            <div className="form-group">
+                                                {/* <label htmlFor="email-modal">Email</label> */}
+                                                <select className="form-control" id="email-modal" value={this.state.customer.Email} onChange={(e) => { this.setState({ customer: e.target.value }) }} required >
+                                                    <option defaultValue>Subject Body Template ...</option>
+                                                    <option value="Template 1"></option>
+                                                    <option value="Template 2"></option>
+                                                    <option value="Template 3"></option>
+                                                </select>
+                                            </div>
+                                            <h1></h1>
+                                            <button href="#close" type="submit" className="btn btn-block" onClick={this.emailCustomer.bind(this, this.state)}>Next</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
 
                             {/* add note section */}
@@ -114,10 +141,14 @@ class CustomerDetails extends Component {
                         </div>
                     </div>
 
-                </div>
-            </div>
+                 </div>
 
         )
+    }
+
+    emailCustomer() {
+        var emailHref = this.state.customer.Email;
+
     }
 
     goToEditCustomer() {
@@ -141,9 +172,9 @@ class CustomerDetails extends Component {
             hour -= 12;
             time = hour + ":" + d.substr(14, 2) + " PM";
         }
-        else if (hour == "00"){
+        else if (hour == "00") {
             // 12 AM
-            time = 12 + ":" + d.substr(14,2) + " AM";;
+            time = 12 + ":" + d.substr(14, 2) + " AM";;
         }
         else if (hour == "12") {
             // 12 PM

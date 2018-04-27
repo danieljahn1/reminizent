@@ -90,7 +90,7 @@ class AddCustomer extends Component {
                     <div className="col-md-10 col-md-offset-1 editCustomerPage">
                         <div className="container">
                             <div className="row">
-                                <h2 style={{ margin: 20 }}>Add New Customer</h2>
+                                <h2 className="heading1">Add New Customer</h2>
                             </div>
 
                             <div className="form-group">
@@ -173,8 +173,8 @@ class AddCustomer extends Component {
 
 
 
-                                <div className="row" style={{ margin: 10 }}>
-                                    <button type="submit" className="btn col-md-2 col-md-offset-9" onClick={this.userSignUp.bind(this)}>Submit</button>
+                                <div className="row inline6">
+                                    <button type="submit" className="btn col-md-2 col-md-offset-10" onClick={this.userSignUp.bind(this)}>Submit</button>
                                 </div>
                             </div>
 

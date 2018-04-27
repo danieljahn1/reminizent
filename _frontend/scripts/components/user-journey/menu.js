@@ -70,30 +70,21 @@ class Menu extends Component {
                                 </div>
                                 {(!this.props.adminLoginToken == '')
                                     ?
-                                    <div className="col-md-7 col-md-push-4" style={{ marginTop: 55 }}>
+                                    <div className="col-md-7 col-md-push-4 in-line5">
 
-                                        {/* <div className="col-md-1 col-md-offset-7 log-in-btn "> */}
                                         <button className="btn" onClick={this.goToDashboard.bind(this)}>Dashboard</button>
-                                        {/* </div> */}
 
-                                        {/* <div className="col-md-1 col-md-offset-7 log-in-btn "> */}
-                                        <button className="btn" style={{ marginRight: 7 }} onClick={this.goToCreateCustomer.bind(this)}>Create Customer</button>
-                                        {/* </div> */}
+                                        <button className="btn btn3" onClick={this.goToCreateCustomer.bind(this)}>Create Customer</button>
 
-                                        {/* <div className="col-md-1 col-md-offset-7 log-in-btn "> */}
                                         <button className="btn" onClick={this.logOut.bind(this)}>Log Out</button>
-                                        {/* </div> */}
 
                                     </div>
                                     :
-                                    <div className="col-md-1 col-md-offset-7" style={{ marginTop: 55 }}>
+                                    <div className="col-md-1 col-md-offset-7 in-line5">
                                         <Link to="/admin-login">
-                                            {/* <div className="col-md-1 col-md-offset-7 log-in-btn "> */}
                                             <button className="btn">Log In</button>
-                                            {/* </div> */}
                                         </Link>
                                     </div>
-                                    // <Link to="admin-login"><div className="col-md-1 col-md-offset-7 log-in-btn "><button className="btn pull-right">Log In</button></div></Link>
                                 }
                             </div>
                         </div>

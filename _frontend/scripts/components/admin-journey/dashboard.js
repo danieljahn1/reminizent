@@ -76,13 +76,8 @@ class Dashboard extends Component {
 
         return (
             <div className="body">
-                <div className="container">
-                    <div className="row">
-                        <div className="dashboard-top">
-                            <Link to="/admin-subscribe"><button className="btn pull-right">Add Customer</button></Link>
-                        </div>
-                    </div>
-                    <div className="container">
+
+                    <div className="container dashboard-top">
 
                         {/* table for the display of customers in data base and SubComponent that displays further deatils of customer and customer interaction */}
 
@@ -97,7 +92,7 @@ class Dashboard extends Component {
                             SubComponent={row => {
                                 return (
                                     <div className="">
-                                        <table className="col-md-10 col-md-offset-1" style={{ marginLeft: 25, margin: 20 }}>
+                                        <table className="col-md-10 col-md-offset-1 in-line7">
                                             <tbody>
                                                 <tr>
                                                     <th className="input2">First Name: </th>
@@ -130,9 +125,9 @@ class Dashboard extends Component {
                                                 <br />
                                             </tbody>
                                         </table>
-                                        <div className="" style={{ marginBottom: 265 }}>
-                                            <button className="btn col-md-2 input1 pull-right" style={{ paddingBottom: 10 }} onClick={this.viewDetails.bind(this, row)}>View Customer Details</button>
-                                            <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Email Customer</button>
+                                        <div className="in-line9">
+                                            <button className="btn col-md-2 input1 pull-right in-line8"  onClick={this.viewDetails.bind(this, row)}>View Customer Details</button>
+                                          
                                         </div>
                                     </div>
                                 )
@@ -140,7 +135,6 @@ class Dashboard extends Component {
                         />
                     </div>
                 </div>
-            </div>
         )
     }
 
