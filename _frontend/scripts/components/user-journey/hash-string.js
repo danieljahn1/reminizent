@@ -24,10 +24,10 @@ class HashPage extends Component {
     }
     render() {
         return (
-            <div className="form-group col-md-6">
+            <div className="form-group">
                 <label htmlFor="email">String to hash:</label>
-                <input type="email" autoComplete="email" id="email" className="form-control form-spacing" value={this.state.email} onChange={(e) => { this.setState({ email: e.target.value }) }} required />
-                <button type="submit" className="btn col-md-6 col-md-offset-3 form-spacing5" onClick={this.hashEmail.bind(this)}>Hash Email</button>
+                <input type="email" autoComplete="email" id="email" className="form-control" value={this.state.email} onChange={(e) => { this.setState({ email: e.target.value }) }} required />
+                <button type="submit" className="btn" onClick={this.hashEmail.bind(this)}>Hash Email</button>
                 <div>Hashed MD5: {this.state.hashedMD5}</div>
                 <div>Hashed SHA256: {this.state.hashedSHA256}</div>
             </div>
