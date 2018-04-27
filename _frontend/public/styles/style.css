@@ -29,11 +29,7 @@
     background-color: #FFFFFF;
     box-shadow: 2px 2px 7px #C4C4C4;
   }
-  /* .btn-delete{
-    height: 36px;
-    box-shadow: 2px 2px 7px #C4C4C4;
 
-  } */
   .body{
     background-color: #FAFAFA;
     font-family: 'Cormorant Garamond', serif;
@@ -116,10 +112,13 @@
    border: 1.5px solid #707070;
    background-color: #FFFFFF;
  }
-
+.cutomerContainer{
+  margin-top:13px;
+  margin-bottom:13px;
+  padding-right:10px;
+  padding-left:25px;
+}
  .addCustomerForm{
-  /* width:1084px; */
-  /* height: 186px; */
   border-radius: 8px 8px 8px 8px;
   margin-left: 15px;
   margin-bottom: 10px;
@@ -162,15 +161,6 @@
   margin:30px;
   margin-bottom: 45px;
 }
-/* .landing-img{
-  width: 90%;
-  height: 70%;
-  margin-left: 5%;
-  margin-top: 40px;
-  opacity: 0.6;
-  filter: alpha(opacity=50);
-  box-shadow: 1px 3px 10px #C4C4C4;
-} */
 
 @media screen and (min-width: 700px) {
   .landing-img{

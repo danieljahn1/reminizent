@@ -173,8 +173,8 @@ class AddCustomer extends Component {
 
 
 
-                                <div className="row" style={{ margin: 10 }}>
-                                    <button type="submit" className="btn col-md-2 col-md-offset-9" onClick={this.userSignUp.bind(this)}>Submit</button>
+                                <div className="row" style={{ margin: 10, marginLeft:20 }}>
+                                    <button type="submit" className="btn col-md-2 col-md-offset-10" onClick={this.userSignUp.bind(this)}>Submit</button>
                                 </div>
                             </div>
 

@@ -37,11 +37,9 @@ class NoteEntry extends Component {
 
     render() {
         return (
-            <div>
+            <div className="form-spacing4">
                 <div className="row">
-                    <div className="container">
                     {/* add note section */}
-                        <div className="row">
                             <h2 style={{ margin: 20 }}>Add New Note</h2>
                         </div>
 
@@ -66,14 +64,11 @@ class NoteEntry extends Component {
 
                         <div className="row" style={{ margin: 10, paddingBottom: 10 }}>
                             <button className="btn col-md-2 input1 input2 pull-right" onClick={ this.submitNote.bind(this) }>Submit</button>
-                        </div>
-                    </div>
                 </div>
 
 
                 {/* note history section */}
-                <div className="row">
-                    <div className="container">
+                <div className="row" >
                         <div className="col-md-12 table-responsive">
                             <table className="table table-sm">
                                 <thead>
@@ -112,7 +107,6 @@ class NoteEntry extends Component {
 
                             </table>
                         </div>
-                    </div>
 
                 </div>
 
