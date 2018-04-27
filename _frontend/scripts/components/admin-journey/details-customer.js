@@ -101,7 +101,7 @@ class CustomerDetails extends Component {
 
                             <div className="row" style={{ margin: 10 }}>
                                 <button className="btn btn-danger col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Delete Customer</button>
-                                <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10, margin: 10 }} onClick={this.goEditCustomer.bind(this)}>Edit Customer</button>
+                                <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10, margin: 10 }} onClick={this.goToEditCustomer.bind(this)}>Edit Customer</button>
                                 <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Email Customer</button>
 
                             </div>
@@ -120,9 +120,7 @@ class CustomerDetails extends Component {
         )
     }
 
-
-
-    goEditCustomer() {
+    goToEditCustomer() {
         this.props.sendCustomerObjToRedux(this.state.customer);
         this.setState({
             redirectToEdit: true
