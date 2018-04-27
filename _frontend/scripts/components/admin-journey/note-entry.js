@@ -11,7 +11,7 @@ class NoteEntry extends Component {
             customer: '',
             addNoteDate: this.dateInputFormat(),
             addNoteContactMethod: 'Select ...',
-            addNoteMessage: '',
+            addNoteMessage: ''
         }
     }
 
@@ -31,7 +31,10 @@ class NoteEntry extends Component {
                 
             })
             .catch(err => {
-                console.log("No records");
+                // console.log("No records");
+                this.setState({
+                    notes: []
+                })
             })
     }
 
@@ -83,6 +86,14 @@ class NoteEntry extends Component {
 
                                 <tbody>
                                     {
+                                        // If there are no notes for the customer, display a message. Else display all notes.
+                                        (this.state.notes.length == 0)
+                                        ?
+                                        <tr>
+                                           <td colSpan="5">There are no notes.</td> 
+                                        </tr>
+                                        :
+                                        // Display all notes
                                         this.state.notes.map( item =>
                                             <tr key={item.ID}>
                                                 <td>
@@ -97,7 +108,7 @@ class NoteEntry extends Component {
                                                 <td>{ item.ContactMessage }</td>
                                                 <td>
                                                     <Link to="/edit-note"> <button className="btn">Edit</button></Link>
-                                                    <button className="btn btn-danger btn-delete">X</button>
+                                                    <button className="btn btn-danger btn-delete" onClick={ this.deleteNote.bind(this, item) }>X</button>
                                                 </td>
                                             </tr>
                                         )
@@ -120,8 +131,8 @@ class NoteEntry extends Component {
         // Add the contact note
 
         var contactActivity = {
-            AdminID: 3,  // Need to get this from the login message
-            CustomerID: this.state.customer.ID,
+            AdminID: this.props.adminObject.ID,
+            CustomerID: this.props.viewCustomer.ID,    //this.state.customer.ID,
             DateContacted: this.datePutFormat(this.state.addNoteDate),
             ContactMethod: this.state.addNoteContactMethod,
             ContactMessage: this.state.addNoteMessage
@@ -130,13 +141,13 @@ class NoteEntry extends Component {
 
         // Make sure a date, contact method and message are entered
         if (this.state.addNoteDate == "") {
-            alert("Please select a date.");
+            alert("Please enter a date.");
         }
         else if (this.state.addNoteContactMethod == "Select ...") {
             alert("Please select a method of contact.");
         }
         else if (this.state.addNoteMessage == "") {
-            alert("Please select a message.");
+            alert("Please enter a message.");
         }
         else {
             // All fields filled in. Proceed with the insert
@@ -157,6 +168,25 @@ class NoteEntry extends Component {
         }        
     }
 
+    deleteNote(note, e) {
+        // Delete the note selected
+        var confirmDel = confirm("Are you sure you want to delete this note?");
+
+        if (confirmDel) {
+            // Delete the note
+            // console.log(note.ID + ". " + note.ContactMessage);
+            axios.delete("http://localhost:3000/contactactivity/" + note.ID + "?token=" + this.props.adminLoginToken)
+                .then(response => {
+                    alert("The note has been deleted successfully.");
+
+                    // Update the notes list
+                    this.getContactActivityNotes();
+                })
+
+        }
+        
+    }
+
     datePutFormat(putDate) {
         // Returns the date in "yyyy-MM-dd hh:mm:ss" format for use in the put route (to insert into sql server)
         putDate = putDate.replace("T", " ");
@@ -165,7 +195,7 @@ class NoteEntry extends Component {
 
 
     dateInputFormat() {
-        // Returns the date in "yyyy-MM-ddThh:mm" format to populate the default current date value in the datetime control
+        // Returns the date in "yyyy-MM-ddThh:mm" format to populate the default current date value in the datetime textbox
         var now = new Date();
         var year = "" + now.getFullYear();
         var month = "" + (now.getMonth() + 1); if (month.length == 1) { month = "0" + month; }
@@ -213,7 +243,8 @@ const mapStateToProps = state => {
     return {
         adminLoginToken: state.adminLoginToken,
         customerObject: state.customerObject,
-        viewCustomer: state.viewCustomer
+        viewCustomer: state.viewCustomer,
+        adminObject: state.adminObject
     }
 }
 

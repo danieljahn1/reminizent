@@ -17,37 +17,8 @@ class Dashboard extends Component {
         }
     }
 
-    // componentWillReceiveProps() {
-    //     console.log("props")
-    // }
-
-    // componentDidMount () {
-    //     console.log("update")
-    //     this.setState({
-    //         visits: this.state.visits += 1
-    //     })
-    //     console.log(this.state.visits)
-    // }
-
-
-    // componentDidMount() {
-    //     console.log(this.props.adminLoginToken)
-    //     axios.get("http://localhost:3000/customer/active?token=" + this.props.adminLoginToken)
-    //         .then(response => {
-    //             this.setState({
-    //                 activeCustomers: response.data,
-    //             })
-    //         })
-    // }
-
-    // componentDidMount() {
-    //     this.setState({
-    //         visits: true
-    //     })
-    // }
-
     componentDidMount() {
-        console.log(this.props.adminLoginToken)
+        // console.log(this.props.adminLoginToken)
         axios.get("http://localhost:3000/customer/active?token=" + this.props.adminLoginToken)
             .then(response => {
                 this.setState({
