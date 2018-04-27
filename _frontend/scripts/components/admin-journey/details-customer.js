@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { setCustomerObject } from '../../redux/actions';
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
+import MD5 from 'crypto-js/md5';
+import Dashboard from './dashboard'
 
 import NoteEntry from './note-entry';
 
@@ -13,11 +16,14 @@ class CustomerDetails extends Component {
             activity: '',
             customer: '',
             notes: '',
-            redirectToEdit: false
+            redirectToEdit: false,
+            redirectToDashboard: false,
+
         }
     }
 
     componentDidMount() {
+        console.log(this.props.viewCustomer.ID)
         axios.get('http://localhost:3000/activity/customer/' + this.props.viewCustomer.ID + '?token=' + this.props.adminLoginToken)
             .then(response => {
 
@@ -29,10 +35,47 @@ class CustomerDetails extends Component {
             })
     }
 
+    onDelete() {
+        let url = 'http://localhost:3000/customer/' + this.props.viewCustomer.ID + '?token=' + this.props.adminLoginToken
+        axios.delete(url)
+            .then(function (response) {
+                console.log(response)
+            })
+        var hashedEmail = CryptoJS.MD5(this.props.viewCustomer.Email).toString();
+        let urlUnsubscribe = 'http://localhost:3000/subscriptions/unsubscribe/' + hashedEmail;
+        axios.delete(urlUnsubscribe)
+            .then(response => {
+                console.log(response)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            this.setState({
+                redirectToDashboard: true
+            })
+    }
+
     render() {
+        console.log("render is firing")
         const { redirectToEdit } = this.state;
+        console.log(redirectToEdit)
         if (redirectToEdit) {
+            console.log("redirect line 64")
+            this.setState({
+                redirectToEdit: false
+            })
             return <Redirect to="/edit-customer" />
+        }
+
+        const { redirectToDashboard } = this.state;
+        console.log(redirectToDashboard + "THIS IS LINE 73")
+        if (redirectToDashboard) {
+            console.log("redirect line 73")
+            this.setState({
+                redirectToDashboard: false
+            })
+            // console.log(this.state.redirectToDashboard)
+            return <Redirect to="/admin-dashboard" />
         }
 
         return (

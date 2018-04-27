@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setCustomerObject } from '../../redux/actions';
 import axios from 'axios';
+import { setViewCustDetails } from '../../redux/actions';
 
 class AddCustomer extends Component {
     constructor(props) {
@@ -46,6 +47,7 @@ class AddCustomer extends Component {
                         customerObject: response.data[0]
                     })
                     this.props.sendCustomerObjToRedux(this.state.customerObject);
+                    this.props.sendCustomerToRedux(this.state.customerObject);
                     // console.log("custobj")
                     // console.log(response.data[0])
                     axios.post('http://localhost:3000/activity', activityBody)
@@ -196,6 +198,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         sendCustomerObjToRedux: customerObject => dispatch(setCustomerObject(customerObject)),
+        sendCustomerToRedux: customerObject => dispatch(setViewCustDetails(customerObject))
     }
 }
 

@@ -58,10 +58,11 @@ class EditCustomer extends Component {
         })
     }
 
+
     render() {
         if (this.state.redirectFlag) {
             return (
-                <Redirect to="/admin-dashboard" />
+                <Redirect to="/admin-customer" />
             )
         }
 
