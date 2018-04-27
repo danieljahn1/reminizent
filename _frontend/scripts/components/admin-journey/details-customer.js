@@ -12,7 +12,7 @@ class CustomerDetails extends Component {
         this.state = {
             activity: '',
             customer: '',
-            notes: '',
+            notes: '',            
             redirectToEdit: false
         }
     }
@@ -27,18 +27,7 @@ class CustomerDetails extends Component {
                 })
 
             })
-
-        // axios.get('http://localhost:3000/contactactivity/customer/' + this.props.viewCustomer.ID + '?token=' + this.props.adminLoginToken)
-        //     .then(response => {
-        //         console.log(response.data);
-        //         // this.setState({                    
-        //         //     notes: response.data[0],
-        //         //     // customer: this.props.viewCustomer  // sending redux state to local, so it does not error upon the logout.
-        //         // })
-
-        //     })
-    }
-
+    }    
 
     render() {
         const { redirectToEdit } = this.state;
@@ -118,61 +107,7 @@ class CustomerDetails extends Component {
                             </div>
 
                             {/* add note section */}
-                            <div className="row">
-                                <div className="container">
-                                    <div className="row">
-                                        <h2 style={{ margin: 20 }}>Add New Note</h2>
-                                    </div>
-
-                                    <div className="row row-spacing" >
-                                        <div className="form-inline col-md-10">
-                                            <label htmlFor="" className="input2">Date</label>
-                                            <input className="form-control" type="date" id="datePicker" />
-                                            <label htmlFor="" className="input1">Method of Contact</label>
-                                            <select className="form-control">
-                                                <option defaultValue>Select ...</option>
-                                                <option>Email</option>
-                                                <option>Phone</option>
-                                                <option>In Person</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <label htmlFor="">Notes</label>
-                                    <div className="row row-spacing">
-                                        <textarea className=" addCustomerForm col-md-11" id="cutomerNote" cols="30" rows="5"></textarea>
-                                    </div>
-
-                                    <div className="row" style={{ margin: 10, paddingBottom: 10 }}>
-                                        <Link to="/admin-customer"> <button className="btn col-md-2 input1 input2 pull-right">Submit</button></Link>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            {/* note history section */}
-                            <div className="row">
-                                <div className="container">
-                                    <div className="col-md-12 table-responsive ">
-                                        <table className="table">
-                                            <thead>
-                                                <tr>
-                                                    <th className="col-md-1">Date</th>
-                                                    <th className="col-md-2">Method of Contact</th>
-                                                    <th className="col-md-2">Created by</th>
-                                                    <th className="col-md-5">Note</th>
-                                                    <th className="col-md-2"></th>
-                                                </tr>
-                                            </thead>
-
-
-                                            <NoteEntry />
-
-                                        </table>
-                                    </div>
-                                </div>
-
-                            </div>
+                            <NoteEntry />
 
 
 
@@ -185,7 +120,9 @@ class CustomerDetails extends Component {
         )
     }
 
-    goToEditCustomer() {
+
+
+    goEditCustomer() {
         this.props.sendCustomerObjToRedux(this.state.customer);
         this.setState({
             redirectToEdit: true
@@ -205,6 +142,10 @@ class CustomerDetails extends Component {
             // PM. Subtract 12 from the hour
             hour -= 12;
             time = hour + ":" + d.substr(14, 2) + " PM";
+        }
+        else if (hour == "00"){
+            // 12 AM
+            time = 12 + ":" + d.substr(14,2) + " AM";;
         }
         else {
             // AM
