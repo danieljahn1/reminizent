@@ -11,7 +11,7 @@ class NoteEntry extends Component {
             customer: '',
             addNoteDate: this.dateInputFormat(),
             addNoteContactMethod: 'Select ...',
-            addNoteMessage: '',
+            addNoteMessage: ''
         }
     }
 
@@ -32,6 +32,9 @@ class NoteEntry extends Component {
             })
             .catch(err => {
                 // console.log("No records");
+                this.setState({
+                    notes: []
+                })
             })
     }
 
@@ -110,7 +113,7 @@ class NoteEntry extends Component {
                                                 <td>{ item.ContactMessage }</td>
                                                 <td>
                                                     <Link to="/edit-note"> <button className="btn">Edit</button></Link>
-                                                    <button className="btn btn-danger btn-delete">X</button>
+                                                    <button className="btn btn-danger btn-delete" onClick={ this.deleteNote.bind(this, item) }>X</button>
                                                 </td>
                                             </tr>
                                         )
@@ -169,6 +172,25 @@ class NoteEntry extends Component {
                 addNoteMessage: ''
             });
         }        
+    }
+
+    deleteNote(note, e) {
+        // Delete the note selected
+        var confirmDel = confirm("Are you sure you want to delete this note?");
+
+        if (confirmDel) {
+            // Delete the note
+            // console.log(note.ID + ". " + note.ContactMessage);
+            axios.delete("http://localhost:3000/contactactivity/" + note.ID + "?token=" + this.props.adminLoginToken)
+                .then(response => {
+                    alert("The note has been deleted successfully.");
+
+                    // Update the notes list
+                    this.getContactActivityNotes();
+                })
+
+        }
+        
     }
 
     datePutFormat(putDate) {

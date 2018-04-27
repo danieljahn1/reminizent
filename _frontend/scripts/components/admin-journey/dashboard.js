@@ -18,7 +18,7 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.adminLoginToken)
+        // console.log(this.props.adminLoginToken)
         axios.get("http://localhost:3000/customer/active?token=" + this.props.adminLoginToken)
             .then(response => {
                 this.setState({
