@@ -105,7 +105,7 @@ class Dashboard extends Component {
                                         <table className="col-md-10 col-md-offset-1" style={{ marginLeft: 25, margin: 20 }}>
                                             <tbody>
                                                 
-                                                    <tr>
+                                                <tr>
                                                     <th className="input2">First Name: </th>
                                                     <td>{this.state.activeCustomers[row.index].FirstName}</td>
                                                     <th className="input1">Last Name:</th>
@@ -114,8 +114,8 @@ class Dashboard extends Component {
                                                     <td>{this.state.activeCustomers[row.index].Email}</td>
                                                     <th className="input1">Phone Numer:</th>
                                                     <td>{this.state.activeCustomers[row.index].Phone}</td>
-                                                    </tr>
-                                                
+                                                </tr>
+                                                <br />
                                                 <tr>
                                                     <th className="input2">Company:</th>
                                                     <td>{this.state.activeCustomers[row.index].Company}</td>

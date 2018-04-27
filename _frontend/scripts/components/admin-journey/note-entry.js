@@ -1,26 +1,104 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import axios from 'axios';
 
 class NoteEntry extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            notes: [],
+            customer: ''
+        }
     }
+
+    componentDidMount() {
+        axios.get('http://localhost:3000/contactactivity/customer/' + this.props.viewCustomer.ID + '?token=' + this.props.adminLoginToken)
+            .then(response => {
+                console.log(response.data);
+                this.setState({                    
+                    notes: response.data,
+                    customer: this.props.viewCustomer  // sending redux state to local, so it does not error upon the logout.
+                })
+                
+            })
+            .catch(err => {
+                console.log("No records");
+            })
+    }
+
     render() {
         return (
-
-            <tr>
-                <td>1/01/01</td>
-                <td>Phone</td>
-                <td>AdminUser@Email.com</td>
-                <td>Lorem ipsum dolor, sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero doloremque hic accusantium exercitationem quaerat ab cupiditate quia, fuga error rem ducimus labore ipsam iusto asperiores! Explicabo est ipsam quaerat quidem?</td>
-                <td>
-                    <Link to="/edit-note"> <button className="btn">Edit</button></Link>
-                </td>
-            </tr>
+             
+                // <tr>
+                //         <td>
+                //             date
+                //         </td>
+                //         <td>ContactMethod</td>
+                //         <td>Email </td>
+                //         <td>ContactMessage</td>
+                //         <td>
+                //             <Link to="/edit-note"> <button className="btn">Edit</button></Link>
+                //         </td>
+                // </tr>
+            <tbody>
+            {
+                this.state.notes.map( item =>
+                    <tr key={item.ID}>
+                        <td>
+                            { item.DateContacted }
+                        </td>
+                        <td>{ item.ContactMethod }</td>
+                        <td>{ item.Email }</td>
+                        <td>{ item.ContactMessage }</td>
+                        <td>
+                            <Link to="/edit-note"> <button className="btn">Edit</button></Link>
+                        </td>
+                    </tr>
+                )
+            } 
+            </tbody>                      
+            
+            
+            
 
         )
     }
+
+    // formatDate(d) {
+    //     // Format the date from yyyy-mm-dd into MM/dd/yyyy for display
+    //     var year = d.substr(0,4);
+    //     var month = d.substr(5,2);
+    //     var day = d.substr(8,2);
+    //     var time = ''; // d.substr(11,5);
+        
+    //     // Convert 24 hour time to 12 hour AM/PM
+    //     var hour = d.substr(11,2);
+    //     if (hour > 12) {
+    //         // PM. Subtract 12 from the hour
+    //         hour -= 12;
+    //         time = hour + ":" + d.substr(14,2) + " PM";
+    //     }
+    //     else {
+    //         // AM
+    //         time = d.substr(11,5) + " AM";
+    //         if (time.indexOf('0') == 0) {
+    //             // remove the leading zero
+    //             time = time.substr(1);
+    //         }
+    //     }
+    
+    //     var date = month + '/' + day + '/' + year + " " + time;
+    //     return date;       
+    // }
 }
 
-export default NoteEntry;
+const mapStateToProps = state => {
+    return {
+        adminLoginToken: state.adminLoginToken,
+        customerObject: state.customerObject,
+        viewCustomer: state.viewCustomer
+    }
+}
+
+export default connect(mapStateToProps)(NoteEntry);
