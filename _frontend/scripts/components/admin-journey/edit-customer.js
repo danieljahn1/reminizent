@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
+import MD5 from 'crypto-js/md5';
 import Dashboard from './dashboard'
 
 class EditCustomer extends Component {
@@ -13,31 +15,52 @@ class EditCustomer extends Component {
         }
     }
 
-onSave (e) {
-    var self= this
-    let url = 'http://localhost:3000/customer/' + this.state.customerObject.ID + '?token=' + this.props.adminLoginToken;
-    axios.put(url, this.state.customerObject)
-        .then(function(response) {
-            console.log(response)
-            self.setState({redirectFlag: true})
-            
-            
-
-        })
-}  
+    onSave(e) {
+        var self = this
+        let url = 'http://localhost:3000/customer/' + this.state.customerObject.ID + '?token=' + this.props.adminLoginToken;
+        console.log(this.state.customerObject.Email)
+        axios.put(url, this.state.customerObject)
+            .then(function (response) {
+                console.log(response)
+            })
+        var hashedEmail = CryptoJS.MD5(this.state.customerObject.Email).toString();
+        var subscribeBody = {
+            "email_address": this.state.customerObject.Email,
+            "merge_fields": {
+                "FNAME": this.state.customerObject.FirstName,
+                "LNAME": this.state.customerObject.LastName,
+                "PHONE": this.state.customerObject.Phone,
+                "COMPANY": this.state.customerObject.Company,
+                "REQUEST": this.state.customerObject.AreaOfInterest,
+                "REFERRAL": this.state.customerObject.HeardAbout,
+                "REFERREDBY": this.state.customerObject.Referral
+            }
+        }
+        let urlString = 'http://localhost:3000/subscriptions/' + hashedEmail;
+        axios.put(urlString, subscribeBody)
+            .then(response => {
+                this.setState({
+                    redirectFlag: true
+                })
+                console.log(response)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
     render() {
         if (this.state.redirectFlag) {
             return (
-                <Redirect to="/admin-dashboard"/>
+                <Redirect to="/admin-dashboard" />
             )
         }
-        
+
         return (
             <div className="body">
-                <div className="container">
-                    <div className="col-md-12 editCustomerPage">
-                        <div className="container">
+                <div className="container-fluid">
+                    <div className="col-md-10 col-md-offset-1 editCustomerPage">
+                        <div className="container ">
                             <div className="row">
                                 <h2 style={{ margin: 20 }}>Edit Customer</h2>
                             </div>
@@ -72,11 +95,12 @@ onSave (e) {
                                         <div className="form-group">
                                             <label htmlFor="" className="input1">Referral Type</label>
                                             <select className="form-control" value={this.state.customerObject.HeardAbout} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, HeardAbout: e.target.value } }) }}>
-                                                <option>Email</option>
-                                                <option>Phone</option>
-                                                <option>Advertisement</option>
+                                                <option defaultValue>Select ...</option>
+                                                <option>TV</option>
+                                                <option>Radio</option>
+                                                <option>Internet</option>
                                                 <option>Walk-in</option>
-                                                <option>Referral </option>
+                                                <option>Rereral</option>
                                             </select>
                                             <label htmlFor="" className="input1">Name of Referral</label>
                                             <input className="form-control" type="text" placeholder="" value={this.state.customerObject.Referral} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, Referral: e.target.value } }) }} />
@@ -123,9 +147,9 @@ onSave (e) {
 
 
                                 <div className="row" style={{ paddingBottom: 10 }} >
-                                    
+
                                     <button className="btn col-md-2 col-md-offset-9" onClick={this.onSave.bind(this)}>Submit</button>
-                                    
+
                                 </div>
 
                             </div>

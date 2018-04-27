@@ -45,6 +45,7 @@ class NoteEntry extends Component {
                         <td>{ item.ContactMessage }</td>
                         <td>
                             <Link to="/edit-note"> <button className="btn">Edit</button></Link>
+                            <button className="btn btn-danger btn-delete">X</button>
                         </td>
                     </tr>
                 )

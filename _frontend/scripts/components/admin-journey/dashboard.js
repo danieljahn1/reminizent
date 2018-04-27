@@ -12,26 +12,46 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             activeCustomers: [],
+            visits: false,
             redirectToDetails: false
         }
-
     }
 
-    componentWillReceiveProps() {
-        console.log("props")
-    }
+    // componentWillReceiveProps() {
+    //     console.log("props")
+    // }
 
-    componentDidUpdate () {
-        console.log("update")
-    }
+    // componentDidMount () {
+    //     console.log("update")
+    //     this.setState({
+    //         visits: this.state.visits += 1
+    //     })
+    //     console.log(this.state.visits)
+    // }
+
+
+    // componentDidMount() {
+    //     console.log(this.props.adminLoginToken)
+    //     axios.get("http://localhost:3000/customer/active?token=" + this.props.adminLoginToken)
+    //         .then(response => {
+    //             this.setState({
+    //                 activeCustomers: response.data,
+    //             })
+    //         })
+    // }
+
+    // componentDidMount() {
+    //     this.setState({
+    //         visits: true
+    //     })
+    // }
 
     componentDidMount() {
         console.log(this.props.adminLoginToken)
         axios.get("http://localhost:3000/customer/active?token=" + this.props.adminLoginToken)
             .then(response => {
-
                 this.setState({
-                    activeCustomers: response.data
+                    activeCustomers: response.data,
                 })
             })
     }
@@ -83,17 +103,14 @@ class Dashboard extends Component {
             }
         ]
 
-
         return (
             <div className="body">
                 <div className="container">
                     <div className="row">
-
                         <div className="dashboard-top">
                             <Link to="/admin-subscribe"><button className="btn pull-right">Add Customer</button></Link>
                         </div>
                     </div>
-
                     <div className="container">
 
                         {/* table for the display of customers in data base and SubComponent that displays further deatils of customer and customer interaction */}
@@ -111,62 +128,50 @@ class Dashboard extends Component {
                                     <div className="">
                                         <table className="col-md-10 col-md-offset-1" style={{ marginLeft: 25, margin: 20 }}>
                                             <tbody>
-                                                
                                                 <tr>
                                                     <th className="input2">First Name: </th>
                                                     <td>{this.state.activeCustomers[row.index].FirstName}</td>
-                                                    <th className="input1">Last Name:</th>
+                                                    <th className="input1 ">Last Name:</th>
                                                     <td>{this.state.activeCustomers[row.index].LastName}</td>
-                                                    <th className="input1">E-mail:</th>
+                                                    <th className="input1 ">E-mail:</th>
                                                     <td>{this.state.activeCustomers[row.index].Email}</td>
-                                                    <th className="input1">Phone Numer:</th>
+                                                    <th className="input1 ">Phone Numer:</th>
                                                     <td>{this.state.activeCustomers[row.index].Phone}</td>
                                                 </tr>
                                                 <br />
                                                 <tr>
                                                     <th className="input2">Company:</th>
-                                                    <td>{this.state.activeCustomers[row.index].Company}</td>
-                                                    <th className="input1">Interest:</th>
+                                                    <td className="input1">{this.state.activeCustomers[row.index].Company}</td>
+                                                    <th className="input1 ">Interest:</th>
                                                     <td>{this.state.activeCustomers[row.index].AreaOfInterest}</td>
-                                                    <th className="input1">Referral Type:</th>
+                                                    <th className="input1 ">Referral Type:</th>
                                                     <td>{this.state.activeCustomers[row.index].HeardAbout}</td>
                                                     <th className="input1">Name of Referral:</th>
                                                     <td>{this.state.activeCustomers[row.index].Referral}</td>
                                                 </tr>
                                                 <br />
-
                                                 <tr>
                                                     <th className="input2">Application Status:</th>
                                                     <td>{this.state.activeCustomers[row.index].ApplicationStatus}</td>
-                                                    <th className="input1">Loan Status:</th>
+                                                    <th className="input1 ">Loan Status:</th>
                                                     <td>{this.state.activeCustomers[row.index].LoanStatus}</td>
                                                 </tr>
                                                 <br />
-                                                
-                                                
                                             </tbody>
                                         </table>
-                                            {/* <Link to="/admin-customer"> <button className="btn col-md-2 input1 pull-right" style={{ paddingBottom: 10 }} onClick={ this.viewDetails.bind(this, row) }>View Customer Details</button></Link> */}
-                                            <button className="btn col-md-2 input1 pull-right" style={{ paddingBottom: 10 }} onClick={ this.viewDetails.bind(this, row) }>View Customer Details</button>
+                                        <div className="" style={{ marginBottom: 265 }}>
+                                            <button className="btn col-md-2 input1 pull-right" style={{ paddingBottom: 10 }} onClick={this.viewDetails.bind(this, row)}>View Customer Details</button>
                                             <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Email Customer</button>
-
+                                        </div>
                                     </div>
-                                        )
-                                    }}
-        
-                                />
-        
-        
-        
+                                )
+                            }}
+                        />
                     </div>
                 </div>
             </div>
-         )
-            
-                  
-
+        )
     }
-
 
     viewDetails(customer, e) {
         // Get the customer being clicked and store in redux
@@ -190,5 +195,5 @@ const mapDispatchToProps = dispatch => {
         sendCustomerToRedux: customerObject => dispatch(setViewCustDetails(customerObject))
     }
 }
-            
+
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
