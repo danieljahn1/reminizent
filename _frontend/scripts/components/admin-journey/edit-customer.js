@@ -1,16 +1,38 @@
 import React, { Component } from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import axios from 'axios';
 import Dashboard from './dashboard'
+
 class EditCustomer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            customerObject: this.props.customerObject
+            customerObject: props.customerObject,
+            redirectFlag: false
         }
     }
+
+onSave (e) {
+    var self= this
+    let url = 'http://localhost:3000/customer/' + this.state.customerObject.ID + '?token=' + this.props.adminLoginToken;
+    axios.put(url, this.state.customerObject)
+        .then(function(response) {
+            console.log(response)
+            self.setState({redirectFlag: true})
+            
+            
+
+        })
+}  
+
     render() {
+        if (this.state.redirectFlag) {
+            return (
+                <Redirect to="/admin-dashboard"/>
+            )
+        }
+        
         return (
             <div className="body">
                 <div className="container">
@@ -24,22 +46,22 @@ class EditCustomer extends Component {
 
                                 <div className="row row-spacing">
                                     <div className="form-inline col-md-10">
-                                        <input className="form-control input2" type="text" placeholder="First Name" value={this.state.customerObject.FirstName} onChange={(e) => { this.setState({ customerObject: { ...customerObject, FirstName: e.target.value } }) }} />
-                                        <input className="form-control input1" type="text" placeholder="Last Name" value={this.state.customerObject.LastName} onChange={(e) => { this.setState({ customerObject: { ...customerObject, LastName: e.target.value } }) }} />
-                                        <input className="form-control input1" type="email" name="" id="customerEmail" placeholder="Email Address" value={this.state.customerObject.Email} onChange={(e) => { this.setState({ customerObject: { ...customerObject, Email: e.target.value } }) }} />
-                                        <input className="form-control input1" type="text" placeholder="Phone Number" value={this.state.customerObject.Phone} onChange={(e) => { this.setState({ customerObject: { ...customerObject, Phone: e.target.value } }) }} />
+                                        <input className="form-control input2" type="text" placeholder="First Name" value={this.state.customerObject.FirstName} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, FirstName: e.target.value } }) }} />
+                                        <input className="form-control input1" type="text" placeholder="Last Name" value={this.state.customerObject.LastName} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, LastName: e.target.value } }) }} />
+                                        <input className="form-control input1" type="email" name="" id="customerEmail" placeholder="Email Address" value={this.state.customerObject.Email} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, Email: e.target.value } }) }} />
+                                        <input className="form-control input1" type="text" placeholder="Phone Number" value={this.state.customerObject.Phone} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, Phone: e.target.value } }) }} />
 
                                     </div>
                                 </div>
 
                                 <div className="row row-spacing">
                                     <div className="form-inline col-md-11">
-                                        <input className="form-control input2" type="text" placeholder="Company" value={this.state.customerObject.Company} onChange={(e) => { this.setState({ customerObject: { ...customerObject, Company: e.target.value } }) }} />
+                                        <input className="form-control input2" type="text" placeholder="Company" value={this.state.customerObject.Company} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, Company: e.target.value } }) }} />
 
-                                        <div class="form-group">
-                                            <label htmlFor="email" className="input1">Intrest:</label>
-                                            <select className="form-control">
-                                                <option defaultValue>Select ...</option>
+
+                                        <div className="form-group">
+                                            <label htmlFor="email" className="input1">Interest:</label>
+                                            <select className="form-control" value={this.state.customerObject.AreaOfInterest} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, AreaOfInterest: e.target.value } }) }}>
                                                 <option>General Information</option>
                                                 <option>Loan Information</option>
                                                 <option>Speak with an Agent</option>
@@ -47,18 +69,17 @@ class EditCustomer extends Component {
                                             </select>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label htmlFor="" className="input1">Referal Type</label>
-                                            <select className="form-control" value={this.state.customerObject.HeardAbout} onChange={(e) => { this.setState({ customerObject: { ...customerObject, HeardAbout: e.target.value } }) }}>
-                                                <option defaultValue>Select ...</option>
+                                        <div className="form-group">
+                                            <label htmlFor="" className="input1">Referral Type</label>
+                                            <select className="form-control" value={this.state.customerObject.HeardAbout} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, HeardAbout: e.target.value } }) }}>
                                                 <option>Email</option>
                                                 <option>Phone</option>
                                                 <option>Advertisement</option>
                                                 <option>Walk-in</option>
-                                                <option>Rereral </option>
+                                                <option>Referral </option>
                                             </select>
-                                            <label htmlFor="" className="input1">Name of Referal</label>
-                                            <input className="form-control" type="text" placeholder="" value={this.state.customerObject.Referral} onChange={(e) => { this.setState({ customerObject: { ...customerObject, Referral: e.target.value } }) }} />
+                                            <label htmlFor="" className="input1">Name of Referral</label>
+                                            <input className="form-control" type="text" placeholder="" value={this.state.customerObject.Referral} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, Referral: e.target.value } }) }} />
                                         </div>
 
                                     </div>
@@ -68,8 +89,7 @@ class EditCustomer extends Component {
                                     <div className="form-inline col-md-11">
 
                                         <label htmlFor="" className="input1">Application Status</label>
-                                        <select className="form-control">
-                                            <option defaultValue>Select ...</option>
+                                        <select className="form-control" value={this.state.customerObject.ApplicationStatus} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, ApplicationStatus: e.target.value } }) }}>
                                             <option>Purchase only</option>
                                             <option>Looking</option>
                                             <option>Application for Pre-Qualified</option>
@@ -82,8 +102,7 @@ class EditCustomer extends Component {
 
 
                                         <label htmlFor="" className="input1">Loan Status</label>
-                                        <select className="form-control">
-                                            <option defaultValue>Select ...</option>
+                                        <select className="form-control" value={this.state.customerObject.LoanStatus}>
                                             <option>Application</option>
                                             <option>Initial Documents</option>
                                             <option>Setup / Initial Disclosures</option>
@@ -104,7 +123,9 @@ class EditCustomer extends Component {
 
 
                                 <div className="row" style={{ paddingBottom: 10 }} >
-                                    <Link to="/admin-dashboard"> <button className="btn col-md-2 col-md-offset-9">Submit</button></Link>
+                                    
+                                    <button className="btn col-md-2 col-md-offset-9" onClick={this.onSave.bind(this)}>Submit</button>
+                                    
                                 </div>
 
                             </div>
