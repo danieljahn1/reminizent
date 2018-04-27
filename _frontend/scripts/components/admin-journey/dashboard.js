@@ -92,7 +92,7 @@ class Dashboard extends Component {
                             SubComponent={row => {
                                 return (
                                     <div className="">
-                                        <table className="col-md-10 col-md-offset-1" style={{ marginLeft: 25, margin: 20 }}>
+                                        <table className="col-md-10 col-md-offset-1 in-line7">
                                             <tbody>
                                                 <tr>
                                                     <th className="input2">First Name: </th>
@@ -125,8 +125,8 @@ class Dashboard extends Component {
                                                 <br />
                                             </tbody>
                                         </table>
-                                        <div className="" style={{ marginBottom: 265 }}>
-                                            <button className="btn col-md-2 input1 pull-right" style={{ paddingBottom: 10, marginRight:30 }} onClick={this.viewDetails.bind(this, row)}>View Customer Details</button>
+                                        <div className="in-line9">
+                                            <button className="btn col-md-2 input1 pull-right in-line8"  onClick={this.viewDetails.bind(this, row)}>View Customer Details</button>
                                           
                                         </div>
                                     </div>

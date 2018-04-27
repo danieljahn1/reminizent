@@ -84,7 +84,7 @@ class SignUp extends Component {
                                 <div className="col-md-4 col-md-offset-4 text-center">
                                     <h3>Sign Up</h3>
                                 </div>
-                                <div className="" style={{ marginLeft: 75 }}>
+                                <div className="in-line10">
                                     <div className="col-md-10">
                                         <form>
                                             <div className="form-group">

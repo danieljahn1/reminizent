@@ -38,10 +38,10 @@ class CustomerDetails extends Component {
         return (
 
             <div className="container-fluid">
-                <div className="col-md-10  col-md-offset-1 customerDetailsPage " style={{ paddingRight: 20 }}>
+                <div className="col-md-10  col-md-offset-1 customerDetailsPage in-line2 ">
                     <div className="cutomerContainer" >
                             <div className="row">
-                                <h2 style={{ margin: 20 }}>Customer Details</h2>
+                                <h2 className="heading1">Customer Details</h2>
                             </div>
 
                             <table className="col-md-12 form-spacing4">
@@ -98,11 +98,10 @@ class CustomerDetails extends Component {
 
                             {/* Edit button-- toggle page to edit form */}
 
-                            <div className="row" style={{ margin: 10 }}>
-                                <button className="btn btn-danger col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Delete Customer</button>
-                                <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10, margin: 10 }} onClick={this.goToEditCustomer.bind(this)}>Edit Customer</button>
-                                <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }} ><a href="#openModal">Email Customer</a></button>
-                                <div id="openModal" className="modalDialog">
+                            <div className="row in-line3">
+                                <button className="btn btn-danger col-md-2 input1 input2 pull-right in-line1">Delete Customer</button>
+                                <button className="btn col-md-2 input1 input2 pull-right" onClick={this.goToEditCustomer.bind(this)}>Edit Customer</button>
+                                <a href="#openModal" className="btn col-md-2 input1 input2 pull-right in-line1"  style={{ textDecoration: 'none'}}>Email Customer</a>                                <div id="openModal" className="modalDialog">
                                     <div>
                                         <a href="#close" title="Close" className="close">X</a>
                                         <h3>Email {this.state.customer.Email}</h3>

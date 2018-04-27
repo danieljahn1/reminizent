@@ -43,7 +43,7 @@ class NoteEntry extends Component {
             <div className="form-spacing4">
                 <div className="row">
                     {/* add note section */}
-                            <h2 style={{ margin: 20 }}>Add New Note</h2>
+                            <h2 className="heading1">Add New Note</h2>
                         </div>
 
                         <div className="row row-spacing" >
@@ -65,7 +65,7 @@ class NoteEntry extends Component {
                             <textarea className=" addCustomerForm col-md-11" id="cutomerNote" cols="30" rows="5" value={ this.state.addNoteMessage } onChange={ (e) => { this.setState({ addNoteMessage: e.target.value }) } } ></textarea>
                         </div>
 
-                        <div className="row" style={{ margin: 10, paddingBottom: 10 }}>
+                        <div className="row in-line3">
                             <button className="btn col-md-2 input1 input2 pull-right" onClick={ this.submitNote.bind(this) }>Submit</button>
                 </div>
 

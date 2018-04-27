@@ -29,6 +29,10 @@
     background-color: #FFFFFF;
     box-shadow: 2px 2px 7px #C4C4C4;
   }
+  .btn3{
+    margin-right: 10px;
+    margin-left: 10px;
+  }
 
   .body{
     background-color: #FAFAFA;
@@ -59,7 +63,49 @@
   .form-spacing5{
     margin-top: 38px;
   }
-
+  .in-line1{
+    padding-bottom: 10px;
+  }
+  .in-line2{
+    padding-right: 20px;
+  }
+  .in-line3{
+    margin: 10px;
+  }
+  .heading1{
+    margin:20px;
+  }
+  .in-line4{
+    margin: 15;
+  }
+  .in-line3{
+    margin: 10;
+    padding-bottom: 10px;
+  }
+  .in-line5{
+    margin-top: 55px;
+  }
+  .in-line6{
+    margin: 10px;
+    margin-left: 20px;
+  }
+  .in-line7{
+    margin: 20px;
+    margin-left: 25px;
+  }
+  .in-line8{
+   margin-right: 30px;
+   padding-bottom: 10px;
+  }
+  .in-line9{
+   padding-bottom: 265px;
+  }
+  .in-line10{
+    margin-left: 75px;
+  }
+  .in-line11{
+    margin-left: 41px;
+  }
  /* admin css */
   #userImg{
     height: 85px;
@@ -193,7 +239,7 @@
 .main-footer{
   margin-top: 50px;
   border-top: 2px solid #707070;
-  min-height: 100%;
+  min-height: 55%;
   background-color: #FAFAFA;
   padding-bottom: 12%;
   overflow: hidden;

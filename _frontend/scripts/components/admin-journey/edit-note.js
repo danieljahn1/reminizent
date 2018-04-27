@@ -12,9 +12,9 @@ class EditNote extends Component {
             <div className="body">
                 <div className="container-fluid">
                     <div className="col-md-10 col-md-offset-1 editCustomerPage">
-                        <div style={{ margin: 15 }}>
+                        <div className="in-line3">
                             <div className="row">
-                                <h2 style={{ margin: 20 }}>Edit Note</h2>
+                                <h2 className="heading1">Edit Note</h2>
                             </div>
 
                             <div className="row row-spacing" >
@@ -36,10 +36,10 @@ class EditNote extends Component {
                                 <textarea className=" addCustomerForm col-md-11" id="cutomerNote" cols="30" rows="5" maxLength="512"></textarea>
                             </div>
 
-                            <div className="row" style={{ margin: 10, paddingBottom: 10 }}>
+                            <div className="row in-line3">
                                 <div className="col-md-8 col-md-offset-9">
-                                    <button className="btn col-md-2">Cancel</button>
-                                    <Link to="/"> <button className="btn col-md-2 " style={{ marginLeft: 14 }}>Submit</button></Link>
+                                    <button className="btn col-md-2 input2">Cancel</button>
+                                    <Link to="/"> <button className="btn col-md-2 in-line4">Submit</button></Link>
                                 </div>
                             </div>
 

@@ -23,7 +23,7 @@ class Success extends Component {
                                 </div>                            
 
 
-                                <div className="row"style={{marginLeft:41}}>
+                                <div className="row in-line11">
                                     <button className="btn col-md-3 col-md-offset-4 form-spacing4">Retrun to main menu</button>
                                 </div>
                             </div>
