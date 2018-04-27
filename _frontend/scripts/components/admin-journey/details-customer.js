@@ -50,13 +50,16 @@ class CustomerDetails extends Component {
         axios.delete(urlUnsubscribe)
             .then(response => {
                 console.log(response)
+                this.setState({
+                    redirectToDashboard: true
+                })
             })
             .catch(err => {
                 console.log(err)
+                this.setState({
+                    redirectToDashboard: true
+                })
             })
-        this.setState({
-            redirectToDashboard: true
-        })
     }
 
     render() {
@@ -151,7 +154,7 @@ class CustomerDetails extends Component {
                         {/* Edit button-- toggle page to edit form */}
 
                         <div className="row in-line3">
-                            <button className="btn btn-danger col-md-2 input1 input2 pull-right in-line1">Delete Customer</button>
+                            <button className="btn btn-danger col-md-2 input1 input2 pull-right in-line1" onClick={this.onDelete.bind(this)}>Delete Customer</button>
                             <button className="btn col-md-2 input1 input2 pull-right" onClick={this.goToEditCustomer.bind(this)}>Edit Customer</button>
                             <a href="#openModal" className="btn col-md-2 input1 input2 pull-right in-line1" style={{ textDecoration: 'none' }}>Email Customer</a>                                <div id="openModal" className="modalDialog">
                                 <div>
