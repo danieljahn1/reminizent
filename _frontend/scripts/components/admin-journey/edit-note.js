@@ -12,7 +12,7 @@ class EditNote extends Component {
             <div className="body">
                 <div className="container-fluid">
                     <div className="col-md-10 col-md-offset-1 editCustomerPage">
-                        <div className="container">
+                        <div style={{ margin: 15 }}>
                             <div className="row">
                                 <h2 style={{ margin: 20 }}>Edit Note</h2>
                             </div>
@@ -37,7 +37,10 @@ class EditNote extends Component {
                             </div>
 
                             <div className="row" style={{ margin: 10, paddingBottom: 10 }}>
-                                <Link to="/"> <button className="btn col-md-2 col-md-offset-9">Submit</button></Link>
+                                <div className="col-md-8 col-md-offset-9">
+                                    <button className="btn col-md-2">Cancel</button>
+                                    <Link to="/"> <button className="btn col-md-2 " style={{ marginLeft: 14 }}>Submit</button></Link>
+                                </div>
                             </div>
 
                         </div>

@@ -38,9 +38,8 @@ class CustomerDetails extends Component {
         return (
 
             <div className="container-fluid">
-                <div className="col-md-10  col-md-offset-1 ">
-                    <div className="container-fluid customerDetailsPage" style={{ paddingRight: 20 }}>
-                        <div className="container">
+                <div className="col-md-10  col-md-offset-1 customerDetailsPage " style={{ paddingRight: 20 }}>
+                    <div className="cutomerContainer" >
                             <div className="row">
                                 <h2 style={{ margin: 20 }}>Customer Details</h2>
                             </div>
@@ -143,8 +142,7 @@ class CustomerDetails extends Component {
                         </div>
                     </div>
 
-                </div>
-            </div >
+                 </div>
 
         )
     }

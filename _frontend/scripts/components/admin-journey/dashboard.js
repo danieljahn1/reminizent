@@ -18,7 +18,7 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.adminLoginToken)
+        // console.log(this.props.adminLoginToken)
         axios.get("http://localhost:3000/customer/active?token=" + this.props.adminLoginToken)
             .then(response => {
                 this.setState({
@@ -76,13 +76,8 @@ class Dashboard extends Component {
 
         return (
             <div className="body">
-                <div className="container">
-                    <div className="row">
-                        <div className="dashboard-top">
-                            <Link to="/admin-subscribe"><button className="btn pull-right">Add Customer</button></Link>
-                        </div>
-                    </div>
-                    <div className="container">
+
+                    <div className="container dashboard-top">
 
                         {/* table for the display of customers in data base and SubComponent that displays further deatils of customer and customer interaction */}
 
@@ -131,8 +126,8 @@ class Dashboard extends Component {
                                             </tbody>
                                         </table>
                                         <div className="" style={{ marginBottom: 265 }}>
-                                            <button className="btn col-md-2 input1 pull-right" style={{ paddingBottom: 10 }} onClick={this.viewDetails.bind(this, row)}>View Customer Details</button>
-                                            <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Email Customer</button>
+                                            <button className="btn col-md-2 input1 pull-right" style={{ paddingBottom: 10, marginRight:30 }} onClick={this.viewDetails.bind(this, row)}>View Customer Details</button>
+                                          
                                         </div>
                                     </div>
                                 )
@@ -140,7 +135,6 @@ class Dashboard extends Component {
                         />
                     </div>
                 </div>
-            </div>
         )
     }
 

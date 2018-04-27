@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setLoginToken } from '../../redux/actions';
+import { setAdminLogin } from '../../redux/actions';
 import axios from 'axios';
 
 class AdminLogIn extends Component {
@@ -32,6 +33,13 @@ class AdminLogIn extends Component {
                         this.setState({
                             redirect: true
                         })
+
+                        // Create admin object for redux
+                        var adminObj = {
+                            Email: response.data.email,
+                            ID: response.data.id
+                        }
+                        this.props.sendAdminToRedux(adminObj);
                     }
                 })
                 .catch(err => {
@@ -93,6 +101,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         sendTokenToRedux: adminLoginToken => dispatch(setLoginToken(adminLoginToken)),
+        sendAdminToRedux: adminObject => dispatch(setAdminLogin(adminObject))
     }
 }
 
