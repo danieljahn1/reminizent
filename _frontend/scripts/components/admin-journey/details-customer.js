@@ -10,7 +10,8 @@ class CustomerDetails extends Component {
         super(props);
         this.state = {
             activity: '',
-            customer: ''
+            customer: '',
+            notes: ''
         }
     }
 
@@ -24,6 +25,16 @@ class CustomerDetails extends Component {
                 })
                 
             })
+
+        // axios.get('http://localhost:3000/contactactivity/customer/' + this.props.viewCustomer.ID + '?token=' + this.props.adminLoginToken)
+        //     .then(response => {
+        //         console.log(response.data);
+        //         // this.setState({                    
+        //         //     notes: response.data[0],
+        //         //     // customer: this.props.viewCustomer  // sending redux state to local, so it does not error upon the logout.
+        //         // })
+                
+        //     })
     }
 
 
@@ -146,9 +157,9 @@ class CustomerDetails extends Component {
                                                 </tr>
                                             </thead>
 
-                                            <tbody>
-                                                <NoteEntry />
-                                            </tbody>
+                                            
+                                            <NoteEntry />
+                                            
                                         </table>
                                     </div>
                                 </div>
