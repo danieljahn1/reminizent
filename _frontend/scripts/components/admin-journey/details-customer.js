@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { setCustomerObject } from '../../redux/actions';
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
+import MD5 from 'crypto-js/md5';
+import Dashboard from './dashboard'
 
 import NoteEntry from './note-entry';
 
@@ -12,12 +15,15 @@ class CustomerDetails extends Component {
         this.state = {
             activity: '',
             customer: '',
-            notes: '',            
-            redirectToEdit: false
+            notes: '',
+            redirectToEdit: false,
+            redirectToDashboard: false,
+
         }
     }
 
     componentDidMount() {
+        console.log(this.props.viewCustomer.ID)
         axios.get('http://localhost:3000/activity/customer/' + this.props.viewCustomer.ID + '?token=' + this.props.adminLoginToken)
             .then(response => {
 
@@ -27,12 +33,49 @@ class CustomerDetails extends Component {
                 })
 
             })
-    }    
+    }
+
+    onDelete() {
+        let url = 'http://localhost:3000/customer/' + this.props.viewCustomer.ID + '?token=' + this.props.adminLoginToken
+        axios.delete(url)
+            .then(function (response) {
+                console.log(response)
+            })
+        var hashedEmail = CryptoJS.MD5(this.props.viewCustomer.Email).toString();
+        let urlUnsubscribe = 'http://localhost:3000/subscriptions/unsubscribe/' + hashedEmail;
+        axios.delete(urlUnsubscribe)
+            .then(response => {
+                console.log(response)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            this.setState({
+                redirectToDashboard: true
+            })
+    }
 
     render() {
+        console.log("render is firing")
         const { redirectToEdit } = this.state;
+        console.log(redirectToEdit)
         if (redirectToEdit) {
+            console.log("redirect line 64")
+            this.setState({
+                redirectToEdit: false
+            })
             return <Redirect to="/edit-customer" />
+        }
+
+        const { redirectToDashboard } = this.state;
+        console.log(redirectToDashboard + "THIS IS LINE 73")
+        if (redirectToDashboard) {
+            console.log("redirect line 73")
+            this.setState({
+                redirectToDashboard: false
+            })
+            // console.log(this.state.redirectToDashboard)
+            return <Redirect to="/admin-dashboard" />
         }
 
         return (
@@ -100,7 +143,7 @@ class CustomerDetails extends Component {
                             {/* Edit button-- toggle page to edit form */}
 
                             <div className="row" style={{ margin: 10 }}>
-                                <button className="btn btn-danger col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Delete Customer</button>
+                                <button className="btn btn-danger col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }} onClick={this.onDelete.bind(this)}>Delete Customer</button>
                                 <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10, margin: 10 }} onClick={this.goEditCustomer.bind(this)}>Edit Customer</button>
                                 <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Email Customer</button>
 
@@ -143,9 +186,9 @@ class CustomerDetails extends Component {
             hour -= 12;
             time = hour + ":" + d.substr(14, 2) + " PM";
         }
-        else if (hour == "00"){
+        else if (hour == "00") {
             // 12 AM
-            time = 12 + ":" + d.substr(14,2) + " AM";;
+            time = 12 + ":" + d.substr(14, 2) + " AM";;
         }
         else {
             // AM

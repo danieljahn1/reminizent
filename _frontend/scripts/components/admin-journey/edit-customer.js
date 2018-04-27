@@ -49,10 +49,11 @@ class EditCustomer extends Component {
             })
     }
 
+
     render() {
         if (this.state.redirectFlag) {
             return (
-                <Redirect to="/admin-dashboard" />
+                <Redirect to="/admin-customer" />
             )
         }
 
@@ -149,7 +150,6 @@ class EditCustomer extends Component {
                                 <div className="row" style={{ paddingBottom: 10 }} >
 
                                     <button className="btn col-md-2 col-md-offset-9" onClick={this.onSave.bind(this)}>Submit</button>
-
                                 </div>
 
                             </div>
