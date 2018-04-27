@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 const contactActivityController = require('../controllers/contactactivity-controller');
 
+var cors = require('cors')
+router.use(cors())
+
 var configjs = require('../config/config');
 var jwt = require('jsonwebtoken'); 
 var app = express();

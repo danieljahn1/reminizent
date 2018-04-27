@@ -111,9 +111,9 @@ class Dashboard extends Component {
                                     <div className="">
                                         <table className="col-md-10 col-md-offset-1" style={{ marginLeft: 25, margin: 20 }}>
                                             <tbody>
-
+                                                
                                                 <tr>
-                                                    <th className="input2 ">First Name: </th>
+                                                    <th className="input2">First Name: </th>
                                                     <td>{this.state.activeCustomers[row.index].FirstName}</td>
                                                     <th className="input1 ">Last Name:</th>
                                                     <td>{this.state.activeCustomers[row.index].LastName}</td>
@@ -122,9 +122,7 @@ class Dashboard extends Component {
                                                     <th className="input1 ">Phone Numer:</th>
                                                     <td>{this.state.activeCustomers[row.index].Phone}</td>
                                                 </tr>
-
                                                 <br />
-
                                                 <tr>
                                                     <th className="input2">Company:</th>
                                                     <td className="input1">{this.state.activeCustomers[row.index].Company}</td>
