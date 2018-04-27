@@ -12,7 +12,8 @@ const subscriptionController = require('../controllers/subscription-controller')
 //   });
 
 
-// router.get('/', subscriptionController.get);
+router.get('/:hashedemail', subscriptionController.getByEmail);
 router.post('/', subscriptionController.create);
+router.put('/:hashedemail', subscriptionController.update);
 
 module.exports = router;

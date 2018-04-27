@@ -3,22 +3,26 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import NoteEntry from './note-entry';
+
 class CustomerDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            customer: '',
+            activity: '',
+            customer: ''
         }
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/customer/id/' + this.props.customerObject.ID + '?token=' + this.props.adminLoginToken)
+        axios.get('http://localhost:3000/activity/customer/' + this.props.viewCustomer.ID + '?token=' + this.props.adminLoginToken)
             .then(response => {
-                this.setState({
-                    customer: response.data[0]
+                
+                this.setState({                    
+                    activity: response.data[0],
+                    customer: this.props.viewCustomer  // sending redux state to local, so it does not error upon the logout.
                 })
-                console.log(this.state.customer)
-                console.log(this.props.customerObject)
+                
             })
     }
 
@@ -26,9 +30,9 @@ class CustomerDetails extends Component {
     render() {
         return (
 
-            <div className="container">
-                <div className="col-md-11 ">
-                    <div className="container customerDetailsPage">
+            <div className="container-fluid">
+                <div className="col-md-10  col-md-offset-1 ">
+                    <div className="container-fluid customerDetailsPage"style={{paddingRight: 20}}>
                         <div className="container">
                             <div className="row">
                                 <h2 style={{ margin: 20 }}>Customer Details</h2>
@@ -39,8 +43,9 @@ class CustomerDetails extends Component {
                                     {/* update customer/axios delete/call will need token go to "admin-customer" page */}
                                     {/* creating the using sends its to redux. this call on did mount needs to grab by id */}
                                     <tr>
-                                        <th className="input2"> First Name: </th>
-                                        <td>{this.state.customer.FirstName}</td>
+                                        
+                                        <th className="input2">First Name:</th>
+                                        <td>{ this.state.customer.FirstName }</td>
                                         <th className="input1">Last Name:</th>
                                         <td>{this.state.customer.LastName}</td>
                                         <th className="input1">E-mail:</th>
@@ -50,22 +55,35 @@ class CustomerDetails extends Component {
                                     </tr>
                                     <br />
                                     <tr>
+                                        <th className="input1">Sign Up Date:</th>
+                                        <td>
+                                            { this.state.activity.DateCreated != undefined &&
+                                            (
+                                                this.formatDate(this.state.activity.DateCreated)
+                                            )
+                                            }
+                                        </td>
+                                        <th className="input1">Sign Up Source:</th>
+                                        <td>{this.state.activity.Source}</td>
+
                                         <th className="input2">Company:</th>
                                         <td>{this.state.customer.Company}</td>
-                                        <th className="input1">Intrest:</th>
+                                        <th className="input1">Interest:</th>
                                         <td>{this.state.customer.AreaOfInterest}</td>
-                                        <th className="input1">Referal Type:</th>
-                                        <td>{this.state.customer.HeardAbout}</td>
-                                        <th className="input1">Name of Referal:</th>
-                                        <td>{this.state.customer.Referral}</td>
+
                                     </tr>
                                     <br />
 
                                     <tr>
-                                        <th className="input2">Application Status:</th>
-                                        <td></td>
+                                        <th className="input2">Referral Type:</th>
+                                        <td>{this.state.customer.HeardAbout}</td>
+                                        <th className="input1">Name of Referral:</th>
+                                        <td>{this.state.customer.Referral}</td>
+
+                                        <th className="input1">Application Status:</th>
+                                        <td>{this.state.customer.ApplicationStatus}</td>
                                         <th className="input1">Loan Status:</th>
-                                        <td></td>
+                                        <td>{this.state.customer.LoanStatus}</td>
                                     </tr>
                                     <br />
 
@@ -75,11 +93,69 @@ class CustomerDetails extends Component {
                             {/* Edit button-- toggle page to edit form */}
 
                             <div className="row" style={{ margin: 10 }}>
-                                <Link to="/edit-customer">   <button className="btn col-md-2 input1 input2 pull-right" style={{ margin: 10 }}>Edit</button></Link>
-                                <Link to="/notes">   <button className="btn col-md-2 input1 input2 pull-right " style={{ margin: 10 }}>Notes</button></Link>
+                                <Link to="/edit-customer">   <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10, margin: 10 }}>Edit Customer</button></Link>
                                 <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Email Customer</button>
 
                             </div>
+
+                            {/* add note section */}
+                            <div className="row">
+                                <div className="container">
+                                    <div className="row">
+                                        <h2 style={{ margin: 20 }}>Add New Note</h2>
+                                    </div>
+
+                                    <div className="row row-spacing" >
+                                        <div className="form-inline col-md-10">
+                                            <label htmlFor="" className="input2">Date</label>
+                                            <input className="form-control" type="date" id="datePicker" />
+                                            <label htmlFor="" className="input1">Method of Contact</label>
+                                            <select className="form-control">
+                                                <option defaultValue>Select ...</option>
+                                                <option>Email</option>
+                                                <option>Phone</option>
+                                                <option>In Person</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <label htmlFor="">Notes</label>
+                                    <div className="row row-spacing">
+                                        <textarea className=" addCustomerForm col-md-11" id="cutomerNote" cols="30" rows="5"></textarea>
+                                    </div>
+
+                                    <div className="row" style={{ margin: 10, paddingBottom: 10 }}>
+                                        <Link to="/"> <button className="btn col-md-2 input1 input2 pull-right">Submit</button></Link>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            {/* note history section */}
+                            <div className="row">
+                                <div className="container">
+                                    <div className="col-md-12 table-responsive ">
+                                        <table className="table">
+                                            <thead>
+                                                <tr>
+                                                    <th className="col-md-1">Date</th>
+                                                    <th className="col-md-2">Method of Contact</th>
+                                                    <th className="col-md-3">Created by</th>
+                                                    <th className="col-md-5">Note</th>
+                                                    <th className="col-md-1"></th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <NoteEntry />
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
 
                         </div>
                     </div>
@@ -89,12 +165,40 @@ class CustomerDetails extends Component {
 
         )
     }
+
+    formatDate(d) {
+        // Format the date from yyyy-mm-dd into MM/dd/yyyy for display
+        var year = d.substr(0,4);
+        var month = d.substr(5,2);
+        var day = d.substr(8,2);
+        var time = ''; // d.substr(11,5);
+        
+        // Convert 24 hour time to 12 hour AM/PM
+        var hour = d.substr(11,2);
+        if (hour > 12) {
+            // PM. Subtract 12 from the hour
+            hour -= 12;
+            time = hour + ":" + d.substr(14,2) + " PM";
+        }
+        else {
+            // AM
+            time = d.substr(11,5) + " AM";
+            if (time.indexOf('0') == 0) {
+                // remove the leading zero
+                time = time.substr(1);
+            }
+        }
+    
+        var date = month + '/' + day + '/' + year + " " + time;
+        return date;       
+    }
 }
 
 const mapStateToProps = state => {
     return {
         adminLoginToken: state.adminLoginToken,
         customerObject: state.customerObject,
+        viewCustomer: state.viewCustomer
     }
 }
 

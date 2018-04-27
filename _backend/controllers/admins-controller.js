@@ -140,31 +140,39 @@ function create(req, res) {
 
 function update(req, res) {
     // Connect to the MSSQL db
-    config.connect(function (err) {
-        if (err) {
-            res.status(500).json({ message: 'An error occurred on the server.' });
-            return;
-        }
+    bcrypt.genSalt(12, function(err, salt) {
+        bcrypt.hash(req.body.Password, salt, function(err, hash) {
+            config.connect(function (err) {
+                if (err) {
+                    res.status(500).json({ message: 'An error occurred on the server.' });
+                    return;
+                }
+        
+                var request = new sql.Request(config);
+                // Execute the UpdateAdmin stored procedure
+                // Stored procedure parameters needed: ID, Email, Password (encrypt), Role
+                request.input('Id', sql.Int, req.params.id);
+                request.input('Email', sql.VarChar, req.body.Email);
+                request.input('Password', sql.VarChar, hash);
+                request.input('Role', sql.VarChar, req.body.Role);
+                request.execute("UpdateAdmin", function (err, result) {
+                    if (err) {
+                        res.status(500).json({ message: 'An error occurred on the server.' });
+                    }
+                    // else if (result.recordset.length == 0) {
+                    //     res.status(404).json({ message: 'There were no records found.' });
+                    // }
+                    else {
+                        res.status(200).json({ message: 'Record updated successfully.' });
+                    }
+                    config.close();
+                });
 
-        var request = new sql.Request(config);
-        // Execute the UpdateAdmin stored procedure
-        // Stored procedure parameters needed: ID, Email, Password (encrypt), Role
-        request.input('Id', sql.Int, req.params.id);
-        request.input('Email', sql.VarChar, req.body.Email);
-        request.input('Password', sql.VarChar, req.body.Password);
-        request.input('Role', sql.VarChar, req.body.Role);
-        request.execute("UpdateAdmin", function (err, result) {
-            if (err) {
-                res.status(500).json({ message: 'An error occurred on the server.' });
-            }
-            // else if (result.recordset.length == 0) {
-            //     res.status(404).json({ message: 'There were no records found.' });
-            // }
-            else {
-                res.status(200).json({ message: 'Record updated successfully.' });
-            }
-            config.close();
         });
+
+    });
+
+    
     });
 }
 
@@ -232,6 +240,8 @@ function login(req, res) {
                           // return the information including token as JSON
                           res.json({
                             success: true,
+                            email: result.recordset[0].Email,
+                            id: result.recordset[0].ID, 
                             message: 'Here is your token.',
                             token: token
                           });
