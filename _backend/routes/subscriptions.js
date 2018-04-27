@@ -15,5 +15,6 @@ const subscriptionController = require('../controllers/subscription-controller')
 router.get('/:hashedemail', subscriptionController.getByEmail);
 router.post('/', subscriptionController.create);
 router.put('/:hashedemail', subscriptionController.update);
+router.delete('/unsubscribe/:hashedemail', subscriptionController.unsubscribe);
 
 module.exports = router;
