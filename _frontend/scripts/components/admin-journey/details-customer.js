@@ -20,12 +20,12 @@ class CustomerDetails extends Component {
     componentDidMount() {
         axios.get('http://localhost:3000/activity/customer/' + this.props.viewCustomer.ID + '?token=' + this.props.adminLoginToken)
             .then(response => {
-                
-                this.setState({                    
+
+                this.setState({
                     activity: response.data[0],
                     customer: this.props.viewCustomer  // sending redux state to local, so it does not error upon the logout.
                 })
-                
+
             })
 
         // axios.get('http://localhost:3000/contactactivity/customer/' + this.props.viewCustomer.ID + '?token=' + this.props.adminLoginToken)
@@ -35,7 +35,7 @@ class CustomerDetails extends Component {
         //         //     notes: response.data[0],
         //         //     // customer: this.props.viewCustomer  // sending redux state to local, so it does not error upon the logout.
         //         // })
-                
+
         //     })
     }
 
@@ -50,20 +50,20 @@ class CustomerDetails extends Component {
 
             <div className="container-fluid">
                 <div className="col-md-10  col-md-offset-1 ">
-                    <div className="container-fluid customerDetailsPage"style={{paddingRight: 20}}>
+                    <div className="container-fluid customerDetailsPage" style={{ paddingRight: 20 }}>
                         <div className="container">
                             <div className="row">
                                 <h2 style={{ margin: 20 }}>Customer Details</h2>
                             </div>
 
-                            <table className="col-md-10 form-spacing4">
+                            <table className="col-md-12 form-spacing4">
                                 <tbody>
                                     {/* update customer/axios delete/call will need token go to "admin-customer" page */}
                                     {/* creating the using sends its to redux. this call on did mount needs to grab by id */}
                                     <tr>
-                                        
+
                                         <th className="input2">First Name:</th>
-                                        <td>{ this.state.customer.FirstName }</td>
+                                        <td>{this.state.customer.FirstName}</td>
                                         <th className="input1">Last Name:</th>
                                         <td>{this.state.customer.LastName}</td>
                                         <th className="input1">E-mail:</th>
@@ -75,10 +75,10 @@ class CustomerDetails extends Component {
                                     <tr>
                                         <th className="input1">Sign Up Date:</th>
                                         <td>
-                                            { this.state.activity.DateCreated != undefined &&
-                                            (
-                                                this.formatDate(this.state.activity.DateCreated)
-                                            )
+                                            {this.state.activity.DateCreated != undefined &&
+                                                (
+                                                    this.formatDate(this.state.activity.DateCreated)
+                                                )
                                             }
                                         </td>
                                         <th className="input1">Sign Up Source:</th>
@@ -111,6 +111,7 @@ class CustomerDetails extends Component {
                             {/* Edit button-- toggle page to edit form */}
 
                             <div className="row" style={{ margin: 10 }}>
+                                <button className="btn btn-danger col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Delete Customer</button>
                                 <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10, margin: 10 }} onClick={this.goEditCustomer.bind(this)}>Edit Customer</button>
                                 <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Email Customer</button>
 
@@ -143,7 +144,7 @@ class CustomerDetails extends Component {
                                     </div>
 
                                     <div className="row" style={{ margin: 10, paddingBottom: 10 }}>
-                                        <Link to="/"> <button className="btn col-md-2 input1 input2 pull-right">Submit</button></Link>
+                                        <Link to="/admin-customer"> <button className="btn col-md-2 input1 input2 pull-right">Submit</button></Link>
                                     </div>
                                 </div>
                             </div>
@@ -158,15 +159,15 @@ class CustomerDetails extends Component {
                                                 <tr>
                                                     <th className="col-md-1">Date</th>
                                                     <th className="col-md-2">Method of Contact</th>
-                                                    <th className="col-md-3">Created by</th>
+                                                    <th className="col-md-2">Created by</th>
                                                     <th className="col-md-5">Note</th>
-                                                    <th className="col-md-1"></th>
+                                                    <th className="col-md-2"></th>
                                                 </tr>
                                             </thead>
 
-                                            
+
                                             <NoteEntry />
-                                            
+
                                         </table>
                                     </div>
                                 </div>
@@ -193,29 +194,29 @@ class CustomerDetails extends Component {
 
     formatDate(d) {
         // Format the date from yyyy-mm-dd into MM/dd/yyyy for display
-        var year = d.substr(0,4);
-        var month = d.substr(5,2);
-        var day = d.substr(8,2);
+        var year = d.substr(0, 4);
+        var month = d.substr(5, 2);
+        var day = d.substr(8, 2);
         var time = ''; // d.substr(11,5);
-        
+
         // Convert 24 hour time to 12 hour AM/PM
-        var hour = d.substr(11,2);
+        var hour = d.substr(11, 2);
         if (hour > 12) {
             // PM. Subtract 12 from the hour
             hour -= 12;
-            time = hour + ":" + d.substr(14,2) + " PM";
+            time = hour + ":" + d.substr(14, 2) + " PM";
         }
         else {
             // AM
-            time = d.substr(11,5) + " AM";
+            time = d.substr(11, 5) + " AM";
             if (time.indexOf('0') == 0) {
                 // remove the leading zero
                 time = time.substr(1);
             }
         }
-    
+
         var date = month + '/' + day + '/' + year + " " + time;
-        return date;       
+        return date;
     }
 }
 

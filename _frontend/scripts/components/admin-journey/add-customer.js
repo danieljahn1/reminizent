@@ -86,8 +86,8 @@ class AddCustomer extends Component {
 
         return (
             <div className="body">
-                <div className="container">
-                    <div className="col-md-12 addCustomerPage">
+                <div className="container-fluid">
+                    <div className="col-md-10 col-md-offset-1 editCustomerPage">
                         <div className="container">
                             <div className="row">
                                 <h2 style={{ margin: 20 }}>Add New Customer</h2>
@@ -131,6 +131,47 @@ class AddCustomer extends Component {
                                         <input className="form-control" type="text" placeholder="" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} />
                                     </div>
                                 </div>
+
+
+                                <div className="row row-spacing">
+                                    <div className="form-inline col-md-11">
+
+                                        <label htmlFor="" className="input1">Application Status</label>
+                                        <select className="form-control">
+                                            <option defaultValue>Select ...</option>
+                                            <option>Purchase only</option>
+                                            <option>Looking</option>
+                                            <option>Application for Pre-Qualified</option>
+                                            <option>Application for Pre-Approval</option>
+                                            <option>Looking - Pre-Qualified</option>
+                                            <option>Looking - Pre-Approved</option>
+                                            <option>In Contract</option>
+                                        </select>
+
+
+
+                                        <label htmlFor="" className="input1">Loan Status</label>
+                                        <select className="form-control">
+                                            <option defaultValue>Select ...</option>
+                                            <option>Application</option>
+                                            <option>Initial Documents</option>
+                                            <option>Setup / Initial Disclosures</option>
+                                            <option>Upfront Underwriting</option>
+                                            <option>Processing</option>
+                                            <option>Final Underwrite</option>
+                                            <option>Closing</option>
+                                            <option>Closed</option>
+                                            <option>Withdrawn</option>
+                                            <option>Denied</option>
+                                            <option>Suspended</option>
+                                        </select>
+
+
+
+                                    </div>
+                                </div>
+
+
 
                                 <div className="row" style={{ margin: 10 }}>
                                     <button type="submit" className="btn col-md-2 col-md-offset-9" onClick={this.userSignUp.bind(this)}>Submit</button>

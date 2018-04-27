@@ -10,8 +10,8 @@ class EditNote extends Component {
     render() {
         return (
             <div className="body">
-                <div className="container">
-                    <div className="col-md-12 editCustomerPage">
+                <div className="container-fluid">
+                    <div className="col-md-10 col-md-offset-1 editCustomerPage">
                         <div className="container">
                             <div className="row">
                                 <h2 style={{ margin: 20 }}>Edit Note</h2>

@@ -114,49 +114,52 @@ class Dashboard extends Component {
                                                 <tr>
                                                     <th className="input2">First Name: </th>
                                                     <td>{this.state.activeCustomers[row.index].FirstName}</td>
-                                                    <th className="input1">Last Name:</th>
+                                                    <th className="input1 ">Last Name:</th>
                                                     <td>{this.state.activeCustomers[row.index].LastName}</td>
-                                                    <th className="input1">E-mail:</th>
+                                                    <th className="input1 ">E-mail:</th>
                                                     <td>{this.state.activeCustomers[row.index].Email}</td>
-                                                    <th className="input1">Phone Numer:</th>
+                                                    <th className="input1 ">Phone Numer:</th>
                                                     <td>{this.state.activeCustomers[row.index].Phone}</td>
                                                 </tr>
                                                 <br />
                                                 <tr>
                                                     <th className="input2">Company:</th>
-                                                    <td>{this.state.activeCustomers[row.index].Company}</td>
-                                                    <th className="input1">Interest:</th>
+                                                    <td className="input1">{this.state.activeCustomers[row.index].Company}</td>
+                                                    <th className="input1 ">Interest:</th>
                                                     <td>{this.state.activeCustomers[row.index].AreaOfInterest}</td>
-                                                    <th className="input1">Referral Type:</th>
+                                                    <th className="input1 ">Referral Type:</th>
                                                     <td>{this.state.activeCustomers[row.index].HeardAbout}</td>
                                                     <th className="input1">Name of Referral:</th>
                                                     <td>{this.state.activeCustomers[row.index].Referral}</td>
                                                 </tr>
+
                                                 <br />
 
                                                 <tr>
                                                     <th className="input2">Application Status:</th>
                                                     <td>{this.state.activeCustomers[row.index].ApplicationStatus}</td>
-                                                    <th className="input1">Loan Status:</th>
+                                                    <th className="input1 ">Loan Status:</th>
                                                     <td>{this.state.activeCustomers[row.index].LoanStatus}</td>
                                                 </tr>
+
                                                 <br />
-                                                
-                                                
+
                                             </tbody>
                                         </table>
-                                            {/* <Link to="/admin-customer"> <button className="btn col-md-2 input1 pull-right" style={{ paddingBottom: 10 }} onClick={ this.viewDetails.bind(this, row) }>View Customer Details</button></Link> */}
-                                            <button className="btn col-md-2 input1 pull-right" style={{ paddingBottom: 10 }} onClick={ this.viewDetails.bind(this, row) }>View Customer Details</button>
+
+                                        <div className="" style={{ marginBottom: 265 }}>
+                                        <button className="btn col-md-2 input1 pull-right" style={{ paddingBottom: 10 }} onClick={ this.viewDetails.bind(this, row) }>View Customer Details</button>
                                             <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Email Customer</button>
+                                        </div>
 
                                     </div>
-                                        )
-                                    }}
-        
-                                />
-        
-        
-        
+                                )
+                            }}
+
+                        />
+
+
+
                     </div>
                 </div>
             </div>

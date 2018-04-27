@@ -35,9 +35,9 @@ onSave (e) {
         
         return (
             <div className="body">
-                <div className="container">
-                    <div className="col-md-12 editCustomerPage">
-                        <div className="container">
+                <div className="container-fluid">
+                    <div className="col-md-10 col-md-offset-1 editCustomerPage">
+                        <div className="container ">
                             <div className="row">
                                 <h2 style={{ margin: 20 }}>Edit Customer</h2>
                             </div>
@@ -72,12 +72,13 @@ onSave (e) {
                                         <div className="form-group">
                                             <label htmlFor="" className="input1">Referral Type</label>
                                             <select className="form-control" value={this.state.customerObject.HeardAbout} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, HeardAbout: e.target.value } }) }}>
-                                                <option>Email</option>
-                                                <option>Phone</option>
-                                                <option>Advertisement</option>
+                                            <option defaultValue>Select ...</option>
+                                                <option>TV</option>
+                                                <option>Radio</option>
+                                                <option>Internet</option>
                                                 <option>Walk-in</option>
-                                                <option>Referral </option>
-                                            </select>
+                                                <option>Rereral</option>
+                                         </select>
                                             <label htmlFor="" className="input1">Name of Referral</label>
                                             <input className="form-control" type="text" placeholder="" value={this.state.customerObject.Referral} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, Referral: e.target.value } }) }} />
                                         </div>
