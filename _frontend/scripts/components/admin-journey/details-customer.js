@@ -120,9 +120,7 @@ class CustomerDetails extends Component {
         )
     }
 
-
-
-    goEditCustomer() {
+    goToEditCustomer() {
         this.props.sendCustomerObjToRedux(this.state.customer);
         this.setState({
             redirectToEdit: true
