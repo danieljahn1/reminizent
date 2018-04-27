@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { setCustomerObject } from '../../redux/actions';
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
+import MD5 from 'crypto-js/md5';
+import Dashboard from './dashboard'
 
 import NoteEntry from './note-entry';
 
@@ -16,12 +19,15 @@ class CustomerDetails extends Component {
             subjectLine: '',
             template: '',
             href: '',
+            openEmailClient: false,
             redirectToEdit: false,
-            openEmailClient: false
+            redirectToDashboard: false,
+
         }
     }
 
     componentDidMount() {
+        console.log(this.props.viewCustomer.ID)
         axios.get('http://localhost:3000/activity/customer/' + this.props.viewCustomer.ID + '?token=' + this.props.adminLoginToken)
             .then(response => {
 
@@ -33,9 +39,35 @@ class CustomerDetails extends Component {
             })
     }
 
+    onDelete() {
+        let url = 'http://localhost:3000/customer/' + this.props.viewCustomer.ID + '?token=' + this.props.adminLoginToken
+        axios.delete(url)
+            .then(function (response) {
+                console.log(response)
+            })
+        var hashedEmail = CryptoJS.MD5(this.props.viewCustomer.Email).toString();
+        let urlUnsubscribe = 'http://localhost:3000/subscriptions/unsubscribe/' + hashedEmail;
+        axios.delete(urlUnsubscribe)
+            .then(response => {
+                console.log(response)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        this.setState({
+            redirectToDashboard: true
+        })
+    }
+
     render() {
+        console.log("render is firing")
         const { redirectToEdit } = this.state;
+        console.log(redirectToEdit)
         if (redirectToEdit) {
+            console.log("redirect line 64")
+            this.setState({
+                redirectToEdit: false
+            })
             return <Redirect to="/edit-customer" />
         }
 
@@ -44,114 +76,124 @@ class CustomerDetails extends Component {
             return <Redirect to={this.state.href} />
         }
 
+        const { redirectToDashboard } = this.state;
+        console.log(redirectToDashboard + "THIS IS LINE 73")
+        if (redirectToDashboard) {
+            console.log("redirect line 73")
+            this.setState({
+                redirectToDashboard: false
+            })
+            // console.log(this.state.redirectToDashboard)
+            return <Redirect to="/admin-dashboard" />
+        }
+
         return (
 
             <div className="container-fluid">
-                <div className="col-md-10  col-md-offset-1 customerDetailsPage " style={{ paddingRight: 20 }}>
+                <div className="col-md-10  col-md-offset-1 customerDetailsPage in-line2 ">
                     <div className="cutomerContainer" >
-                            <div className="row">
-                                <h2 style={{ margin: 20 }}>Customer Details</h2>
-                            </div>
+                        <div className="row">
+                            <h2 className="heading1">Customer Details</h2>
+                        </div>
 
-                            <table className="col-md-12 form-spacing4">
-                                <tbody>
-                                    {/* update customer/axios delete/call will need token go to "admin-customer" page */}
-                                    {/* creating the using sends its to redux. this call on did mount needs to grab by id */}
-                                    <tr>
+                        <table className="col-md-12 form-spacing4">
+                            <tbody>
+                                {/* update customer/axios delete/call will need token go to "admin-customer" page */}
+                                {/* creating the using sends its to redux. this call on did mount needs to grab by id */}
+                                <tr>
 
-                                        <th className="input2">First Name:</th>
-                                        <td>{this.state.customer.FirstName}</td>
-                                        <th className="input1">Last Name:</th>
-                                        <td>{this.state.customer.LastName}</td>
-                                        <th className="input1">E-mail:</th>
-                                        <td>{this.state.customer.Email}</td>
-                                        <th className="input1">Phone Numer:</th>
-                                        <td>{this.state.customer.Phone}</td>
-                                    </tr>
-                                    <br />
-                                    <tr>
-                                        <th className="input1">Sign Up Date:</th>
-                                        <td>
-                                            {this.state.activity.DateCreated != undefined &&
-                                                (
-                                                    this.formatDate(this.state.activity.DateCreated)
-                                                )
-                                            }
-                                        </td>
-                                        <th className="input1">Sign Up Source:</th>
-                                        <td>{this.state.activity.Source}</td>
+                                    <th className="input2">First Name:</th>
+                                    <td>{this.state.customer.FirstName}</td>
+                                    <th className="input1">Last Name:</th>
+                                    <td>{this.state.customer.LastName}</td>
+                                    <th className="input1">E-mail:</th>
+                                    <td>{this.state.customer.Email}</td>
+                                    <th className="input1">Phone Numer:</th>
+                                    <td>{this.state.customer.Phone}</td>
+                                </tr>
+                                <br />
+                                <tr>
+                                    <th className="input1">Sign Up Date:</th>
+                                    <td>
+                                        {this.state.activity.DateCreated != undefined &&
+                                            (
+                                                this.formatDate(this.state.activity.DateCreated)
+                                            )
+                                        }
+                                    </td>
+                                    <th className="input1">Sign Up Source:</th>
+                                    <td>{this.state.activity.Source}</td>
 
-                                        <th className="input2">Company:</th>
-                                        <td>{this.state.customer.Company}</td>
-                                        <th className="input1">Interest:</th>
-                                        <td>{this.state.customer.AreaOfInterest}</td>
+                                    <th className="input2">Company:</th>
+                                    <td>{this.state.customer.Company}</td>
+                                    <th className="input1">Interest:</th>
+                                    <td>{this.state.customer.AreaOfInterest}</td>
 
-                                    </tr>
-                                    <br />
+                                </tr>
+                                <br />
 
-                                    <tr>
-                                        <th className="input2">Referral Type:</th>
-                                        <td>{this.state.customer.HeardAbout}</td>
-                                        <th className="input1">Name of Referral:</th>
-                                        <td>{this.state.customer.Referral}</td>
+                                <tr>
+                                    <th className="input2">Referral Type:</th>
+                                    <td>{this.state.customer.HeardAbout}</td>
+                                    <th className="input1">Name of Referral:</th>
+                                    <td>{this.state.customer.Referral}</td>
 
-                                        <th className="input1">Application Status:</th>
-                                        <td>{this.state.customer.ApplicationStatus}</td>
-                                        <th className="input1">Loan Status:</th>
-                                        <td>{this.state.customer.LoanStatus}</td>
-                                    </tr>
-                                    <br />
+                                    <th className="input1">Application Status:</th>
+                                    <td>{this.state.customer.ApplicationStatus}</td>
+                                    <th className="input1">Loan Status:</th>
+                                    <td>{this.state.customer.LoanStatus}</td>
+                                </tr>
+                                <br />
 
-                                </tbody>
-                            </table>
+                            </tbody>
+                        </table>
 
-                            {/* Edit button-- toggle page to edit form */}
+                        {/* Edit button-- toggle page to edit form */}
 
-                            <div className="row" style={{ margin: 10 }}>
-                                <button className="btn btn-danger col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }}>Delete Customer</button>
-                                <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10, margin: 10 }} onClick={this.goToEditCustomer.bind(this)}>Edit Customer</button>
-                                <button className="btn col-md-2 input1 input2 pull-right" style={{ paddingBottom: 10 }} ><a href="#openModal">Email Customer</a></button>
-                                <div id="openModal" className="modalDialog">
-                                    <div>
-                                        <a href="#close" title="Close" className="close">X</a>
-                                        <h3>Email {this.state.customer.Email}</h3>
+                        <div className="row in-line3">
+                            <button className="btn btn-danger col-md-2 input1 input2 pull-right in-line1">Delete Customer</button>
+                            <button className="btn col-md-2 input1 input2 pull-right" onClick={this.goToEditCustomer.bind(this)}>Edit Customer</button>
+                            <a href="#openModal" className="btn col-md-2 input1 input2 pull-right in-line1" style={{ textDecoration: 'none' }}>Email Customer</a>                                <div id="openModal" className="modalDialog">
+                                <div>
+                                    <a href="#close" title="Close" className="close">X</a>
+                                    <h3>Email {this.state.customer.Email}</h3>
+                                    <h1></h1>
+                                    <form>
+                                        <div className="form-group">
+                                            {/* <label htmlFor="email-modal">Email</label> */}
+                                            <select className="form-control" id="email-modal" value={this.state.customer.subjectLine} onChange={(e) => { this.setState({ subjectLine: e.target.value }) }} required >
+                                                <option defaultValue>Subject Line ...</option>
+                                                <option >Thank you for contacting us</option>
+                                                <option >Here's an update on your application</option>
+                                                <option >You've been approved!</option>
+                                            </select>
+                                        </div>
                                         <h1></h1>
-                                        <form>
-                                            <div className="form-group">
-                                                {/* <label htmlFor="email-modal">Email</label> */}
-                                                <select className="form-control" id="email-modal" value={this.state.customer.subjectLine} onChange={(e) => { this.setState({ subjectLine: e.target.value }) }} required >
-                                                    <option defaultValue>Subject Line ...</option>
-                                                    <option >Thank you for contacting us</option>
-                                                    <option >Here's an update on your application</option>
-                                                    <option >You've been approved!</option>
-                                                </select>
-                                            </div>
-                                            <h1></h1>
-                                            <div className="form-group">
-                                                {/* <label htmlFor="email-modal">Email</label> */}
-                                                <select className="form-control" id="email-modal" value={this.state.customer.template} onChange={(e) => { this.setState({ template: e.target.value }) }} required >
-                                                    <option defaultValue>Subject Body Template ...</option>
-                                                    <option >Template 1: General Reply</option>
-                                                    <option >Template 2: Status Update</option>
-                                                    <option >Template 3: Approval</option>
-                                                </select>
-                                            </div>
-                                            <h1></h1>
-                                            <a href="#close" type="submit" className="btn btn-block" onClick={this.emailCustomer.bind(this, this.state)}>Next</a>
-                                        </form>
-                                    </div>
+                                        <div className="form-group">
+                                            {/* <label htmlFor="email-modal">Email</label> */}
+                                            <select className="form-control" id="email-modal" value={this.state.customer.template} onChange={(e) => { this.setState({ template: e.target.value }) }} required >
+                                                <option defaultValue>Subject Body Template ...</option>
+                                                <option >Template 1: General Reply</option>
+                                                <option >Template 2: Status Update</option>
+                                                <option >Template 3: Approval</option>
+                                            </select>
+                                        </div>
+                                        <h1></h1>
+                                        <a href="#close" type="submit" className="btn btn-block" onClick={this.emailCustomer.bind(this, this.state)}>Next</a>
+                                    </form>
                                 </div>
                             </div>
-
-                            {/* add note section */}
-                            <NoteEntry />
-
-
-
                         </div>
-                    </div>
 
-                 </div>
+                        {/* add note section */}
+                        <NoteEntry />
+
+
+
+                    </div>
+                </div>
+
+            </div>
 
         )
     }
@@ -164,7 +206,7 @@ class CustomerDetails extends Component {
             this.setState({
                 template: "How are you doing?"
             })
-        } else if (emailTemplate === "Template 2: Status Update" ) {
+        } else if (emailTemplate === "Template 2: Status Update") {
             this.setState({
                 template: "Your application is in progress?"
             })
@@ -203,6 +245,10 @@ class CustomerDetails extends Component {
         else if (hour == "00") {
             // 12 AM
             time = 12 + ":" + d.substr(14, 2) + " AM";;
+        }
+        else if (hour == "12") {
+            // 12 PM
+            time = 12 + ":" + d.substr(14, 2) + " PM";
         }
         else {
             // AM

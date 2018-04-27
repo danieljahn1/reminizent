@@ -2,7 +2,8 @@ const initialState = {
     adminLoginToken: '',
     customerObject: '',
     viewCustomer: '',
-    adminObject: ''
+    adminObject: '',
+    editNote: ''
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -35,7 +36,13 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 adminObject: action.payload
             }
-            break;            
+            break;
+        case ("SET_EDIT_NOTE"):
+            state = {
+                ...state,
+                editNote: action.payload
+            }
+            break;
     }
 
     return state;

@@ -58,10 +58,11 @@ class EditCustomer extends Component {
         })
     }
 
+
     render() {
         if (this.state.redirectFlag) {
             return (
-                <Redirect to="/admin-dashboard" />
+                <Redirect to="/admin-customer" />
             )
         }
 
@@ -75,9 +76,9 @@ class EditCustomer extends Component {
             <div className="body">
                 <div className="container-fluid">
                     <div className="col-md-10 col-md-offset-1 editCustomerPage " >
-                        <div style={{ margin: 15 }}>
+                        <div className="in-line4">
                             <div className="row" >
-                                <h2 style={{ margin: 20 }}>Edit Customer</h2>
+                                <h2 className="heading1">Edit Customer</h2>
                             </div>
 
                             <div className="form-group">
@@ -161,11 +162,11 @@ class EditCustomer extends Component {
                                 </div>
 
 
-                                <div className="row" style={{ margin: 10, paddingBottom: 10 }} >
+                                <div className="row in-line3" >
                                 {/* <div className="row" style={{ paddingBottom: 10 }} > */}
                                     <div className="col-md-8 col-md-offset-9">
-                                        <button className="btn col-md-2 " onClick={this.previousPg.bind(this)}>Cancel</button>
-                                        <button className="btn col-md-2 " style={{ marginLeft: 14 }} onClick={this.onSave.bind(this)}>Submit</button>
+                                        <button className="btn col-md-2 input2" onClick={this.previousPg.bind(this)}>Cancel</button>
+                                        <button className="btn col-md-2 in-line4 " onClick={this.onSave.bind(this)}>Submit</button>
                                     </div>
                                 </div>
 

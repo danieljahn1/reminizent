@@ -7,3 +7,5 @@ export const setCustomerObject = customerObject => ({type: 'SET_CUSTOMER_OBJECT'
 export const setViewCustDetails = viewCustomer => ({ type: 'SET_VIEWCUSTDETAILS', payload: viewCustomer })
 
 export const setAdminLogin = adminLoginObject => ({ type: 'SET_ADMIN_OBJECT', payload: adminLoginObject })
+
+export const setEditNote = editNote => ({ type: 'SET_EDIT_NOTE', payload: editNote })

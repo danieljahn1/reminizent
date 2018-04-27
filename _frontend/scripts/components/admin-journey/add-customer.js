@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setCustomerObject } from '../../redux/actions';
 import axios from 'axios';
+import { setViewCustDetails } from '../../redux/actions';
 
 class AddCustomer extends Component {
     constructor(props) {
@@ -46,6 +47,7 @@ class AddCustomer extends Component {
                         customerObject: response.data[0]
                     })
                     this.props.sendCustomerObjToRedux(this.state.customerObject);
+                    this.props.sendCustomerToRedux(this.state.customerObject);
                     // console.log("custobj")
                     // console.log(response.data[0])
                     axios.post('http://localhost:3000/activity', activityBody)
@@ -90,7 +92,7 @@ class AddCustomer extends Component {
                     <div className="col-md-10 col-md-offset-1 editCustomerPage">
                         <div className="container">
                             <div className="row">
-                                <h2 style={{ margin: 20 }}>Add New Customer</h2>
+                                <h2 className="heading1">Add New Customer</h2>
                             </div>
 
                             <div className="form-group">
@@ -173,7 +175,7 @@ class AddCustomer extends Component {
 
 
 
-                                <div className="row" style={{ margin: 10, marginLeft:20 }}>
+                                <div className="row inline6">
                                     <button type="submit" className="btn col-md-2 col-md-offset-10" onClick={this.userSignUp.bind(this)}>Submit</button>
                                 </div>
                             </div>
@@ -196,6 +198,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         sendCustomerObjToRedux: customerObject => dispatch(setCustomerObject(customerObject)),
+        sendCustomerToRedux: customerObject => dispatch(setViewCustDetails(customerObject))
     }
 }
 
