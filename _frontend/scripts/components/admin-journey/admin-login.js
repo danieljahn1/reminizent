@@ -24,13 +24,15 @@ class AdminLogIn extends Component {
             }
             axios.post('http://localhost:3000/admin/login', body)
                 .then(response => {
-                    this.setState({
-                        adminLoginToken: response.data.token
-                    })
-                    this.props.sendTokenToRedux(this.state.adminLoginToken);
-                    this.setState({
-                        redirect: true
-                    })
+                    if (response.data.message == "Here is your token.") {
+                        this.setState({
+                            adminLoginToken: response.data.token
+                        })
+                        this.props.sendTokenToRedux(this.state.adminLoginToken);
+                        this.setState({
+                            redirect: true
+                        })
+                    }
                 })
                 .catch(err => {
                     console.log(err)

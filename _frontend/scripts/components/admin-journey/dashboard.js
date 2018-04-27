@@ -17,6 +17,14 @@ class Dashboard extends Component {
 
     }
 
+    componentWillReceiveProps() {
+        console.log("props")
+    }
+
+    componentDidUpdate () {
+        console.log("update")
+    }
+
     componentDidMount() {
         console.log(this.props.adminLoginToken)
         axios.get("http://localhost:3000/customer/active?token=" + this.props.adminLoginToken)
@@ -26,7 +34,6 @@ class Dashboard extends Component {
                     activeCustomers: response.data
                 })
             })
-
     }
 
     render() {
