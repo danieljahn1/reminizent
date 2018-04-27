@@ -41,7 +41,7 @@ class Menu extends Component {
                                 <div>
                                     <Link to="admin-dasboard"><div className="col-md-1 col-md-offset-7 log-in-btn "><button className="btn pull-right">Dashboard</button></div></Link>
                                     <Link to="admin-subscribe"><div className="col-md-1 col-md-offset-7 log-in-btn "><button className="btn pull-right">Create Customer</button></div></Link>
-                                    <div className="col-md-1 col-md-offset-7 log-in-btn "><button className="btn pull-right" onClick={this.logOut.bind(this)}>Log Out</button></div>                                    
+                                    <div className="col-md-1 col-md-offset-7 log-in-btn "><button className="btn pull-right" onClick={this.logOut.bind(this)}>Log Out</button></div>
                                 </div>
                                 :
                                 <Link to="admin-login"><div className="col-md-1 col-md-offset-7 log-in-btn "><button className="btn pull-right">Log In</button></div></Link>
