@@ -114,7 +114,7 @@ class EditCustomer extends Component {
                                                 <option>Radio</option>
                                                 <option>Internet</option>
                                                 <option>Walk-in</option>
-                                                <option>Rereral</option>
+                                                <option>Referral</option>
                                             </select>
                                             <label htmlFor="" className="input1">Name of Referral</label>
                                             <input className="form-control" type="text" placeholder="" value={this.state.customerObject.Referral} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, Referral: e.target.value } }) }} />

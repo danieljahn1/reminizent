@@ -120,14 +120,14 @@ class AddCustomer extends Component {
                                             <option>Market Trends</option>
                                         </select>
 
-                                        <label htmlFor="" className="input1">Referal Type</label>
+                                        <label htmlFor="" className="input1">Referral Type</label>
                                         <select className="form-control" value={this.state.referralType} onChange={(e) => { this.setState({ referralType: e.target.value }) }}>
                                             <option defaultValue>Select ...</option>
                                             <option>TV</option>
                                             <option>Radio</option>
                                             <option>Internet</option>
                                             <option>Walk-in</option>
-                                            <option>Rereral</option>
+                                            <option>Referral</option>
                                         </select>
                                         <label htmlFor="" className="input1">Name of Referal</label>
                                         <input className="form-control" type="text" placeholder="" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} />

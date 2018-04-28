@@ -24,7 +24,7 @@ class Success extends Component {
 
 
                                 <div className="row in-line11">
-                                    <button className="btn col-md-3 col-md-offset-4 form-spacing4">Retrun to main menu</button>
+                                    <button className="btn col-md-3 col-md-offset-4 form-spacing4">Return to the main menu</button>
                                 </div>
                             </div>
 

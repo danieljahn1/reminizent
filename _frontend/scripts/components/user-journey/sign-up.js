@@ -126,11 +126,11 @@ class SignUp extends Component {
                                                         <option>Radio</option>
                                                         <option>Internet</option>
                                                         <option>Walk-in</option>
-                                                        <option>Rereral</option>
+                                                        <option>Referral</option>
                                                     </select>
                                                 </div>
                                                 <div className="col-md-6">
-                                                    <label htmlFor="referralName" className="form-spacing3">Name of Referal</label>
+                                                    <label htmlFor="referralName" className="form-spacing3">Name of Referral</label>
                                                     <input className="form-control" type="text" autoComplete="off" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} />
                                                 </div>
                                             </div>
