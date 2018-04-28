@@ -19,7 +19,6 @@ class EditCustomer extends Component {
     onSave(e) {
         var self = this
         let url = 'http://localhost:3000/customer/' + this.state.customerObject.ID + '?token=' + this.props.adminLoginToken;
-        console.log(this.state.customerObject.Email)
         axios.put(url, this.state.customerObject)
             .then(function (response) {
                 console.log(response)
@@ -52,21 +51,27 @@ class EditCustomer extends Component {
                 })
             })
     }
+
     previousPg() {
         this.setState({
             redirectDetails: true
         })
     }
 
-
     render() {
         if (this.state.redirectFlag) {
+            this.setState({
+                redirectFlag: false
+            })
             return (
-                <Redirect to="/admin-customer" />
+                <Redirect to="/admin-dashboard" />
             )
         }
 
         if (this.state.redirectDetails) {
+            this.setState({
+                redirectDetails: false
+            })
             return (
                 <Redirect to="/admin-customer" />
             )
@@ -76,28 +81,22 @@ class EditCustomer extends Component {
             <div className="body">
                 <div className="container-fluid">
                     <div className="col-md-10 col-md-offset-1 editCustomerPage " >
-                        <div className="in-line4">
+                        <div style={{ margin: 15 }}>
                             <div className="row" >
-                                <h2 className="heading1">Edit Customer</h2>
+                                <h2 style={{ margin: 20 }}>Edit Customer</h2>
                             </div>
-
                             <div className="form-group">
-
                                 <div className="row row-spacing">
                                     <div className="form-inline col-md-11">
                                         <input className="form-control input2" type="text" placeholder="First Name" value={this.state.customerObject.FirstName} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, FirstName: e.target.value } }) }} />
                                         <input className="form-control input1" type="text" placeholder="Last Name" value={this.state.customerObject.LastName} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, LastName: e.target.value } }) }} />
                                         <input className="form-control input1" type="email" name="" id="customerEmail" placeholder="Email Address" value={this.state.customerObject.Email} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, Email: e.target.value } }) }} />
                                         <input className="form-control input1" type="text" placeholder="Phone Number" value={this.state.customerObject.Phone} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, Phone: e.target.value } }) }} />
-
                                     </div>
                                 </div>
-
                                 <div className="row row-spacing">
                                     <div className="form-inline col-md-11">
                                         <input className="form-control input2" type="text" placeholder="Company" value={this.state.customerObject.Company} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, Company: e.target.value } }) }} />
-
-
                                         <div className="form-group">
                                             <label htmlFor="email" className="input1">Interest:</label>
                                             <select className="form-control" value={this.state.customerObject.AreaOfInterest} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, AreaOfInterest: e.target.value } }) }}>
@@ -107,7 +106,6 @@ class EditCustomer extends Component {
                                                 <option>Market Trends</option>
                                             </select>
                                         </div>
-
                                         <div className="form-group">
                                             <label htmlFor="" className="input1">Referral Type</label>
                                             <select className="form-control" value={this.state.customerObject.HeardAbout} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, HeardAbout: e.target.value } }) }}>
@@ -121,13 +119,10 @@ class EditCustomer extends Component {
                                             <label htmlFor="" className="input1">Name of Referral</label>
                                             <input className="form-control" type="text" placeholder="" value={this.state.customerObject.Referral} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, Referral: e.target.value } }) }} />
                                         </div>
-
                                     </div>
                                 </div>
-
                                 <div className="row row-spacing">
                                     <div className="form-inline col-md-11">
-
                                         <label htmlFor="" className="input1">Application Status</label>
                                         <select className="form-control" value={this.state.customerObject.ApplicationStatus} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, ApplicationStatus: e.target.value } }) }}>
                                             <option>Purchase only</option>
@@ -138,9 +133,6 @@ class EditCustomer extends Component {
                                             <option>Looking - Pre-Approved</option>
                                             <option>In Contract</option>
                                         </select>
-
-
-
                                         <label htmlFor="" className="input1">Loan Status</label>
                                         <select className="form-control" value={this.state.customerObject.LoanStatus}>
                                             <option>Application</option>
@@ -155,32 +147,24 @@ class EditCustomer extends Component {
                                             <option>Denied</option>
                                             <option>Suspended</option>
                                         </select>
-
-
-
                                     </div>
                                 </div>
-
-
-                                <div className="row in-line3" >
-                                {/* <div className="row" style={{ paddingBottom: 10 }} > */}
+                                <div className="row" style={{ margin: 10, paddingBottom: 10 }} >
+                                    {/* <div className="row" style={{ paddingBottom: 10 }} > */}
                                     <div className="col-md-8 col-md-offset-9">
-                                        <button className="btn col-md-2 input2" onClick={this.previousPg.bind(this)}>Cancel</button>
-                                        <button className="btn col-md-2 in-line4 " onClick={this.onSave.bind(this)}>Submit</button>
+                                        <button className="btn col-md-2 " onClick={this.previousPg.bind(this)}>Cancel</button>
+                                        <button className="btn col-md-2 " style={{ marginLeft: 14 }} onClick={this.onSave.bind(this)}>Submit</button>
                                     </div>
                                 </div>
-
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
-
         )
     }
 }
+
 const mapStateToProps = state => {
     return {
         adminLoginToken: state.adminLoginToken,

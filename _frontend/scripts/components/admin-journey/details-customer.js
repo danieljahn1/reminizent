@@ -22,7 +22,6 @@ class CustomerDetails extends Component {
             openEmailClient: false,
             redirectToEdit: false,
             redirectToDashboard: false,
-
         }
     }
 
@@ -30,12 +29,10 @@ class CustomerDetails extends Component {
         console.log(this.props.viewCustomer.ID)
         axios.get('http://localhost:3000/activity/customer/' + this.props.viewCustomer.ID + '?token=' + this.props.adminLoginToken)
             .then(response => {
-
                 this.setState({
                     activity: response.data[0],
                     customer: this.props.viewCustomer  // sending redux state to local, so it does not error upon the logout.
                 })
-
             })
     }
 
@@ -63,48 +60,39 @@ class CustomerDetails extends Component {
     }
 
     render() {
-        console.log("render is firing")
         const { redirectToEdit } = this.state;
-        console.log(redirectToEdit)
         if (redirectToEdit) {
-            console.log("redirect line 64")
             this.setState({
                 redirectToEdit: false
             })
             return <Redirect to="/edit-customer" />
         }
 
-        const { openEmailClient } = this.state;
-        if (openEmailClient) {
-            return <Redirect to={this.state.href} />
-        }
-
         const { redirectToDashboard } = this.state;
-        console.log(redirectToDashboard + "THIS IS LINE 73")
         if (redirectToDashboard) {
-            console.log("redirect line 73")
             this.setState({
                 redirectToDashboard: false
             })
-            // console.log(this.state.redirectToDashboard)
             return <Redirect to="/admin-dashboard" />
         }
 
-        return (
+        const { openEmailClient } = this.state;
+        if (openEmailClient) {
+            window.location.assign(this.state.href)
+        }
 
+        return (
             <div className="container-fluid">
                 <div className="col-md-10  col-md-offset-1 customerDetailsPage in-line2 ">
                     <div className="cutomerContainer" >
                         <div className="row">
                             <h2 className="heading1">Customer Details</h2>
                         </div>
-
                         <table className="col-md-12 form-spacing4">
                             <tbody>
                                 {/* update customer/axios delete/call will need token go to "admin-customer" page */}
                                 {/* creating the using sends its to redux. this call on did mount needs to grab by id */}
                                 <tr>
-
                                     <th className="input2">First Name:</th>
                                     <td>{this.state.customer.FirstName}</td>
                                     <th className="input1">Last Name:</th>
@@ -131,23 +119,19 @@ class CustomerDetails extends Component {
                                     <td>{this.state.customer.Company}</td>
                                     <th className="input1">Interest:</th>
                                     <td>{this.state.customer.AreaOfInterest}</td>
-
                                 </tr>
                                 <br />
-
                                 <tr>
                                     <th className="input2">Referral Type:</th>
                                     <td>{this.state.customer.HeardAbout}</td>
                                     <th className="input1">Name of Referral:</th>
                                     <td>{this.state.customer.Referral}</td>
-
                                     <th className="input1">Application Status:</th>
                                     <td>{this.state.customer.ApplicationStatus}</td>
                                     <th className="input1">Loan Status:</th>
                                     <td>{this.state.customer.LoanStatus}</td>
                                 </tr>
                                 <br />
-
                             </tbody>
                         </table>
 
@@ -156,7 +140,8 @@ class CustomerDetails extends Component {
                         <div className="row in-line3">
                             <button className="btn btn-danger col-md-2 input1 input2 pull-right in-line1" onClick={this.onDelete.bind(this)}>Delete Customer</button>
                             <button className="btn col-md-2 input1 input2 pull-right" onClick={this.goToEditCustomer.bind(this)}>Edit Customer</button>
-                            <a href="#openModal" className="btn col-md-2 input1 input2 pull-right in-line1" style={{ textDecoration: 'none' }}>Email Customer</a>                                <div id="openModal" className="modalDialog">
+                            <a href="#openModal" className="btn col-md-2 input1 input2 pull-right in-line1" style={{ textDecoration: 'none' }}>Email Customer</a>
+                            <div id="openModal" className="modalDialog">
                                 <div>
                                     <a href="#close" title="Close" className="close">X</a>
                                     <h3>Email {this.state.customer.Email}</h3>
@@ -182,46 +167,40 @@ class CustomerDetails extends Component {
                                             </select>
                                         </div>
                                         <h1></h1>
-                                        <a href="#close" type="submit" className="btn btn-block" onClick={this.emailCustomer.bind(this, this.state)}>Next</a>
+                                        <a href="#close" className="btn btn-block" onClick={this.createEmail.bind(this, this.state)}>Next</a>
+                                        <a href="mailto:example@tutorialspark.com?body=Your message within Main Body">Tell us</a>
                                     </form>
                                 </div>
                             </div>
                         </div>
-
                         {/* add note section */}
                         <NoteEntry />
-
-
-
                     </div>
                 </div>
-
             </div>
-
         )
     }
 
-    emailCustomer() {
+    createEmail() {
         var emailHref = this.state.customer.Email;
         var emailSubject = this.state.subjectLine;
-        var emailTemplate = this.state.template;
-        if (emailTemplate === "Template 1: General Reply") {
-            this.setState({
-                template: "How are you doing?"
-            })
-        } else if (emailTemplate === "Template 2: Status Update") {
-            this.setState({
-                template: "Your application is in progress?"
-            })
+        if (this.state.template === "Template 1: General Reply") {
+            var emailTemplate = "How are you doing?";
+        } else if (this.state.template === "Template 2: Status Update") {
+            var emailTemplate = "Your application is in progress";
         } else {
-            this.setState({
-                template: "Congratulations, you've been approved!"
-            })
+            var emailTemplate = "Congratulations, you've been approved!";
         }
         this.setState({
-            href: "mailto:" + emailHref + "?subject=" + emailSubject + "&body=" + this.state.template
+            href: "mailto:" + emailHref + "?subject=" + emailSubject + "&body=" + emailTemplate
         })
-        console.log(this.state.href)
+        this.openEmailClient();        
+    }
+
+    openEmailClient() {
+        this.setState({
+            openEmailClient: true
+        })
     }
 
     goToEditCustomer() {
@@ -270,7 +249,7 @@ class CustomerDetails extends Component {
 const mapStateToProps = state => {
     return {
         adminLoginToken: state.adminLoginToken,
-        customerObject: state.customerObject,
+        // customerObject: state.customerObject,
         viewCustomer: state.viewCustomer
     }
 }
