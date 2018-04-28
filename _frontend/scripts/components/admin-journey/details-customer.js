@@ -168,7 +168,6 @@ class CustomerDetails extends Component {
                                         </div>
                                         <h1></h1>
                                         <a href="#close" className="btn btn-block" onClick={this.createEmail.bind(this, this.state)}>Next</a>
-                                        <a href="mailto:example@tutorialspark.com?body=Your message within Main Body">Tell us</a>
                                     </form>
                                 </div>
                             </div>
