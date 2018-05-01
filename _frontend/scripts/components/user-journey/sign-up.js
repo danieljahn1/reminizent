@@ -149,7 +149,7 @@ class SignUp extends Component {
                                                 </div>
                                                 { (this.state.referralType == "Referral")
                                                     ?
-                                                    <div className="col-md-6">
+                                                    <div className="col-md-6 col-md-offset-6">
                                                         <label htmlFor="referralName" className="form-spacing3">Name of Referral</label>
                                                         <input className="form-control" type="text" autoComplete="off" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} onKeyDown={this.onEnterPress} />
                                                     </div>
