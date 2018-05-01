@@ -3,7 +3,6 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clearLoginToken } from '../../redux/actions';
 
-
 class Menu extends Component {
     constructor(props) {
         super(props);
@@ -47,7 +46,7 @@ class Menu extends Component {
             this.setState({
                 redirectDashboard: false
             })
-            return <Redirect to="/admin-dashboard/" />
+            return <Redirect to="/admin-dashboard" />
         }
 
         const { redirectCreateCustomer } = this.state;
@@ -55,9 +54,8 @@ class Menu extends Component {
             this.setState({
                 redirectCreateCustomer: false
             })
-            return <Redirect to="/admin-subscribe/" />
+            return <Redirect to="/admin-subscribe" />
         }
-
 
         return (
             <div className="body">
@@ -71,13 +69,9 @@ class Menu extends Component {
                                 {(!this.props.adminLoginToken == '')
                                     ?
                                     <div className="col-md-7 col-md-push-4 in-line5">
-
                                         <button className="btn" onClick={this.goToDashboard.bind(this)}>Dashboard</button>
-
                                         <button className="btn btn3" onClick={this.goToCreateCustomer.bind(this)}>Create Customer</button>
-
                                         <button className="btn" onClick={this.logOut.bind(this)}>Log Out</button>
-
                                     </div>
                                     :
                                     <div className="col-md-1 col-md-offset-7 in-line5">

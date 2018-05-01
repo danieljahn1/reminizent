@@ -80,10 +80,17 @@ class AddCustomer extends Component {
         }
     }
 
+    onEnterPress = (e) => {
+        if (e.keyCode == 13 && e.shiftKey == false) {
+            e.preventDefault();
+            this.userSignUp(e);
+        }
+    }
+
     render() {
         const { redirect } = this.state;
         if (redirect) {
-            return <Redirect to="/admin-customer/"/>
+            return <Redirect to="/admin-customer/" />
         }
 
         return (
@@ -94,23 +101,18 @@ class AddCustomer extends Component {
                             <div className="row">
                                 <h2 className="heading1">Add New Customer</h2>
                             </div>
-
                             <div className="form-group">
-
                                 <div className="row row-spacing">
                                     <div className="form-inline col-md-10">
-                                        <input className="form-control input2" type="text" placeholder="First Name" value={this.state.firstName} onChange={(e) => { this.setState({ firstName: e.target.value }) }} required />
-                                        <input className="form-control input1" type="text" placeholder="Last Name" value={this.state.lastName} onChange={(e) => { this.setState({ lastName: e.target.value }) }} required />
-                                        <input className="form-control input1" type="email" name="" id="customerEmail" placeholder="Email Address" value={this.state.emailAddress} onChange={(e) => { this.setState({ emailAddress: e.target.value }) }} required />
-                                        <input className="form-control input1" type="text" placeholder="Phone Number" value={this.state.phoneNumber} onChange={(e) => { this.setState({ phoneNumber: e.target.value }) }} />
-
+                                        <input className="form-control input2" type="text" placeholder="First Name" value={this.state.firstName} onChange={(e) => { this.setState({ firstName: e.target.value }) }} onKeyDown={this.onEnterPress} required />
+                                        <input className="form-control input1" type="text" placeholder="Last Name" value={this.state.lastName} onChange={(e) => { this.setState({ lastName: e.target.value }) }} onKeyDown={this.onEnterPress} required />
+                                        <input className="form-control input1" type="email" name="" id="customerEmail" placeholder="Email Address" value={this.state.emailAddress} onChange={(e) => { this.setState({ emailAddress: e.target.value }) }} onKeyDown={this.onEnterPress} required />
+                                        <input className="form-control input1" type="text" placeholder="Phone Number" value={this.state.phoneNumber} onChange={(e) => { this.setState({ phoneNumber: e.target.value }) }} onKeyDown={this.onEnterPress} />
                                     </div>
                                 </div>
-
                                 <div className="row row-spacing">
                                     <div className="form-inline col-md-11">
-                                        <input className="form-control input2" type="text" placeholder="Company" value={this.state.companyName} onChange={(e) => { this.setState({ companyName: e.target.value }) }} />
-
+                                        <input className="form-control input2" type="text" placeholder="Company" value={this.state.companyName} onChange={(e) => { this.setState({ companyName: e.target.value }) }} onKeyDown={this.onEnterPress} />
                                         <label htmlFor="email" className="input1">Intrest:</label>
                                         <select className="form-control" value={this.state.requestType} onChange={(e) => { this.setState({ requestType: e.target.value }) }}>
                                             <option defaultValue>Select ...</option>
@@ -119,7 +121,6 @@ class AddCustomer extends Component {
                                             <option>Speak with an Agent</option>
                                             <option>Market Trends</option>
                                         </select>
-
                                         <label htmlFor="" className="input1">Referral Type</label>
                                         <select className="form-control" value={this.state.referralType} onChange={(e) => { this.setState({ referralType: e.target.value }) }}>
                                             <option defaultValue>Select ...</option>
@@ -130,14 +131,11 @@ class AddCustomer extends Component {
                                             <option>Referral</option>
                                         </select>
                                         <label htmlFor="" className="input1">Name of Referal</label>
-                                        <input className="form-control" type="text" placeholder="" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} />
+                                        <input className="form-control" type="text" placeholder="" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} onKeyDown={this.onEnterPress} />
                                     </div>
                                 </div>
-
-
                                 <div className="row row-spacing">
                                     <div className="form-inline col-md-11">
-
                                         <label htmlFor="" className="input1">Application Status</label>
                                         <select className="form-control">
                                             <option defaultValue>Select ...</option>
@@ -149,9 +147,6 @@ class AddCustomer extends Component {
                                             <option>Looking - Pre-Approved</option>
                                             <option>In Contract</option>
                                         </select>
-
-
-
                                         <label htmlFor="" className="input1">Loan Status</label>
                                         <select className="form-control">
                                             <option defaultValue>Select ...</option>
@@ -167,20 +162,12 @@ class AddCustomer extends Component {
                                             <option>Denied</option>
                                             <option>Suspended</option>
                                         </select>
-
-
-
                                     </div>
                                 </div>
-
-
-
                                 <div className="row inline6">
                                     <button type="submit" className="btn col-md-2 col-md-offset-10" onClick={this.userSignUp.bind(this)}>Submit</button>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>

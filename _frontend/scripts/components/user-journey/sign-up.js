@@ -69,6 +69,13 @@ class SignUp extends Component {
         }
     }
 
+    onEnterPress = (e) => {
+        if (e.keyCode == 13 && e.shiftKey == false) {
+            e.preventDefault();
+            this.userSignUp(e);
+        }
+    }
+
     render() {
         const { redirect } = this.state;
         if (redirect) {
@@ -90,27 +97,27 @@ class SignUp extends Component {
                                             <div className="form-group">
                                                 <div className="col-md-6">
                                                     <label htmlFor="firstName">First Name:</label>
-                                                    <input type="text" autoComplete="given-name" className="form-control form-spacing" value={this.state.firstName} onChange={(e) => { this.setState({ firstName: e.target.value }) }} required />
+                                                    <input type="text" autoComplete="given-name" className="form-control form-spacing" value={this.state.firstName} onChange={(e) => { this.setState({ firstName: e.target.value }) }} onKeyDown={this.onEnterPress} required />
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="lastName">Last Name:</label>
-                                                    <input type="text" autoComplete="family-name" className="form-control form-spacing" value={this.state.lastName} onChange={(e) => { this.setState({ lastName: e.target.value }) }} required />
+                                                    <input type="text" autoComplete="family-name" className="form-control form-spacing" value={this.state.lastName} onChange={(e) => { this.setState({ lastName: e.target.value }) }} onKeyDown={this.onEnterPress} required />
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="emailAddress">E-mail:</label>
-                                                    <input type="email" autoComplete="email" className="form-control form-spacing" value={this.state.emailAddress} onChange={(e) => { this.setState({ emailAddress: e.target.value }) }} required />
+                                                    <input type="email" autoComplete="email" className="form-control form-spacing" value={this.state.emailAddress} onChange={(e) => { this.setState({ emailAddress: e.target.value }) }} onKeyDown={this.onEnterPress} required />
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="phoneNumber">Phone Number:</label>
-                                                    <input type="tel" autoComplete="tel" className="form-control form-spacing" value={this.state.phoneNumber} onChange={(e) => { this.setState({ phoneNumber: e.target.value }) }} />
+                                                    <input type="tel" autoComplete="tel" className="form-control form-spacing" value={this.state.phoneNumber} onChange={(e) => { this.setState({ phoneNumber: e.target.value }) }} onKeyDown={this.onEnterPress} />
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="companyName">Company Name:</label>
-                                                    <input type="text" autoComplete="off" className="form-control " value={this.state.companyName} onChange={(e) => { this.setState({ companyName: e.target.value }) }} />
+                                                    <input type="text" autoComplete="off" className="form-control " value={this.state.companyName} onChange={(e) => { this.setState({ companyName: e.target.value }) }} onKeyDown={this.onEnterPress} />
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="requestType" >How can we help you?</label>
-                                                    <select className="form-control" value={this.state.requestType} onChange={(e) => { this.setState({ requestType: e.target.value }) }}>
+                                                    <select className="form-control" value={this.state.requestType} onChange={(e) => { this.setState({ requestType: e.target.value }) }} >
                                                         <option defaultValue>Select ...</option>
                                                         <option>General Information</option>
                                                         <option>Loan Information</option>
@@ -120,7 +127,7 @@ class SignUp extends Component {
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="referralType" className="form-spacing3">How did you here about us?</label>
-                                                    <select className="form-control" value={this.state.referralType} onChange={(e) => { this.setState({ referralType: e.target.value }) }}>
+                                                    <select className="form-control" value={this.state.referralType} onChange={(e) => { this.setState({ referralType: e.target.value }) }} >
                                                         <option defaultValue>Select ...</option>
                                                         <option>TV</option>
                                                         <option>Radio</option>
@@ -131,7 +138,7 @@ class SignUp extends Component {
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="referralName" className="form-spacing3">Name of Referral</label>
-                                                    <input className="form-control" type="text" autoComplete="off" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} />
+                                                    <input className="form-control" type="text" autoComplete="off" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} onKeyDown={this.onEnterPress} />
                                                 </div>
                                             </div>
                                         </form>

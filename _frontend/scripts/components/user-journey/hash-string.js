@@ -37,6 +37,7 @@ class HashPage extends Component {
             // hashedSHA3: hashSHA3,
         })
     }
+
     render() {
         return (
             <div className="form-group col-md-10">

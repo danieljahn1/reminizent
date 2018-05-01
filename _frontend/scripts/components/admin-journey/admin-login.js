@@ -73,11 +73,11 @@ class AdminLogIn extends Component {
                                 <form>
                                     <div className="form-group">
                                         <label htmlFor="Email">Email:</label>
-                                        <input type="text" className="form-control input1" value={this.state.email} onChange={(e) => { this.setState({ email: e.target.value }) }} required />
+                                        <input type="text" className="form-control input1" value={this.state.email} onChange={(e) => { this.setState({ email: e.target.value }) }} onKeyDown={this.onEnterPress} required />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="password">Password:</label>
-                                        <input type="password" className="form-control input1" onKeyDown={this.onEnterPress} value={this.state.password} onChange={(e) => { this.setState({ password: e.target.value }) }} required />
+                                        <input type="password" className="form-control input1" value={this.state.password} onChange={(e) => { this.setState({ password: e.target.value }) }} onKeyDown={this.onEnterPress} required />
                                     </div>
                                 </form>
                                 <div className="row">

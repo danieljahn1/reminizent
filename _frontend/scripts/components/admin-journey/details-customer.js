@@ -5,8 +5,6 @@ import { setCustomerObject } from '../../redux/actions';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import MD5 from 'crypto-js/md5';
-import Dashboard from './dashboard'
-
 import NoteEntry from './note-entry';
 
 class CustomerDetails extends Component {
@@ -19,6 +17,7 @@ class CustomerDetails extends Component {
             subjectLine: '',
             template: '',
             href: '',
+            openEmailModal: false,
             openEmailClient: false,
             redirectToEdit: false,
             redirectToDashboard: false,
@@ -34,6 +33,50 @@ class CustomerDetails extends Component {
                     customer: this.props.viewCustomer  // sending redux state to local, so it does not error upon the logout.
                 })
             })
+    }
+
+    resetEmailState() {
+        this.setState({
+            subjectLine: '',
+            template: '',
+            href: ''
+        })
+        this.openEmailModal();
+    }
+
+    openEmailModal() {
+        this.setState({
+            openEmailModal: true
+        })
+    }
+
+    createEmail() {
+        var emailHref = this.state.customer.Email;
+        var emailSubject = this.state.subjectLine;
+        if (this.state.template === "Template 1: General Reply") {
+            var emailTemplate = "How are you doing?";
+        } else if (this.state.template === "Template 2: Status Update") {
+            var emailTemplate = "Your application is in progress";
+        } else {
+            var emailTemplate = "Congratulations, you've been approved!";
+        }
+        this.setState({
+            href: "mailto:" + emailHref + "?subject=" + emailSubject + "&body=" + emailTemplate
+        })
+        this.openEmailClient();
+    }
+
+    openEmailClient() {
+        this.setState({
+            openEmailClient: true,
+        })
+    }
+
+    goToEditCustomer() {
+        this.props.sendCustomerObjToRedux(this.state.customer);
+        this.setState({
+            redirectToEdit: true
+        })
     }
 
     onDelete() {
@@ -76,9 +119,20 @@ class CustomerDetails extends Component {
             return <Redirect to="/admin-dashboard" />
         }
 
+        const { openEmailModal } = this.state;
+        if (openEmailModal) {
+            this.setState({
+                openEmailModal: false
+            })
+            window.location.assign("http://localhost:8080/admin-customer#openModal");
+        }
+
         const { openEmailClient } = this.state;
         if (openEmailClient) {
-            window.location.assign(this.state.href)
+            this.setState({
+                openEmailClient: false
+            })
+            window.location.assign(this.state.href);
         }
 
         return (
@@ -134,17 +188,15 @@ class CustomerDetails extends Component {
                                 <br />
                             </tbody>
                         </table>
-
                         {/* Edit button-- toggle page to edit form */}
-
                         <div className="row in-line3">
                             <button className="btn btn-danger col-md-2 input1 input2 pull-right in-line1" onClick={this.onDelete.bind(this)}>Delete Customer</button>
                             <button className="btn col-md-2 input1 input2 pull-right" onClick={this.goToEditCustomer.bind(this)}>Edit Customer</button>
-                            <a href="#openModal" className="btn col-md-2 input1 input2 pull-right in-line1" style={{ textDecoration: 'none' }}>Email Customer</a>
+                            <button className="btn col-md-2 input1 input2 pull-right in-line1" onClick={this.resetEmailState.bind(this)}>Email Customer</button>
                             <div id="openModal" className="modalDialog">
                                 <div>
                                     <a href="#close" title="Close" className="close">X</a>
-                                    <h3>Email {this.state.customer.Email}</h3>
+                                    <h3>Email {this.state.customer.FirstName} {this.state.customer.LastName} </h3>
                                     <h1></h1>
                                     <form>
                                         <div className="form-group">
@@ -167,7 +219,8 @@ class CustomerDetails extends Component {
                                             </select>
                                         </div>
                                         <h1></h1>
-                                        <a href="#close" className="btn btn-block" onClick={this.createEmail.bind(this, this.state)}>Next</a>
+                                        <a href="#close" className="btn" >Cancel</a>
+                                        <a href="#close" className="btn" onClick={this.createEmail.bind(this, this.state)}>Next</a>
                                     </form>
                                 </div>
                             </div>
@@ -178,35 +231,6 @@ class CustomerDetails extends Component {
                 </div>
             </div>
         )
-    }
-
-    createEmail() {
-        var emailHref = this.state.customer.Email;
-        var emailSubject = this.state.subjectLine;
-        if (this.state.template === "Template 1: General Reply") {
-            var emailTemplate = "How are you doing?";
-        } else if (this.state.template === "Template 2: Status Update") {
-            var emailTemplate = "Your application is in progress";
-        } else {
-            var emailTemplate = "Congratulations, you've been approved!";
-        }
-        this.setState({
-            href: "mailto:" + emailHref + "?subject=" + emailSubject + "&body=" + emailTemplate
-        })
-        this.openEmailClient();        
-    }
-
-    openEmailClient() {
-        this.setState({
-            openEmailClient: true
-        })
-    }
-
-    goToEditCustomer() {
-        this.props.sendCustomerObjToRedux(this.state.customer);
-        this.setState({
-            redirectToEdit: true
-        })
     }
 
     formatDate(d) {
@@ -239,7 +263,6 @@ class CustomerDetails extends Component {
                 time = time.substr(1);
             }
         }
-
         var date = month + '/' + day + '/' + year + " " + time;
         return date;
     }

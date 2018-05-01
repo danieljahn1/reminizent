@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link, Switch, Route } from 'react-router-dom'
-import Navbar from './user-journey/nav-bar'
 
 // component imports
+import HashPage from './user-journey/hash-string';
 // user imports
 import Menu from './user-journey/menu'
 import SignUp from './user-journey/sign-up'
@@ -15,11 +15,8 @@ import Dashboard from './admin-journey/dashboard'
 import AddCustomer from './admin-journey/add-customer';
 import CustomerDetails from './admin-journey/details-customer';
 import EditCustomer from './admin-journey/edit-customer';
-import AdminFooter from './admin-journey/admin-footer';
 import AdminLogIn from './admin-journey/admin-login';
 import EditNote from './admin-journey/edit-note';
-
-import HashPage from './user-journey/hash-string';
 
 class Container extends Component {
     constructor(props) {

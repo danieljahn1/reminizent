@@ -4,14 +4,12 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import MD5 from 'crypto-js/md5';
-import Dashboard from './dashboard'
 
 class EditCustomer extends Component {
     constructor(props) {
         super(props);
         this.state = {
             customerObject: props.customerObject,
-            redirectFlag: false,
             redirectDetails: false
         }
     }
@@ -40,14 +38,14 @@ class EditCustomer extends Component {
         axios.put(urlString, subscribeBody)
             .then(response => {
                 this.setState({
-                    redirectFlag: true
+                    redirectDetails: true
                 })
                 console.log(response)
             })
             .catch(err => {
                 console.log(err)
                 this.setState({
-                    redirectFlag: true
+                    redirectDetails: true
                 })
             })
     }
@@ -59,15 +57,6 @@ class EditCustomer extends Component {
     }
 
     render() {
-        if (this.state.redirectFlag) {
-            this.setState({
-                redirectFlag: false
-            })
-            return (
-                <Redirect to="/admin-dashboard" />
-            )
-        }
-
         if (this.state.redirectDetails) {
             this.setState({
                 redirectDetails: false
