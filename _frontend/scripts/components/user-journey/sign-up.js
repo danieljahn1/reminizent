@@ -12,6 +12,7 @@ class SignUp extends Component {
             phoneNumber: '',
             companyName: '',
             requestType: '',
+            realtorName: '',
             referralType: '',
             referralName: '',
             redirect: false
@@ -126,6 +127,16 @@ class SignUp extends Component {
                                                     </select>
                                                 </div>
                                                 <div className="col-md-6">
+                                                    <label htmlFor="referralType" className="form-spacing3">Who is your real estate agent?</label>
+                                                    <select className="form-control" value={this.state.realtorName} onChange={(e) => { this.setState({ realtorName: e.target.value }) }} >
+                                                        <option defaultValue>Select ...</option>
+                                                        <option>Max Power</option>
+                                                        <option>Eddie Money</option>
+                                                        <option>Mo House</option>
+                                                        <option>I don't have one yet</option>
+                                                    </select>
+                                                </div>
+                                                <div className="col-md-6">
                                                     <label htmlFor="referralType" className="form-spacing3">How did you here about us?</label>
                                                     <select className="form-control" value={this.state.referralType} onChange={(e) => { this.setState({ referralType: e.target.value }) }} >
                                                         <option defaultValue>Select ...</option>
@@ -136,10 +147,15 @@ class SignUp extends Component {
                                                         <option>Referral</option>
                                                     </select>
                                                 </div>
-                                                <div className="col-md-6">
-                                                    <label htmlFor="referralName" className="form-spacing3">Name of Referral</label>
-                                                    <input className="form-control" type="text" autoComplete="off" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} onKeyDown={this.onEnterPress} />
-                                                </div>
+                                                { (this.state.referralType == "Referral")
+                                                    ?
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="referralName" className="form-spacing3">Name of Referral</label>
+                                                        <input className="form-control" type="text" autoComplete="off" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} onKeyDown={this.onEnterPress} />
+                                                    </div>
+                                                    :
+                                                    <div></div>
+                                                }
                                             </div>
                                         </form>
                                         <div className="row">
