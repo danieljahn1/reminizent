@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { setCustomerObject } from '../../redux/actions';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
@@ -25,7 +25,6 @@ class CustomerDetails extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.viewCustomer.ID)
         axios.get('http://localhost:3000/activity/customer/' + this.props.viewCustomer.ID + '?token=' + this.props.adminLoginToken)
             .then(response => {
                 this.setState({
@@ -271,8 +270,7 @@ class CustomerDetails extends Component {
 const mapStateToProps = state => {
     return {
         adminLoginToken: state.adminLoginToken,
-        // customerObject: state.customerObject,
-        viewCustomer: state.viewCustomer
+        viewCustomer: state.customerObject
     }
 }
 

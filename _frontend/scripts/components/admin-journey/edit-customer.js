@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { setCustomerObject } from '../../redux/actions';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import MD5 from 'crypto-js/md5';
@@ -21,6 +22,7 @@ class EditCustomer extends Component {
             .then(function (response) {
                 console.log(response)
             })
+        this.props.sendCustomerObjToRedux(this.state.customerObject);
         var hashedEmail = CryptoJS.MD5(this.state.customerObject.Email).toString();
         var subscribeBody = {
             "email_address": this.state.customerObject.Email,
@@ -161,4 +163,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(EditCustomer);
+const mapDispatchToProps = dispatch => {
+    return {
+        sendCustomerObjToRedux: customerObject => dispatch(setCustomerObject(customerObject)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditCustomer);

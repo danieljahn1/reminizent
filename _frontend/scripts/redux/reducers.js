@@ -25,12 +25,12 @@ const rootReducer = (state = initialState, action) => {
                 customerObject: action.payload
             }
             break;
-        case ("SET_VIEWCUSTDETAILS"):
-            state = {
-                ...state,
-                viewCustomer: action.payload
-            }
-            break;
+        // case ("SET_VIEWCUSTDETAILS"):
+        //     state = {
+        //         ...state,
+        //         viewCustomer: action.payload
+        //     }
+        //     break;
         case ("SET_ADMIN_OBJECT"):
             state = {
                 ...state,
