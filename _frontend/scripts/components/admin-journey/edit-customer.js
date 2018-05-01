@@ -123,7 +123,7 @@ class EditCustomer extends Component {
                                             <option>In Contract</option>
                                         </select>
                                         <label htmlFor="" className="input1">Loan Status</label>
-                                        <select className="form-control" value={this.state.customerObject.LoanStatus}>
+                                        <select className="form-control" value={this.state.customerObject.LoanStatus} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, LoanStatus: e.target.value } }) }}>
                                             <option>Application</option>
                                             <option>Initial Documents</option>
                                             <option>Setup / Initial Disclosures</option>
