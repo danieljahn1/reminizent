@@ -70,7 +70,14 @@ class Dashboard extends Component {
                 accessor: "ApplicationStatus",
                 filterMethod: (filter, row) =>
                     row[filter.id].startsWith(filter.value)
+            },
+            {
+                Header: "Loan Status",
+                accessor: "LoanStatus",
+                filterMethod: (filter, row) =>
+                    row[filter.id].startsWith(filter.value)
             }
+            
         ]
 
         return (
