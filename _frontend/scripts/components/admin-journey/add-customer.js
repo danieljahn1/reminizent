@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setCustomerObject } from '../../redux/actions';
 import axios from 'axios';
-import { setViewCustDetails } from '../../redux/actions';
+// import { setViewCustDetails } from '../../redux/actions';
 
 class AddCustomer extends Component {
     constructor(props) {
@@ -17,6 +17,8 @@ class AddCustomer extends Component {
             requestType: '',
             referralType: '',
             referralName: '',
+            applicationStatus: '',
+            loanStatus: '',
             customerObject: '',
             redirect: false
         }
@@ -47,7 +49,7 @@ class AddCustomer extends Component {
                         customerObject: response.data[0]
                     })
                     this.props.sendCustomerObjToRedux(this.state.customerObject);
-                    this.props.sendCustomerToRedux(this.state.customerObject);
+                    // this.props.sendCustomerToRedux(this.state.customerObject);
                     // console.log("custobj")
                     // console.log(response.data[0])
                     axios.post('http://localhost:3000/activity', activityBody)
@@ -106,16 +108,16 @@ class AddCustomer extends Component {
                                     <div className="form-inline col-md-10">
                                         <input className="form-control input2" type="text" placeholder="First Name" value={this.state.firstName} onChange={(e) => { this.setState({ firstName: e.target.value }) }} onKeyDown={this.onEnterPress} required />
                                         <input className="form-control input1" type="text" placeholder="Last Name" value={this.state.lastName} onChange={(e) => { this.setState({ lastName: e.target.value }) }} onKeyDown={this.onEnterPress} required />
-                                        <input className="form-control input1" type="email" name="" id="customerEmail" placeholder="Email Address" value={this.state.emailAddress} onChange={(e) => { this.setState({ emailAddress: e.target.value }) }} onKeyDown={this.onEnterPress} required />
+                                        <input className="form-control input1" type="email" placeholder="Email Address" value={this.state.emailAddress} onChange={(e) => { this.setState({ emailAddress: e.target.value }) }} onKeyDown={this.onEnterPress} required />
                                         <input className="form-control input1" type="text" placeholder="Phone Number" value={this.state.phoneNumber} onChange={(e) => { this.setState({ phoneNumber: e.target.value }) }} onKeyDown={this.onEnterPress} />
                                     </div>
                                 </div>
                                 <div className="row row-spacing">
                                     <div className="form-inline col-md-11">
                                         <input className="form-control input2" type="text" placeholder="Company" value={this.state.companyName} onChange={(e) => { this.setState({ companyName: e.target.value }) }} onKeyDown={this.onEnterPress} />
-                                        <label htmlFor="email" className="input1">Intrest:</label>
+                                        <label htmlFor="email" className="input1">Intrest</label>
                                         <select className="form-control" value={this.state.requestType} onChange={(e) => { this.setState({ requestType: e.target.value }) }}>
-                                            <option defaultValue>Select ...</option>
+                                            <option defaultValue>Intrest ...</option>
                                             <option>General Information</option>
                                             <option>Loan Information</option>
                                             <option>Speak with an Agent</option>
@@ -123,7 +125,7 @@ class AddCustomer extends Component {
                                         </select>
                                         <label htmlFor="" className="input1">Referral Type</label>
                                         <select className="form-control" value={this.state.referralType} onChange={(e) => { this.setState({ referralType: e.target.value }) }}>
-                                            <option defaultValue>Select ...</option>
+                                            <option defaultValue>Referral Type ...</option>
                                             <option>TV</option>
                                             <option>Radio</option>
                                             <option>Internet</option>
@@ -131,14 +133,14 @@ class AddCustomer extends Component {
                                             <option>Referral</option>
                                         </select>
                                         <label htmlFor="" className="input1">Name of Referal</label>
-                                        <input className="form-control" type="text" placeholder="" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} onKeyDown={this.onEnterPress} />
+                                        <input className="form-control" type="text" placeholder="Name of Referal" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} onKeyDown={this.onEnterPress} />
                                     </div>
                                 </div>
                                 <div className="row row-spacing">
                                     <div className="form-inline col-md-11">
                                         <label htmlFor="" className="input1">Application Status</label>
-                                        <select className="form-control">
-                                            <option defaultValue>Select ...</option>
+                                        <select className="form-control" value={this.state.applicationStatus} onChange={(e) => { this.setState({ applicationStatus: e.target.value }) }}>
+                                            <option defaultValue>Application Status ...</option>
                                             <option>Purchase only</option>
                                             <option>Looking</option>
                                             <option>Application for Pre-Qualified</option>
@@ -148,8 +150,8 @@ class AddCustomer extends Component {
                                             <option>In Contract</option>
                                         </select>
                                         <label htmlFor="" className="input1">Loan Status</label>
-                                        <select className="form-control">
-                                            <option defaultValue>Select ...</option>
+                                        <select className="form-control" value={this.state.loanStatus} onChange={(e) => { this.setState({ loanStatus: e.target.value }) }}>
+                                            <option defaultValue>Loan Status ...</option>
                                             <option>Application</option>
                                             <option>Initial Documents</option>
                                             <option>Setup / Initial Disclosures</option>
@@ -184,8 +186,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        sendCustomerObjToRedux: customerObject => dispatch(setCustomerObject(customerObject)),
-        sendCustomerToRedux: customerObject => dispatch(setViewCustDetails(customerObject))
+        sendCustomerObjToRedux: customerObject => dispatch(setCustomerObject(customerObject))
+        // sendCustomerToRedux: customerObject => dispatch(setViewCustDetails(customerObject))
     }
 }
 
