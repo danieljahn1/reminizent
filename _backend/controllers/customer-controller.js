@@ -151,7 +151,7 @@ function create(req, res) {
         var request = new sql.Request(config);
         // Execute the CreateCustomer stored procedure
         // Stored procedure parameters needed: FirstName, LastName, Company, Email, Phone
-        //  AreaOfInterest, HeardAbout, Referral
+        //  AreaOfInterest, HeardAbout, Referral, ApplicationStatus, LoanStatus, RealtorID
         request.input('FirstName', sql.VarChar, req.body.FirstName);
         request.input('LastName', sql.VarChar, req.body.LastName);
         request.input('Company', sql.VarChar, req.body.Company);
@@ -160,6 +160,9 @@ function create(req, res) {
         request.input('AreaOfInterest', sql.VarChar, req.body.AreaOfInterest);
         request.input('HeardAbout', sql.VarChar, req.body.HeardAbout);
         request.input('Referral', sql.VarChar, req.body.Referral);
+        request.input('ApplicationStatus', sql.VarChar, req.body.ApplicationStatus);
+        request.input('LoanStatus', sql.VarChar, req.body.LoanStatus);
+        request.input('RealtorID', sql.VarChar, req.body.RealtorID);
         request.execute("CreateCustomer", function (err, result) {
             if (err) {
                 res.status(500).json({ message:  'An error occurred on the server.' });
@@ -186,7 +189,7 @@ function update(req, res) {
         var request = new sql.Request(config);
         // Execute the UpdateCustomer stored procedure
         // Stored procedure parameters needed: ID, FirstName, LastName, Company, Email, Phone
-        //  AreaOfInterest, HeardAbout, Referral, ApplicationStatus, LoanStatus
+        //  AreaOfInterest, HeardAbout, Referral, ApplicationStatus, LoanStatus, RealtorID
         request.input('Id', sql.Int, req.params.id);
         request.input('FirstName', sql.VarChar, req.body.FirstName);
         request.input('LastName', sql.VarChar, req.body.LastName);
@@ -198,6 +201,7 @@ function update(req, res) {
         request.input('Referral', sql.VarChar, req.body.Referral);
         request.input('ApplicationStatus', sql.VarChar, req.body.ApplicationStatus);
         request.input('LoanStatus', sql.VarChar, req.body.LoanStatus);
+        request.input('RealtorID', sql.VarChar, req.body.RealtorID);
         request.execute("UpdateCustomer", function (err, result) {
             if (err) {
                 res.status(500).json({ message: err });

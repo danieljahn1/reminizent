@@ -1,17 +1,17 @@
-import React, { Component } from 'react'
-import { Link, Switch, Route } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Link, Switch, Route } from 'react-router-dom';
 
 // component imports
 import HashPage from './user-journey/hash-string';
 // user imports
-import Menu from './user-journey/menu'
-import SignUp from './user-journey/sign-up'
-import Success from './user-journey/success'
+import Menu from './user-journey/menu';
+import SignUp from './user-journey/sign-up';
+import Success from './user-journey/success';
 import Jumbotron from './user-journey/jumbotron';
 import MainFooter from './user-journey/footer';
 import LearnMore from './user-journey/learn-more';
-// Admin imports
-import Dashboard from './admin-journey/dashboard'
+// admin imports
+import Dashboard from './admin-journey/dashboard';
 import AddCustomer from './admin-journey/add-customer';
 import CustomerDetails from './admin-journey/details-customer';
 import EditCustomer from './admin-journey/edit-customer';
@@ -24,6 +24,7 @@ class Container extends Component {
         this.state = {
         }
     }
+
     render() {
         return (
             <div className=" body">

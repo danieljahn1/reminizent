@@ -12,9 +12,12 @@ class SignUp extends Component {
             phoneNumber: '',
             companyName: '',
             requestType: '',
-            realtorName: '',
             referralType: '',
             referralName: '',
+            realtorID: '',
+            realtorName: '',
+            applicationStatus: 'In Contact',
+            loanStatus: 'Lead',
             redirect: false
         }
     }
@@ -30,14 +33,18 @@ class SignUp extends Component {
                 "Phone": this.state.phoneNumber,
                 "AreaOfInterest": this.state.requestType,
                 "HeardAbout": this.state.referralType,
-                "Referral": this.state.referralName
+                "Referral": this.state.referralName,
+                "RealtorID": this.state.realtorID,
+                "ApplicationStatus": this.state.applicationStatus,
+                "LoanStatus": this.state.loanStatus
+                
             }
             axios.post('http://localhost:3000/customer', customerBody)
                 .then(response => {
                     var activityBody = {
                         "CustomerID": response.data[0].ID,
                         "DateCreated": new Date,
-                        "DateLastContacted": "",
+                        "DateLastContacted": new Date,
                         "Source": "Internet"
                     }
                     axios.post('http://localhost:3000/activity', activityBody)
@@ -52,7 +59,10 @@ class SignUp extends Component {
                                     "COMPANY": this.state.companyName,
                                     "REQUEST": this.state.requestType,
                                     "REFERRAL": this.state.referralType,
-                                    "REFERREDBY": this.state.referralName
+                                    "REFERREDBY": this.state.referralName,
+                                    "REALTOR": this.state.realtorName,
+                                    "APPSTATUS": this.state.applicationStatus,
+                                    "LOANSTATUS": this.state.loanStatus
                                 }
                             }
                             axios.post('http://localhost:3000/subscriptions', subscribeBody)
@@ -118,7 +128,7 @@ class SignUp extends Component {
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="requestType" >How can we help you?</label>
-                                                    <select className="form-control" value={this.state.requestType} onChange={(e) => { this.setState({ requestType: e.target.value }) }} >
+                                                    <select className="form-control" onChange={(e) => { this.setState({ requestType: e.target.value }) }} >
                                                         <option defaultValue>Select ...</option>
                                                         <option>General Information</option>
                                                         <option>Loan Information</option>
@@ -128,17 +138,17 @@ class SignUp extends Component {
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="referralType" className="form-spacing3">Who is your real estate agent?</label>
-                                                    <select className="form-control" value={this.state.realtorName} onChange={(e) => { this.setState({ realtorName: e.target.value }) }} >
+                                                    <select className="form-control" onChange={(e) => { this.setState({ realtorID: e.target.value, realtorName: e.target.selectedOptions[0].text }) }} >
                                                         <option defaultValue>Select ...</option>
-                                                        <option>Max Power</option>
-                                                        <option>Eddie Money</option>
-                                                        <option>Mo House</option>
-                                                        <option>I don't have one yet</option>
+                                                        <option value="2">Eddie Money</option>
+                                                        <option value="3">Mo House</option>
+                                                        <option value="4">Max Power</option>
+                                                        <option value="1">I don't have one yet</option>
                                                     </select>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="referralType" className="form-spacing3">How did you here about us?</label>
-                                                    <select className="form-control" value={this.state.referralType} onChange={(e) => { this.setState({ referralType: e.target.value }) }} >
+                                                    <select className="form-control" onChange={(e) => { this.setState({ referralType: e.target.value }) }} >
                                                         <option defaultValue>Select ...</option>
                                                         <option>TV</option>
                                                         <option>Radio</option>
@@ -147,7 +157,7 @@ class SignUp extends Component {
                                                         <option>Referral</option>
                                                     </select>
                                                 </div>
-                                                { (this.state.referralType == "Referral")
+                                                {(this.state.referralType == "Referral")
                                                     ?
                                                     <div className="col-md-6 col-md-offset-6">
                                                         <label htmlFor="referralName" className="form-spacing3">Name of Referral</label>
