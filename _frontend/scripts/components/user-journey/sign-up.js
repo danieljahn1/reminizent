@@ -12,10 +12,12 @@ class SignUp extends Component {
             phoneNumber: '',
             companyName: '',
             requestType: '',
-            realtorID: '',
-            realtorName: '',
             referralType: '',
             referralName: '',
+            realtorID: '',
+            realtorName: '',
+            applicationStatus: 'In Contact',
+            loanStatus: 'Lead',
             redirect: false
         }
     }
@@ -32,14 +34,17 @@ class SignUp extends Component {
                 "AreaOfInterest": this.state.requestType,
                 "HeardAbout": this.state.referralType,
                 "Referral": this.state.referralName,
-                "RealtorID": this.state.realtorID
+                "RealtorID": this.state.realtorID,
+                "ApplicationStatus": this.state.applicationStatus,
+                "LoanStatus": this.state.loanStatus
+                
             }
             axios.post('http://localhost:3000/customer', customerBody)
                 .then(response => {
                     var activityBody = {
                         "CustomerID": response.data[0].ID,
                         "DateCreated": new Date,
-                        "DateLastContacted": "",
+                        "DateLastContacted": new Date,
                         "Source": "Internet"
                     }
                     axios.post('http://localhost:3000/activity', activityBody)
@@ -55,7 +60,9 @@ class SignUp extends Component {
                                     "REQUEST": this.state.requestType,
                                     "REFERRAL": this.state.referralType,
                                     "REFERREDBY": this.state.referralName,
-                                    "REALTOR": this.state.realtorName
+                                    "REALTOR": this.state.realtorName,
+                                    "APPSTATUS": this.state.applicationStatus,
+                                    "LOANSTATUS": this.state.loanStatus
                                 }
                             }
                             axios.post('http://localhost:3000/subscriptions', subscribeBody)
