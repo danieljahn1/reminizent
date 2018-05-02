@@ -69,8 +69,8 @@ class Menu extends Component {
                                 {(!this.props.adminLoginToken == '')
                                     ?
                                     <div className="col-md-7 col-md-push-4 in-line5">
-                                        <button className="btn" onClick={this.goToDashboard.bind(this)}>Dashboard</button>
-                                        <button className="btn btn3" onClick={this.goToCreateCustomer.bind(this)}>Create Customer</button>
+                                        <button className="btn" onClick={this.goToDashboard.bind(this)}>View Leads</button>
+                                        <button className="btn btn3" onClick={this.goToCreateCustomer.bind(this)}>Create Lead</button>
                                         <button className="btn" onClick={this.logOut.bind(this)}>Log Out</button>
                                     </div>
                                     :

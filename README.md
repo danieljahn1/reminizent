@@ -1,8 +1,8 @@
 # Reminizent
-RCA Externship for OGI Mortgage Bankers. Final Project.
+RCA Externship for iSouth Mortgage, a Subsidiary of OGI Mortgage Bankers. Final Project.
 
 ## About
-Reminizent is designed to be a CRM for marketing individuals, built for OGI Mortgage Bankers in Santa Ana, CA. The major features are a "Contact submission" form to capture leads from the internet, a Dashboard feature that tracks how many people and who they are, and a notes tracking system which logs any types of interaction with a person. It can also compose emails to send to people 'selected'.
+Reminizent is designed to be a CRM for marketing individuals, built for iSouth Mortgage, a Subsidiary of OGI Mortgage Bankers in Santa Ana, CA. The major features are a "Contact submission" form to capture leads from the internet, a Dashboard feature that tracks how many people and who they are, and a notes tracking system which logs any types of interaction with a person. It can also compose emails to send to people 'selected'.
 
 Reminizent was created using CSS, Bootstrap, JavaScript, React JS, Redux on the front end with Node.js, Express, bcrypt, JWT and SQL Server on the back end. The email component was built with MailChimp.
 
