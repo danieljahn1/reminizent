@@ -162,12 +162,12 @@ class EditCustomer extends Component {
 
                                 <div className="col-md-3">
                                     <label htmlFor="referralType">Real Estate Agent:</label>
-                                    <select className="form-control" value={this.state.customerObject.RealtorName} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, RealtorName: e.target.value, RealtorID: e.target.selectedOptions[0].text } }) }} >
+                                    <select className="form-control" value={this.state.customerObject.RealtorName} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, RealtorName: e.target.value, RealtorID: e.target.selectedOptions[0].id } }); console.log(e.target.selectedOptions[0]) }} >
                                         <option defaultValue>Realtor's Name ...</option>
-                                        <option text="2">Eddie Money</option>
-                                        <option text="3">Mo House</option>
-                                        <option text="4">Max Power</option>
-                                        <option text="1">I don't have one yet</option>
+                                        <option id="2">Eddie Money</option>
+                                        <option id="3">Mo House</option>
+                                        <option id="4">Max Power</option>
+                                        <option id="1">I don't have one yet</option>
                                     </select>
                                 </div>
 
@@ -180,7 +180,7 @@ class EditCustomer extends Component {
                                         <option>Application for Pre-Approval</option>
                                         <option>Looking - Pre-Qualified</option>
                                         <option>Looking - Pre-Approved</option>
-                                        <option>In Contract</option>
+                                        <option>In Contact</option>
                                     </select>
                                 </div>
 
