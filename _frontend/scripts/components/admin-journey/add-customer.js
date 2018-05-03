@@ -104,23 +104,41 @@ class AddCustomer extends Component {
             <div className="body">
                 <div className="container-fluid">
                     <div className="col-md-10 col-md-offset-1 editCustomerPage">
-                        <div className="container">
+
+                        <div style={{ margin: 15 }}>
+                            {/* <div className="container"> */}
                             <div className="row">
-                                <h2 className="heading1">Add New Customer</h2>
+                                <h2 className="heading1">Add New Lead</h2>
                             </div>
+
                             <div className="form-group">
+
                                 <div className="row row-spacing">
-                                    <div className="form-inline col-md-10">
-                                        <input className="form-control input2" type="text" placeholder="First Name" value={this.state.firstName} onChange={(e) => { this.setState({ firstName: e.target.value }) }} onKeyDown={this.onEnterPress} required />
-                                        <input className="form-control input1" type="text" placeholder="Last Name" value={this.state.lastName} onChange={(e) => { this.setState({ lastName: e.target.value }) }} onKeyDown={this.onEnterPress} required />
-                                        <input className="form-control input1" type="email" placeholder="Email Address" value={this.state.emailAddress} onChange={(e) => { this.setState({ emailAddress: e.target.value }) }} onKeyDown={this.onEnterPress} required />
-                                        <input className="form-control input1" type="text" placeholder="Phone Number" value={this.state.phoneNumber} onChange={(e) => { this.setState({ phoneNumber: e.target.value }) }} onKeyDown={this.onEnterPress} />
+
+
+                                    <div className="col-md-3">
+                                        <input className="form-control" type="text" placeholder="First Name" value={this.state.firstName} onChange={(e) => { this.setState({ firstName: e.target.value }) }} onKeyDown={this.onEnterPress} required />
                                     </div>
+                                    <div className="col-md-3">
+                                        <input className="form-control " type="text" placeholder="Last Name" value={this.state.lastName} onChange={(e) => { this.setState({ lastName: e.target.value }) }} onKeyDown={this.onEnterPress} required />
+                                    </div>
+                                    <div className="col-md-3">
+                                        <input className="form-control " type="email" placeholder="Email Address" value={this.state.emailAddress} onChange={(e) => { this.setState({ emailAddress: e.target.value }) }} onKeyDown={this.onEnterPress} required />
+                                    </div>
+                                    <div className="col-md-3">
+                                        <input className="form-control " type="text" placeholder="Phone Number" value={this.state.phoneNumber} onChange={(e) => { this.setState({ phoneNumber: e.target.value }) }} onKeyDown={this.onEnterPress} />
+                                    </div>
+
+
                                 </div>
+
                                 <div className="row row-spacing">
-                                    <div className="form-inline col-md-11">
-                                        <input className="form-control input2" type="text" placeholder="Company" value={this.state.companyName} onChange={(e) => { this.setState({ companyName: e.target.value }) }} onKeyDown={this.onEnterPress} />
-                                        {/* <label htmlFor="email" className="input1">Intrest</label> */}
+
+                                    <div className="col-md-3">
+                                        <input className="form-control" type="text" placeholder="Company" value={this.state.companyName} onChange={(e) => { this.setState({ companyName: e.target.value }) }} onKeyDown={this.onEnterPress} />
+                                    </div>
+
+                                    <div className="col-md-3">
                                         <select className="form-control" value={this.state.requestType} onChange={(e) => { this.setState({ requestType: e.target.value }) }}>
                                             <option defaultValue>Intrest ...</option>
                                             <option>General Information</option>
@@ -128,7 +146,10 @@ class AddCustomer extends Component {
                                             <option>Speak with an Agent</option>
                                             <option>Market Trends</option>
                                         </select>
-                                        {/* <label htmlFor="" className="input1">Referral Type</label> */}
+                                    </div>
+
+
+                                    <div className="col-md-3">
                                         <select className="form-control" value={this.state.referralType} onChange={(e) => { this.setState({ referralType: e.target.value }) }}>
                                             <option defaultValue>Referral Type ...</option>
                                             <option>TV</option>
@@ -137,16 +158,28 @@ class AddCustomer extends Component {
                                             <option>Walk-in</option>
                                             <option>Referral</option>
                                         </select>
+                                    </div>
+
+                                    <div className="col-md-3">
                                         {(this.state.referralType == "Referral")
                                             ?
-                                            <input className="form-control" type="text" placeholder="Name of Referal" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} onKeyDown={this.onEnterPress} />
+
+                                            <input className="form-control col-md-3" type="text" placeholder="Name of Referal" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} onKeyDown={this.onEnterPress} />
+
                                             :
+
                                             <input className="form-control" type="text" placeholder="Name of Referal" value={this.state.referralName} onChange={(e) => { this.setState({ referralName: e.target.value }) }} onKeyDown={this.onEnterPress} disabled />
+
                                         }
+
                                     </div>
+
                                 </div>
+
+
                                 <div className="row row-spacing">
-                                    <div className="form-inline col-md-11">
+
+                                    <div className="col-md-3">
                                         {/* <label htmlFor="" className="input1">Realor's Name</label> */}
                                         <select className="form-control" onChange={(e) => { this.setState({ realtorID: e.target.value, realtorName: e.target.selectedOptions[0].text }) }} >
                                             <option defaultValue>Realtor's Name ...</option>
@@ -155,7 +188,10 @@ class AddCustomer extends Component {
                                             <option value="4">Max Power</option>
                                             <option value="1">I don't have one yet</option>
                                         </select>
+                                        </div>
+
                                         {/* <label htmlFor="" className="input1">Application Status</label> */}
+                                        <div className="col-md-3">
                                         <select className="form-control" onChange={(e) => { this.setState({ applicationStatus: e.target.value }) }}>
                                             <option defaultValue>Application Status ...</option>
                                             <option>Purchase only</option>
@@ -166,6 +202,9 @@ class AddCustomer extends Component {
                                             <option>Looking - Pre-Approved</option>
                                             <option>In Contract</option>
                                         </select>
+                                        </div>
+
+                                        <div className="col-md-3">
                                         {/* <label htmlFor="" className="input1">Loan Status</label> */}
                                         <select className="form-control" onChange={(e) => { this.setState({ loanStatus: e.target.value }) }}>
                                             <option defaultValue>Loan Status ...</option>
@@ -182,10 +221,24 @@ class AddCustomer extends Component {
                                             <option>Suspended</option>
                                         </select>
                                     </div>
+
                                 </div>
                                 <div className="row inline6">
                                     <button type="submit" className="btn col-md-2 col-md-offset-10" onClick={this.userSignUp.bind(this)}>Submit</button>
                                 </div>
+
+
+                            {/* <div className="row" style={{ margin: 10, paddingBottom: 10 }} >
+                            
+                                <div className="col-md-8 col-md-offset-9">
+                                    <button className="btn col-md-2 " >Cancel</button>
+                                    <button type="submit" className="btn col-md-2 " style={{ marginLeft: 14 }} onClick={this.userSignUp.bind(this)}>Submit</button>
+                                </div>
+                            </div> */}
+
+
+
+
                             </div>
                         </div>
                     </div>
