@@ -11,8 +11,14 @@ class EditCustomer extends Component {
         super(props);
         this.state = {
             customerObject: props.customerObject,
+            emailToHash: props.customerObject.Email,
             redirectDetails: false
         }
+    }
+
+    componentDidMount() {
+        console.log(this.props.customerObject);
+        console.log(this.state.customerObject);
     }
 
     onSave(e) {
@@ -22,8 +28,11 @@ class EditCustomer extends Component {
             .then(function (response) {
                 console.log(response)
             })
+            .catch(err => {
+                console.log(err)
+            })
         this.props.sendCustomerObjToRedux(this.state.customerObject);
-        var hashedEmail = CryptoJS.MD5(this.state.customerObject.Email).toString();
+        var hashedEmail = CryptoJS.MD5(this.state.emailToHash).toString();
         var subscribeBody = {
             "email_address": this.state.customerObject.Email,
             "merge_fields": {
@@ -33,7 +42,10 @@ class EditCustomer extends Component {
                 "COMPANY": this.state.customerObject.Company,
                 "REQUEST": this.state.customerObject.AreaOfInterest,
                 "REFERRAL": this.state.customerObject.HeardAbout,
-                "REFERREDBY": this.state.customerObject.Referral
+                "REFERREDBY": this.state.customerObject.Referral,
+                "REALTOR": this.state.customerObject.RealtorName,
+                "APPSTATUS": this.state.customerObject.ApplicationStatus,
+                "LOANSTATUS": this.state.customerObject.LoanStatus
             }
         }
         let urlString = 'http://localhost:3000/subscriptions/' + hashedEmail;
@@ -45,10 +57,10 @@ class EditCustomer extends Component {
                 console.log(response)
             })
             .catch(err => {
-                console.log(err)
                 this.setState({
                     redirectDetails: true
                 })
+                console.log(err)
             })
     }
 
@@ -150,12 +162,12 @@ class EditCustomer extends Component {
 
                                 <div className="col-md-3">
                                     <label htmlFor="referralType">Real Estate Agent:</label>
-                                    <select className="form-control" >
-                                        <option defaultValue>Select ...</option>
-                                        <option>Max Power</option>
-                                        <option>Eddie Money</option>
-                                        <option>Mo House</option>
-                                        <option>I don't have one yet</option>
+                                    <select className="form-control" value={this.state.customerObject.RealtorName} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, RealtorName: e.target.value, RealtorID: e.target.selectedOptions[0].text } }) }} >
+                                        <option defaultValue>Realtor's Name ...</option>
+                                        <option text="2">Eddie Money</option>
+                                        <option text="3">Mo House</option>
+                                        <option text="4">Max Power</option>
+                                        <option text="1">I don't have one yet</option>
                                     </select>
                                 </div>
 
@@ -202,7 +214,6 @@ class EditCustomer extends Component {
                                     <button className="btn col-md-2 " style={{ marginLeft: 14 }} onClick={this.onSave.bind(this)}>Submit</button>
                                 </div>
                             </div>
-
 
                         </div>
                     </div>

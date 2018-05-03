@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setCustomerObject } from '../../redux/actions';
 import axios from 'axios';
-// import { setViewCustDetails } from '../../redux/actions';
 
 class AddCustomer extends Component {
     constructor(props) {
@@ -17,11 +16,10 @@ class AddCustomer extends Component {
             requestType: '',
             referralType: '',
             referralName: '',
-            realtorID: '',
-            realtorName: '',
-            applicationStatus: '',
-            loanStatus: '',
-            // customerObject: '',
+            realtorID: 1,
+            realtorName: "I don't have one yet",
+            applicationStatus: 'In Contact',
+            loanStatus: 'Lead',
             redirect: false
         }
     }
@@ -50,13 +48,8 @@ class AddCustomer extends Component {
                         "DateLastContacted": new Date,
                         "Source": "OGI Rep"
                     }
-                    // this.setState({
-                    //     customerObject: response.data[0]
-                    // })
+                    console.log(response)
                     this.props.sendCustomerObjToRedux(response.data[0]);
-                    // this.props.sendCustomerToRedux(this.state.customerObject);
-                    // console.log("custobj")
-                    // console.log(response.data[0])
                     axios.post('http://localhost:3000/activity', activityBody)
                         .then(response => {
                             var subscribeBody = {
@@ -75,6 +68,7 @@ class AddCustomer extends Component {
                                     "LOANSTATUS": this.state.loanStatus
                                 }
                             }
+                            console.log(response)
                             axios.post('http://localhost:3000/subscriptions', subscribeBody)
                                 .then(response => {
                                     this.setState({
@@ -83,6 +77,9 @@ class AddCustomer extends Component {
                                     console.log(response)
                                 })
                                 .catch(err => {
+                                    this.setState({
+                                        redirect: true
+                                    })
                                     console.log(err)
                                 })
                         })

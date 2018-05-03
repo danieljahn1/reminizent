@@ -14,8 +14,8 @@ class SignUp extends Component {
             requestType: '',
             referralType: '',
             referralName: '',
-            realtorID: '',
-            realtorName: '',
+            realtorID: 1,
+            realtorName: "I don't have one yet",
             applicationStatus: 'In Contact',
             loanStatus: 'Lead',
             redirect: false
@@ -37,7 +37,6 @@ class SignUp extends Component {
                 "RealtorID": this.state.realtorID,
                 "ApplicationStatus": this.state.applicationStatus,
                 "LoanStatus": this.state.loanStatus
-                
             }
             axios.post('http://localhost:3000/customer', customerBody)
                 .then(response => {
@@ -47,6 +46,7 @@ class SignUp extends Component {
                         "DateLastContacted": new Date,
                         "Source": "Internet"
                     }
+                    console.log(response)
                     axios.post('http://localhost:3000/activity', activityBody)
                         .then(response => {
                             var subscribeBody = {
@@ -65,6 +65,7 @@ class SignUp extends Component {
                                     "LOANSTATUS": this.state.loanStatus
                                 }
                             }
+                            console.log(response)
                             axios.post('http://localhost:3000/subscriptions', subscribeBody)
                                 .then(response => {
                                     this.setState({
@@ -73,6 +74,9 @@ class SignUp extends Component {
                                     console.log(response)
                                 })
                                 .catch(err => {
+                                    this.setState({
+                                        redirect: true
+                                    })
                                     console.log(err)
                                 })
                         })
