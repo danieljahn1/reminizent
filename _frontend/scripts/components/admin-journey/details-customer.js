@@ -139,7 +139,7 @@ class CustomerDetails extends Component {
                 <div className="col-md-10  col-md-offset-1 customerDetailsPage in-line2 ">
                     <div className="cutomerContainer" >
                         <div className="row">
-                            <h2 className="heading1">Customer Details</h2>
+                            <h2 className="heading1">Lead Details</h2>
                         </div>
                         <table className="col-md-12 form-spacing4">
                             <tbody>
@@ -189,9 +189,9 @@ class CustomerDetails extends Component {
                         </table>
                         {/* Edit button-- toggle page to edit form */}
                         <div className="row in-line3">
-                            <button className="btn btn-danger col-md-2 input1 input2 pull-right in-line1" onClick={this.onDelete.bind(this)}>Delete Customer</button>
-                            <button className="btn col-md-2 input1 input2 pull-right" onClick={this.goToEditCustomer.bind(this)}>Edit Customer</button>
-                            <button className="btn col-md-2 input1 input2 pull-right in-line1" onClick={this.resetEmailState.bind(this)}>Email Customer</button>
+                            <button className="btn btn-danger col-md-2 input1 input2 pull-right in-line1" onClick={this.onDelete.bind(this)}>Delete Lead</button>
+                            <button className="btn col-md-2 input1 input2 pull-right" onClick={this.goToEditCustomer.bind(this)}>Edit Lead</button>
+                            <button className="btn col-md-2 input1 input2 pull-right in-line1" onClick={this.resetEmailState.bind(this)}>Email Lead</button>
                             <div id="openModal" className="modalDialog">
                                 <div>
                                     <a href="#close" title="Close" className="close">X</a>

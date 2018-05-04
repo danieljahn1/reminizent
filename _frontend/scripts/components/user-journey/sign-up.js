@@ -104,7 +104,7 @@ class SignUp extends Component {
                         <div className="col-md-8 col-md-offset-2 admin-login">
                             <div className="row login-form">
                                 <div className="col-md-4 col-md-offset-4 text-center">
-                                    <h3>Sign Up</h3>
+                                    <h3>Request Info</h3>
                                 </div>
                                 <div className="in-line10">
                                     <div className="col-md-10">
@@ -172,7 +172,7 @@ class SignUp extends Component {
                                                 }
                                             </div>
                                             <div className="row">
-                                                <button type="submit" className="btn col-md-6 col-md-offset-3 form-spacing5" onClick={this.userSignUp.bind(this)}>Sign Up</button>
+                                                <button type="submit" className="btn col-md-6 col-md-offset-3 form-spacing5" onClick={this.userSignUp.bind(this)}>Submit</button>
                                             </div>
                                         </form>
                                     </div>

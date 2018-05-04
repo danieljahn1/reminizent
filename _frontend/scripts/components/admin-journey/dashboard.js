@@ -137,7 +137,7 @@ class Dashboard extends Component {
                                         </tbody>
                                     </table>
                                     <div className="in-line9">
-                                        <button className="btn col-md-2 input1 pull-right in-line8" onClick={this.viewDetails.bind(this, row)}>View Customer Details</button>
+                                        <button className="btn col-md-2 input1 pull-right in-line8" onClick={this.viewDetails.bind(this, row)}>View Lead Details</button>
                                     </div>
                                 </div>
                             )

@@ -70,7 +70,7 @@ class NoteEntry extends Component {
                         </div>
 
                         <div className="row in-line3">
-                            <button className="btn col-md-2 input1 input2 pull-right" onClick={ this.submitNote.bind(this) }>Submit</button>
+                            <button className="btn col-md-2 input1 input2 pull-right" onClick={ this.submitNote.bind(this) }>Add Note</button>
                 </div>
 
 

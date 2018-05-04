@@ -20,7 +20,8 @@ class AddCustomer extends Component {
             realtorName: "I don't have one yet",
             applicationStatus: 'In Contact',
             loanStatus: 'Lead',
-            redirect: false
+            redirect: false,
+            redirectDetails: false
         }
     }
 
@@ -94,11 +95,24 @@ class AddCustomer extends Component {
         }
     }
 
+    previousPg() {
+        this.setState({
+            redirectDetails: true
+        })
+    }
+
+
     render() {
         const { redirect } = this.state;
         if (redirect) {
             return <Redirect to="/admin-customer/" />
         }
+
+        const { redirectDetails } = this.state;
+        if (redirectDetails) {
+            return <Redirect to="/admin-dashboard/" />
+        }
+        
 
         return (
             <div className="body">
@@ -224,6 +238,7 @@ class AddCustomer extends Component {
 
                                 </div>
                                 <div className="row inline6">
+                                    <button className="btn col-md-2 " onClick={this.previousPg.bind(this)}>Cancel</button>
                                     <button type="submit" className="btn col-md-2 col-md-offset-10" onClick={this.userSignUp.bind(this)}>Submit</button>
                                 </div>
 
