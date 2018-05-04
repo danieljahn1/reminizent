@@ -265,8 +265,7 @@ class NoteEntry extends Component {
 const mapStateToProps = state => {
     return {
         adminLoginToken: state.adminLoginToken,
-        customerObject: state.customerObject,
-        viewCustomer: state.viewCustomer,
+        viewCustomer: state.customerObject,
         adminObject: state.adminObject
     }
 }
