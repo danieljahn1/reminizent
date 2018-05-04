@@ -153,8 +153,8 @@ class AddCustomer extends Component {
                                     </div>
 
                                     <div className="col-md-3">
-                                        <select className="form-control" value={this.state.requestType} onChange={(e) => { this.setState({ requestType: e.target.value }) }}>
-                                            <option defaultValue>Intrest ...</option>
+                                        <select className="form-control" value={this.state.requestType} onChange={(e) => { (e.target.value == "Interest ...") ? this.setState({ requestType: '' }) : this.setState({ requestType: e.target.value }) }}>
+                                            <option defaultValue>Interest ...</option>
                                             <option>General Information</option>
                                             <option>Loan Information</option>
                                             <option>Speak with an Agent</option>
@@ -164,7 +164,7 @@ class AddCustomer extends Component {
 
 
                                     <div className="col-md-3">
-                                        <select className="form-control" value={this.state.referralType} onChange={(e) => { this.setState({ referralType: e.target.value }) }}>
+                                        <select className="form-control" value={this.state.referralType} onChange={(e) => { (e.target.value == "Referral Type ...") ? this.setState({ referralType: '' }) : this.setState({ referralType: e.target.value }) }}>
                                             <option defaultValue>Referral Type ...</option>
                                             <option>TV</option>
                                             <option>Radio</option>
@@ -195,7 +195,7 @@ class AddCustomer extends Component {
 
                                     <div className="col-md-3">
                                         {/* <label htmlFor="" className="input1">Realor's Name</label> */}
-                                        <select className="form-control" onChange={(e) => { this.setState({ realtorID: e.target.value, realtorName: e.target.selectedOptions[0].text }) }} >
+                                        <select className="form-control" onChange={(e) => { (e.target.value == "Realtor's Name ...") ? this.setState({ realtorID: 1, realtorName: "I don't have one yet" }) : this.setState({ realtorID: e.target.value, realtorName: e.target.selectedOptions[0].text }) }} >
                                             <option defaultValue>Realtor's Name ...</option>
                                             <option value="2">Eddie Money</option>
                                             <option value="3">Mo House</option>
@@ -206,7 +206,7 @@ class AddCustomer extends Component {
 
                                         {/* <label htmlFor="" className="input1">Application Status</label> */}
                                         <div className="col-md-3">
-                                        <select className="form-control" onChange={(e) => { this.setState({ applicationStatus: e.target.value }) }}>
+                                        <select className="form-control" onChange={(e) => { (e.target.value == "Application Status ...") ? this.setState({ applicationStatus: "In Contact" }) : this.setState({ applicationStatus: e.target.value }) }}>
                                             <option defaultValue>Application Status ...</option>
                                             <option>Purchase only</option>
                                             <option>Looking</option>
@@ -220,7 +220,7 @@ class AddCustomer extends Component {
 
                                         <div className="col-md-3">
                                         {/* <label htmlFor="" className="input1">Loan Status</label> */}
-                                        <select className="form-control" onChange={(e) => { this.setState({ loanStatus: e.target.value }) }}>
+                                        <select className="form-control" onChange={(e) => { (e.target.value == "Loan Status ...") ? this.setState({ loanStatus: "Lead" }) :  this.setState({ loanStatus: e.target.value }) }}>
                                             <option defaultValue>Loan Status ...</option>
                                             <option>Application</option>
                                             <option>Initial Documents</option>

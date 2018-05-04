@@ -128,6 +128,7 @@ class EditCustomer extends Component {
                                         <div className="form-group">
                                             <label htmlFor="email" className="">Interest:</label>
                                             <select className="form-control" value={this.state.customerObject.AreaOfInterest} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, AreaOfInterest: e.target.value } }) }}>
+                                                <option defaultValue></option>
                                                 <option>General Information</option>
                                                 <option>Loan Information</option>
                                                 <option>Speak with an Agent</option>
@@ -140,7 +141,7 @@ class EditCustomer extends Component {
                                         <div className="form-group">
                                             <label htmlFor="" className="">Referral Type:</label>
                                             <select className="form-control" value={this.state.customerObject.HeardAbout} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, HeardAbout: e.target.value } }) }}>
-                                                <option defaultValue>Select ...</option>
+                                                <option defaultValue></option>
                                                 <option>TV</option>
                                                 <option>Radio</option>
                                                 <option>Internet</option>
@@ -163,7 +164,6 @@ class EditCustomer extends Component {
                                 <div className="col-md-3">
                                     <label htmlFor="referralType">Real Estate Agent:</label>
                                     <select className="form-control" value={this.state.customerObject.RealtorName} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, RealtorName: e.target.value, RealtorID: e.target.selectedOptions[0].id } }) }} >
-                                        <option defaultValue>Realtor's Name ...</option>
                                         <option id="2">Eddie Money</option>
                                         <option id="3">Mo House</option>
                                         <option id="4">Max Power</option>

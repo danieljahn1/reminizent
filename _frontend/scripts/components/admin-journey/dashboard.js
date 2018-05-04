@@ -88,7 +88,7 @@ class Dashboard extends Component {
 
         return (
             <div className="body">
-                <div className="container dashboard-top">
+                <div className="container-fluid dashboard-top">
 
                     {/* table for the display of customers in data base and SubComponent that displays further deatils of customer and customer interaction */}
 

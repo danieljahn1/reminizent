@@ -132,7 +132,7 @@ class SignUp extends Component {
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="requestType" >How can we help you?</label>
-                                                    <select className="form-control" onChange={(e) => { this.setState({ requestType: e.target.value }) }} >
+                                                    <select className="form-control" onChange={(e) => { (e.target.value == "Select ...") ? this.setState({ requestType: '' }) : this.setState({ requestType: e.target.value }) }} >
                                                         <option defaultValue>Select ...</option>
                                                         <option>General Information</option>
                                                         <option>Loan Information</option>
@@ -142,7 +142,7 @@ class SignUp extends Component {
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="referralType" className="form-spacing3">Who is your real estate agent?</label>
-                                                    <select className="form-control" onChange={(e) => { this.setState({ realtorID: e.target.value, realtorName: e.target.selectedOptions[0].text }) }} >
+                                                    <select className="form-control" onChange={(e) => { (e.target.value == "Select ...") ? this.setState({ realtorID: 1, realtorName: "I don't have one yet" }) : this.setState({ realtorID: e.target.value, realtorName: e.target.selectedOptions[0].text }) }} >
                                                         <option defaultValue>Select ...</option>
                                                         <option value="2">Eddie Money</option>
                                                         <option value="3">Mo House</option>
@@ -152,7 +152,7 @@ class SignUp extends Component {
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label htmlFor="referralType" className="form-spacing3">How did you here about us?</label>
-                                                    <select className="form-control" onChange={(e) => { this.setState({ referralType: e.target.value }) }} >
+                                                    <select className="form-control" onChange={(e) => { (e.target.value == "Select ...") ? this.setState({ referralType: '' }) : this.setState({ referralType: e.target.value }) }} >
                                                         <option defaultValue>Select ...</option>
                                                         <option>TV</option>
                                                         <option>Radio</option>
