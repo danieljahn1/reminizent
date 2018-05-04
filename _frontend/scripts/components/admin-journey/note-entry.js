@@ -111,7 +111,7 @@ class NoteEntry extends Component {
                                                 <td>{ item.Email }</td>
                                                 <td>{ item.ContactMessage }</td>
                                                 <td>
-                                                    <button className="btn" style={{marginright:10}} onClick={ this.editNote.bind(this, item) }>Edit</button>
+                                                    <button className="btn" style={{marginRight:14}} onClick={ this.editNote.bind(this, item) }>Edit</button>
                                                     <button className="btn btn-danger btn-delete" onClick={ this.deleteNote.bind(this, item) }>X</button>
                                                 </td>
                                             </tr>

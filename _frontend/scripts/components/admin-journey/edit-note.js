@@ -53,9 +53,9 @@ class EditNote extends Component {
                             </div>
 
                             <div className="row in-line3">
-                                <div className="col-md-8 col-md-offset-9">
-                                    <button className="btn col-md-2" style={{marginRight:10}} onClick={ this.updateNote.bind(this)}>Submit</button>       
-                                    <button className="btn col-md-2 input2" onClick={ this.cancelNote.bind(this) }>Cancel</button>
+                                <div className="col-md-4 col-md-offset-8">
+                                    <button className="btn col-md-2 pull-right" style={{ marginLeft: 14 }} onClick={ this.updateNote.bind(this)}>Submit</button>       
+                                    <button className="btn btn-danger col-md-2 pull-right" onClick={ this.cancelNote.bind(this) }>Cancel</button>
                                 </div>
                             </div>
 
