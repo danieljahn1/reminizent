@@ -123,6 +123,8 @@
  }
  .dashboard-top{
    margin-top: 20px;
+   width: 95%;
+   max-width: 1800px;
  }
  .search-bar{
    width: 50px;

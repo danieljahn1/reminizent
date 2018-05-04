@@ -208,10 +208,9 @@ class EditCustomer extends Component {
 
 
                             <div className="row" style={{ margin: 10, paddingBottom: 10 }} >
-                                {/* <div className="row" style={{ paddingBottom: 10 }} > */}
-                                <div className="col-md-8 col-md-offset-9">
-                                    <button className="btn col-md-2 " onClick={this.previousPg.bind(this)}>Cancel</button>
-                                    <button className="btn col-md-2 " style={{ marginLeft: 14 }} onClick={this.onSave.bind(this)}>Submit</button>
+                                <div className="col-md-4 col-md-offset-8">
+                                    <button className="btn col-md-2 pull-right" style={{ marginLeft: 14 }} onClick={this.onSave.bind(this)}>Submit</button>
+                                    <button className="btn btn-danger col-md-2 pull-right"  onClick={this.previousPg.bind(this)}>Cancel</button>
                                 </div>
                             </div>
 

@@ -112,7 +112,7 @@ class AddCustomer extends Component {
         if (redirectDetails) {
             return <Redirect to="/admin-dashboard/" />
         }
-        
+
 
         return (
             <div className="body">
@@ -202,10 +202,10 @@ class AddCustomer extends Component {
                                             <option value="4">Max Power</option>
                                             <option value="1">I don't have one yet</option>
                                         </select>
-                                        </div>
+                                    </div>
 
-                                        {/* <label htmlFor="" className="input1">Application Status</label> */}
-                                        <div className="col-md-3">
+                                    {/* <label htmlFor="" className="input1">Application Status</label> */}
+                                    <div className="col-md-3">
                                         <select className="form-control" onChange={(e) => { (e.target.value == "Application Status ...") ? this.setState({ applicationStatus: "In Contact" }) : this.setState({ applicationStatus: e.target.value }) }}>
                                             <option defaultValue>Application Status ...</option>
                                             <option>Purchase only</option>
@@ -216,11 +216,11 @@ class AddCustomer extends Component {
                                             <option>Looking - Pre-Approved</option>
                                             <option>In Contract</option>
                                         </select>
-                                        </div>
+                                    </div>
 
-                                        <div className="col-md-3">
+                                    <div className="col-md-3">
                                         {/* <label htmlFor="" className="input1">Loan Status</label> */}
-                                        <select className="form-control" onChange={(e) => { (e.target.value == "Loan Status ...") ? this.setState({ loanStatus: "Lead" }) :  this.setState({ loanStatus: e.target.value }) }}>
+                                        <select className="form-control" onChange={(e) => { (e.target.value == "Loan Status ...") ? this.setState({ loanStatus: "Lead" }) : this.setState({ loanStatus: e.target.value }) }}>
                                             <option defaultValue>Loan Status ...</option>
                                             <option>Application</option>
                                             <option>Initial Documents</option>
@@ -237,21 +237,15 @@ class AddCustomer extends Component {
                                     </div>
 
                                 </div>
-                                <div className="row inline6">
-                                    <button className="btn col-md-2 " onClick={this.previousPg.bind(this)}>Cancel</button>
-                                    <button type="submit" className="btn col-md-2 col-md-offset-10" onClick={this.userSignUp.bind(this)}>Submit</button>
+
+
+
+                                <div className="row inline6 ">
+                                    <div className="col-md-4 col-md-offset-8">
+                                        <button type="submit" className="btn col-md-2 pull-right" style={{ marginLeft: 14 }} onClick={this.userSignUp.bind(this)}>Submit</button>
+                                        <button className="btn btn-danger col-md-2 pull-right" onClick={this.previousPg.bind(this)}>Cancel</button>
+                                    </div>
                                 </div>
-
-
-                            {/* <div className="row" style={{ margin: 10, paddingBottom: 10 }} >
-                            
-                                <div className="col-md-8 col-md-offset-9">
-                                    <button className="btn col-md-2 " >Cancel</button>
-                                    <button type="submit" className="btn col-md-2 " style={{ marginLeft: 14 }} onClick={this.userSignUp.bind(this)}>Submit</button>
-                                </div>
-                            </div> */}
-
-
 
 
                             </div>
