@@ -217,9 +217,10 @@ class CustomerDetails extends Component {
                                                 <option >Template 3: Approval</option>
                                             </select>
                                         </div>
-                                        <h1></h1>
-                                        <a href="#close" className="btn" >Cancel</a>
-                                        <a href="#close" className="btn" onClick={this.createEmail.bind(this, this.state)}>Next</a>
+                                        <div className="row">
+                                        <a href="#close" className="col-md-2 btn pull-right" onClick={this.createEmail.bind(this, this.state)}>Next</a>
+                                        <a href="#close" className="col-md-2 btn pull-right btn-danger" >Cancel</a>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
