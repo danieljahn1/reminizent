@@ -66,6 +66,12 @@ class Dashboard extends Component {
                     row[filter.id].startsWith(filter.value)
             },
             {
+                Header: "Real Estate Agent",
+                accessor: "Agent",
+                filterMethod: (filter, row) =>
+                    row[filter.id].startsWith(filter.value)
+            },
+            {
                 Header: "Application Status",
                 accessor: "ApplicationStatus",
                 filterMethod: (filter, row) =>
