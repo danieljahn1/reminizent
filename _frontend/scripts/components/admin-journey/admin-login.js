@@ -17,8 +17,8 @@ class AdminLogIn extends Component {
     }
 
     adminLogin(e) {
-        e.preventDefault();
         if (this.state.emailAddress != '' && this.state.password != '') {
+            e.preventDefault();
             var body = {
                 "Email": this.state.email,
                 "Password": this.state.password
@@ -33,7 +33,6 @@ class AdminLogIn extends Component {
                         this.setState({
                             redirect: true
                         })
-
                         // Create admin object for redux
                         var adminObj = {
                             Email: response.data.email,
@@ -79,10 +78,10 @@ class AdminLogIn extends Component {
                                         <label htmlFor="password">Password:</label>
                                         <input type="password" className="form-control input1" value={this.state.password} onChange={(e) => { this.setState({ password: e.target.value }) }} onKeyDown={this.onEnterPress} required />
                                     </div>
+                                    <div className="row">
+                                        <button type="submit" className="btn col-md-6 col-md-offset-3" onClick={this.adminLogin.bind(this)}>Sign In</button>
+                                    </div>
                                 </form>
-                                <div className="row">
-                                    <button type="submit" className="btn col-md-6 col-md-offset-3" onClick={this.adminLogin.bind(this)}>Sign In</button>
-                                </div>
                             </div>
                         </div>
                     </div>

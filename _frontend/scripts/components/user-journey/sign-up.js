@@ -23,8 +23,8 @@ class SignUp extends Component {
     }
 
     userSignUp(e) {
-        e.preventDefault();
         if (this.state.emailAddress != '' && this.state.firstName != '' && this.state.lastName != '') {
+            e.preventDefault();
             var customerBody = {
                 "FirstName": this.state.firstName,
                 "LastName": this.state.lastName,
@@ -171,10 +171,10 @@ class SignUp extends Component {
                                                     <div></div>
                                                 }
                                             </div>
+                                            <div className="row">
+                                                <button type="submit" className="btn col-md-6 col-md-offset-3 form-spacing5" onClick={this.userSignUp.bind(this)}>Sign Up</button>
+                                            </div>
                                         </form>
-                                        <div className="row">
-                                            <button type="submit" className="btn col-md-6 col-md-offset-3 form-spacing5" onClick={this.userSignUp.bind(this)}>Sign Up</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -25,8 +25,8 @@ class AddCustomer extends Component {
     }
 
     userSignUp(e) {
-        e.preventDefault();
         if (this.state.emailAddress != '' && this.state.firstName != '' && this.state.lastName != '') {
+            e.preventDefault();
             var customerBody = {
                 "FirstName": this.state.firstName,
                 "LastName": this.state.lastName,

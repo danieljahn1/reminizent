@@ -162,7 +162,7 @@ class EditCustomer extends Component {
 
                                 <div className="col-md-3">
                                     <label htmlFor="referralType">Real Estate Agent:</label>
-                                    <select className="form-control" value={this.state.customerObject.RealtorName} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, RealtorName: e.target.value, RealtorID: e.target.selectedOptions[0].id } }); console.log(e.target.selectedOptions[0]) }} >
+                                    <select className="form-control" value={this.state.customerObject.RealtorName} onChange={(e) => { this.setState({ customerObject: { ...this.state.customerObject, RealtorName: e.target.value, RealtorID: e.target.selectedOptions[0].id } }) }} >
                                         <option defaultValue>Realtor's Name ...</option>
                                         <option id="2">Eddie Money</option>
                                         <option id="3">Mo House</option>
