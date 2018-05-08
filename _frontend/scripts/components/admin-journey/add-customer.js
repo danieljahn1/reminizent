@@ -243,7 +243,7 @@ class AddCustomer extends Component {
                                 <div className="row inline6 ">
                                     <div className="col-md-4 col-md-offset-8">
                                         <button type="submit" className="btn col-md-2 pull-right" style={{ marginLeft: 14 }} onClick={this.userSignUp.bind(this)}>Submit</button>
-                                        <button className="btn btn-danger col-md-2 pull-right" onClick={this.previousPg.bind(this)}>Cancel</button>
+                                        <button className="btn btn2 col-md-2 pull-right" onClick={this.previousPg.bind(this)}>Cancel</button>
                                     </div>
                                 </div>
 

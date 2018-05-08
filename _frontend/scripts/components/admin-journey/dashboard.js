@@ -67,7 +67,7 @@ class Dashboard extends Component {
             },
             {
                 Header: "Real Estate Agent",
-                accessor: "Agent",
+                accessor: "RealtorName",
                 filterMethod: (filter, row) =>
                     row[filter.id].startsWith(filter.value)
             },
@@ -128,6 +128,8 @@ class Dashboard extends Component {
                                             </tr>
                                             <br />
                                             <tr>
+                                                <th className="input2">Real Estate Agent:</th>
+                                                <td>{this.state.activeCustomers[row.index].RealtorName}</td>
                                                 <th className="input2">Application Status:</th>
                                                 <td>{this.state.activeCustomers[row.index].ApplicationStatus}</td>
                                                 <th className="input1 ">Loan Status:</th>

@@ -78,7 +78,14 @@ class CustomerDetails extends Component {
         })
     }
 
-    onDelete() {
+    confirmDelete(){
+        var del = confirm("Are you sure you want to delete " + this.props.viewCustomer.FirstName + " " + this.props.viewCustomer.LastName + "?")
+        if (del == true) {
+            this.deleteCustomer();
+        }
+    }
+
+    deleteCustomer() {
         let url = 'http://localhost:3000/customer/' + this.props.viewCustomer.ID + '?token=' + this.props.adminLoginToken
         axios.delete(url)
             .then(function (response) {
@@ -189,7 +196,7 @@ class CustomerDetails extends Component {
                         </table>
                         {/* Edit button-- toggle page to edit form */}
                         <div className="row in-line3">
-                            <button className="btn btn-danger col-md-2 input1 input2 pull-right in-line1" onClick={this.onDelete.bind(this)}>Delete Lead</button>
+                            <button className="btn btn-danger col-md-2 input1 input2 pull-right in-line1" onClick={this.confirmDelete.bind(this)}>Delete Lead</button>
                             <button className="btn col-md-2 input1 input2 pull-right" onClick={this.goToEditCustomer.bind(this)}>Edit Lead</button>
                             <button className="btn col-md-2 input1 input2 pull-right in-line1" onClick={this.resetEmailState.bind(this)}>Email Lead</button>
                             <div id="openModal" className="modalDialog">
@@ -219,7 +226,7 @@ class CustomerDetails extends Component {
                                         </div>
                                         <div className="row">
                                         <a href="#close" className="col-md-2 btn pull-right" onClick={this.createEmail.bind(this, this.state)}>Next</a>
-                                        <a href="#close" className="col-md-2 btn pull-right btn-danger" >Cancel</a>
+                                        <a href="#close" className="col-md-2 btn pull-right btn2" >Cancel</a>
                                         </div>
                                     </form>
                                 </div>

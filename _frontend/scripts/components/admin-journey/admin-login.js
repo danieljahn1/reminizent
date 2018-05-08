@@ -72,11 +72,11 @@ class AdminLogIn extends Component {
                                 <form>
                                     <div className="form-group">
                                         <label htmlFor="Email">Email:</label>
-                                        <input type="text" className="form-control input1" value={this.state.email} onChange={(e) => { this.setState({ email: e.target.value }) }} onKeyDown={this.onEnterPress} required />
+                                        <input type="text" className="form-control input1" value={this.state.email} autoComplete="username" onChange={(e) => { this.setState({ email: e.target.value }) }} onKeyDown={this.onEnterPress} required />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="password">Password:</label>
-                                        <input type="password" className="form-control input1" value={this.state.password} onChange={(e) => { this.setState({ password: e.target.value }) }} onKeyDown={this.onEnterPress} required />
+                                        <input type="password" className="form-control input1" value={this.state.password} autoComplete="current-password" onChange={(e) => { this.setState({ password: e.target.value }) }} onKeyDown={this.onEnterPress} required />
                                     </div>
                                     <div className="row">
                                         <button type="submit" className="btn col-md-6 col-md-offset-3" onClick={this.adminLogin.bind(this)}>Sign In</button>
